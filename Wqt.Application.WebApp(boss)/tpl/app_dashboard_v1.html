@@ -1,0 +1,220 @@
+
+<div ng-controller="homePageCtrl" class="homepage">
+  <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  ">
+    <!-- main -->
+     
+    <div class="col">
+      <!-- main header -->
+      <!--<div class="wrapper myposition">
+        <div class="row">
+          <div class="col-sm-4 hidden-xs">
+            <div class="m-n font-thin  text-black " style="color:black">您当前的位置：<a>首页</a></div>
+          </div>
+        </div>
+      </div>-->
+        <div class="wrapper">
+            <!-- carousel -->
+            <div ng-controller="CarouselDemoCtrl" class="panel b-a customCarousel" set-ng-animate="false">
+                <carousel interval="myInterval">
+                    <slide ng-repeat="slide in slides" active="slide.active">
+                        <img ng-src="{{slide.image}}" class="img-full" style="height: 180px;">
+                    </slide>
+                </carousel>
+            </div>
+            <!-- / carousel -->   
+        </div>
+
+        <div class="wrapper mywallet">
+            <!-- 个人钱包 -->
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="wrapper">
+                        <div class="panel chart2Pane2">
+                            <h3 class="m-n font-thin h3 text-black content_home"><span style="color: #000000; font-size: 18px;" translate="PAGE.homePage.chart2">积分股价格变化曲线</span></h3>
+                            <div class="chartcontent">
+                                <div class="clearfix" style="text-align: center; color: #abacb5; font-size: 14px; padding-top: 10px;">
+                                   
+                                        <div class="radio pull-right" ng-click="changeMonth2()" style="margin: 5px 38px 0 0;">
+                                            <label class="i-checks i-checks-sm cuslabel" translate="PAGE.homePage.month">
+
+                                               
+                                                月
+                                            </label>
+                                        </div>
+                                        <div class="radio pull-right" ng-click="changeWeek2()" style="margin: 5px 0px 0 0;">
+                                            <label class="i-checks i-checks-sm cuslabel" translate="PAGE.homePage.week">
+
+
+                                                周
+                                            </label>
+                                        </div>
+
+                                        <div class="radio pull-right chartactive" ng-click="changeDay2()" style="margin: 5px 0px 0 0px;">
+                                            <label class="i-checks i-checks-sm cuslabel" translate="PAGE.homePage.day">
+
+                                                24小时
+                                            </label>
+                                        </div>
+                                  
+                                   
+                                </div>
+
+                                <div class="hbox hbox-auto-xs no-border">
+                                    <div class="col wrapper">
+
+
+
+                                        <div id="chart2" style="">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+
+                        </div>
+
+                    </div>
+
+                    <div class="wrapper">
+                        <div class="panel chart2Pane2">
+                            <h3 class="m-n font-thin h3 text-black content_home"><span style="color: #000000;font-size: 18px" translate="PAGE.homePage.chart1">每日奖金</span><span style="color: #757575; font-size: 16px;" translate="PAGE.homePage.tax">(不计算扣税，手续费)</span></h3>
+                            <div class="chartcontent">
+                                <div class="clearfix" style="text-align: center; color: #abacb5; font-size: 14px; padding-top: 10px;">
+
+                                    <div class="radio pull-right" ng-click="changeMonth()" style="margin: 5px 38px 0 0;">
+
+                                        <label class="i-checks i-checks-sm cuslabel" translate="PAGE.homePage.month">
+                                            月
+                                        </label>
+                                    </div>
+                                    <div class="radio pull-right" ng-click="changeWeek()" style="margin: 5px 0px 0 0;">
+                                        <label class="i-checks i-checks-sm cuslabel" translate="PAGE.homePage.week">
+                                            周
+                                        </label>
+                                    </div>
+
+                                    <div class="radio pull-right chartactive" ng-click="changeDay()" style="margin: 5px 0px 0 0px;">
+                                        <label class="i-checks i-checks-sm cuslabel" translate="PAGE.homePage.day">
+                                            24小时
+                                        </label>
+                                    </div>
+
+
+                                </div>
+                                <div class="hbox hbox-auto-xs no-border">
+                                    <div class="col wrapper">
+
+                                        <div id="chart1">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="wrapper myWallets">
+                        <h3 class="m-n font-thin h3 text-black content_home" style=""><span style="color: #000000; font-size: 18px;" translate="PAGE.homePage.wallet">我的钱包</span></h3>
+                        <div class="row row-sm text-center shopstorerow">
+                            <!--<div class="col-md-6 col-xs-12">
+                <a class="block homepanel padder-v bg-info item">
+
+                    <span class="text-muted  jifenWallet">{{shopstore.name}}</span>
+
+                    <span class="text-white font-thin h3 block">{{shopstore.value}}</span>
+                </a>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <a href class="block homepanel padder-v bg-info  bg-pink item">
+
+                    <span class="text-muted  jifenWallet">{{plat.name}}</span>
+
+                    <span class="text-white font-thin h3 block greenJifen">{{plat.value}}</span>
+                </a>
+            </div>-->
+
+                            <div ng-repeat="v in home.wallet">
+                                <div class="col-md-12 col-xs-12 " style="padding-top: 15px;" id="{{$index}}">
+                                    <div class="homepanel padder-l item wallet{{$index}}">
+                                        <div class="h3 text-info font-thin h3 jifenDiv">{{ v.value}}</div>
+                                        <span class="text-muted text-xl jifenSpan">{{ v.name}}</span>
+                                        <img ng-if="v.id=='1'" class="jifenImg" src="../img/1.png" />
+                                        <img ng-if="v.id=='3'" class="jifenImg" src="../img/2.png" />
+                                        <img ng-if="v.id=='4'" class="jifenImg" src="../img/3.png" />
+                                        <img ng-if="v.id=='6'" class="jifenImg" src="../img/4.png" />
+                                        <img ng-if="v.id=='7'" class="jifenImg" src="../img/5.png" />
+                                        <img ng-if="v.id=='8'" class="jifenImg" src="../img/6.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--个人账户-->
+        <!-- / 个人钱包 -->
+        <!--个人账户-->
+      <!-- / main header -->
+      
+
+        <!-- tasks -->
+        <!-- / tasks -->
+
+        <!-- service -->
+        <!-- / service -->
+
+        <!-- tasks -->
+          <!--<div class="wrapper mywallet" ng-controller="qrcode">
+              <div class="row">
+                  <div class="col-xs-12">
+                      <h3  class="m-n font-thin h3 text-black content_home"><img class="home_img" src="../img/home_gujia.png" />二维码(4天)</h3>
+                      <div class="m-b" style="margin-top:15px;">
+                          <div style="font-size:18px; ">
+                              <span class="url">{{text}}</span>
+                              <button class="btn btn-default urlcopy" data-clipboard-action="copy" data-clipboard-target=".url">复制地址</button>
+                          </div>
+                          <div style="margin-top:15px;" id="qrcodeCanvas"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>-->
+        <!-- / tasks -->
+        <!-- 公告 -->
+
+        <!-- /公告 -->
+      
+    </div>
+    <!-- / main -->
+    <!-- right col -->
+    <!-- / right col -->
+  </div>
+  <div class="TantiaoNews" ng-hide="isNews">
+    <div class="layui-layer layui-layer-page  layer-anim" id="layui-layer3" type="page" times="3" showtime="0" contype="string"
+      style="width: 300px;">
+      <div id="LAY_layuipro" class="layui-layer-content">
+        <div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
+          <h2 class="m-t-none text-center c-white" ag-bind="tUser.TantiaoNews.Title">{{notice.category}}</h2>
+          <p class="text-center c-white text-md" ag-bind="firstUser.TantiaoNews.Summary">{{notice.fullHead}}</p>
+          <div class="c-white" ag-bind="firstUser.TantiaoNews.Content" style="text-indent: 40px;">
+              {{notice.newsContent}}
+          </div>
+        </div>
+      </div><span class="layui-layer-setwin"></span>
+      <div class="layui-layer-btn layui-layer-btn-" ng-click="NewsClose()" style="text-align: center;padding: 10px;background-color: powderblue;">
+        <a class="layui-layer-btn0">知道了</a>
+      </div>
+    </div>
+  </div>
+</div>

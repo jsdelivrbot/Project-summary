@@ -1,0 +1,45 @@
+﻿
+
+<div class="modal-header" >
+    <h3 class="modal-title" translate="PAGE.dialog.Jihuo.jihuoxxyl.title">激活信息预览</h3>
+</div>
+<div class="modal-body">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-xs-12">
+                    <div class="form-group">
+                        <span translate="PAGE.dialog.Jihuo.jihuoxxyl.tcId">激活级别：</span>
+                        <select class="ylSelect" ng-model="JhInfo.tcId" required disabled>
+                            <option value="">--请选择--</option>
+                            <option ng-selected="JhInfo.tcId==item.id" ng-repeat="item in taoCanList">{{item.name}}:消费${{item.price}}</option>
+                        </select>
+                    </div>
+                   
+                    <div class="form-group">
+                        <span translate="PAGE.dialog.Jihuo.jihuoxxyl.userCode">会员账号：</span><span>{{JhInfo.userCode}}</span>
+
+                    </div>
+                   <div class="form-group">
+                       <span translate="PAGE.dialog.Jihuo.jihuoxxyl.nickName">会员姓名：</span><span>{{JhInfo.nickName}}</span>
+
+                   </div>
+                    <div class="form-group">
+                        <span translate="PAGE.dialog.Jihuo.jihuoxxyl.mobile">手机号码：</span><span>{{JhInfo.mobile}}</span>
+
+                    </div>
+              
+                <form name="form" class="form-validation">
+                    <span translate="PAGE.dialog.Jihuo.jihuoxxyl.password">请输入二级密码：</span>
+                    <input type="password" class="form-control"   ng-model="JhInfo.password"   />
+
+                    <div class="modal-footer" style="text-align:right">
+                        <button type="button" ng-click="confirm1(JhInfo)" class="btn btn-info" ng-class="{'active': BtnSuccess, 'disabled':BtnSuccess}">
+                            <span class="text">&nbsp;提交</span><span class="text-active">提交中...</span>
+                            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': BtnSuccess, 'inline': BtnSuccess}" id="spin"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

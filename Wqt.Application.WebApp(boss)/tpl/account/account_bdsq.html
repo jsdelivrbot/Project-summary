@@ -1,0 +1,46 @@
+﻿<div class="wrapper" ng-controller="BDSQCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.scgl.breadcrumb2">市场管理</a></li>
+        <li class="active" translate="PAGE.account.bdsq.title">银商申请</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.account.bdsq.title">银商申请</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal xhr-form ng-pristine ng-valid form-validation" name="form">
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.bdsq.UserCode">会员编号：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" class="form-control" id="zcTime" placeholder="" ng-model="BDSQ.UserCode"  disabled>
+                    </div>
+                </div>
+                <!--<div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group" ng-controller="TypeaheadDemoCtrl">
+                    <label class="control-label col-sm-5 col-md-4 col-lg-3"><font><font><span translate="PAGE.account.bdsq.reportLevel">报单中心等级：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" class="form-control"  placeholder="" ng-model="BDSQ.ChangeLevelId" typeahead="state for state in states | filter:$viewValue | limitTo:8">
+
+                    </div>
+                </div>-->
+               
+                <div class="form-group">
+                    <div class="col-lg-offset-5 col-xs-offset-4 col-lg-10">
+                        <button type="submit" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}" ng-click="BdApply(form.$valid)">
+                            <span class="text" translate="BUTTON.apply">申请</span><span class="text-active" translate="BUTTON.applying">申请中...</span>
+                            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

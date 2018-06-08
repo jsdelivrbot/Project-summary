@@ -1,0 +1,180 @@
+﻿<style>
+    .form-group .col-sm-8 {
+        color: #ebcb76;
+        font-size: 20px;
+    }
+
+</style>
+<div class="wrapper" ng-controller="jydtCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.jydt.EPJY.breadcrumb2">交易大厅</a></li>
+        <li class="active" translate="PAGE.jydt.jfg.title">BOS交易</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.jydt.jfg.index.head">积分股价位趋势图</font>
+                </font>
+            </h3>
+            
+        </div>
+        <div class="panel-body">
+            <div class="chartcontent">
+                <div class="clearfix homepage" style="text-align: center; color: #abacb5; font-size: 14px; padding-top: 10px;">
+
+                    <div class="radio pull-right" ng-click="changeMonth()" style="margin: 5px 38px 0 0;">
+                        <label class="i-checks i-checks-sm cuslabel" translate="PAGE.jydt.jfg.index.month">
+                            月
+                        </label>
+                    </div>
+                    <div class="radio pull-right" ng-click="changeWeek()" style="margin: 5px 0px 0 0;">
+                        <label class="i-checks i-checks-sm cuslabel" translate="PAGE.jydt.jfg.index.week">
+                            周
+                        </label>
+                    </div>
+
+                    <div class="radio pull-right chartactive" ng-click="changeDay()" style="margin: 5px 0px 0 0px;">
+                        <label class="i-checks i-checks-sm cuslabel" translate="PAGE.jydt.jfg.index.day">
+                            24小时
+                        </label>
+                    </div>
+
+
+                </div>
+                <div class="hbox hbox-auto-xs no-border">
+                    <div class="col wrapper">
+                        <div id="chart2" style="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sellJifen" style="padding:15px 0 15px 0;">
+        <form class="form-horizontal">
+            <div class="panel" style="padding-bottom: 0px;">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <font>
+                            <font class="customTitle" translate="PAGE.jydt.jfg.index.Jifensell">积分股出售</font>
+                        </font>
+                    </div>
+                </div>
+                <div class="line pull-in" style="margin: 0; border-bottom: 1px solid #000;"></div>
+                <div class="panel-body">
+                    <div class="col-md-6" style="padding-left: 0;padding-right: 0;">
+                            <div class="text-left control-label col-sm-3" style="padding-left: 0;padding-right: 5px;">
+                                {{'PAGE.jydt.jfg.index.price'|translate}} <span style="font-weight: 700!important;">{{sellInfo.price |number:2}}</span>
+                            </div>
+                            <div class="text-left control-label col-sm-3" style="padding-left: 0;padding-right: 5px;">
+                                {{'PAGE.jydt.jfg.index.total'|translate}} <span style="font-weight: 700!important;">{{sellInfo.userStock |number:2}}</span>
+                            </div>
+                            <div class="text-left control-label col-sm-6" style="padding-left: 0;padding-right: 5px;">
+                                {{'PAGE.jydt.jfg.index.value'|translate}} <span style="font-weight: 700!important;">${{sellInfo.price*sellInfo.userStock|number:2}}</span>&nbsp;&nbsp;{{'PAGE.jydt.jfg.index.sum'|translate}}
+                            </div>
+                    </div>
+                    <div class="col-md-6" style="padding-left: 0;padding-right: 0; margin-top: -6px;">
+                        <div class="text-left control-label col-sm-4" style="padding-left: 0;padding-right: 5px;">
+                            {{'PAGE.jydt.jfg.index.sellcount'|translate}}<input type="text" ng-model="JFG_Sell.count" onkeyup="value=value.replace(/[^\d.]/g,'')" class="form-control" style="width: 120px; display: inline-block;">
+                        </div>
+                        <div class="text-left control-label col-sm-4" style="padding-left: 0;padding-right: 5px;">
+                            {{'PAGE.jydt.jfg.index.pwd'|translate}} <input type="password" ng-model="JFG_Sell.L2pwd" class="form-control" style="width: 120px; display: inline-block;">
+                        </div>
+                        <div class="text-left control-label col-sm-4" style="padding-left: 0;padding-right: 5px;">
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary Sell" ng-click="sumbitSell(JFG_Sell)" style="width: 100%;" translate="PAGE.jydt.jfg.index.sell">出售</button>
+                            </div>
+                            <div class="col-xs-7">
+                                <a href="#/app/transaction_jfgcsxq" class="btn btn-primary SellDetail" style="width: 100%;" translate="PAGE.jydt.jfg.index.selldetail">出售详情</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="" ng-controller="jydtCtrlLsit" style="padding: 0 15px;">
+    <div class="panel panel-default customPanel">
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:8%" translate="ORDER" translate="PAGE.jydt.jfg.index.SerialNumber">序号</th>
+                            <th style="width:15%" translate="PAGE.jydt.jfg.index.TradeNumber">交易流水号</th>
+                            <th style="width:15%" translate="PAGE.jydt.jfg.index.time">时间</th>
+                            <th style="width:10%" translate="PAGE.jydt.jfg.index.rengouCount">认购金额</th>
+                            <th style="width:10%" translate="PAGE.jydt.jfg.index.completeCount">已完成金额</th>
+                            <th style="width:10%" translate="PAGE.jydt.jfg.index.balance">剩余金额</th>
+                            <th style="width:10%" translate="PAGE.jydt.jfg.index.status">状态</th>
+                            <th style="width:15%" translate="PAGE.jydt.jfg.index.operation">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows" ng-init="ngRepeatFinished()">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                {{item.createDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td>
+                                {{item.count}}
+                            </td>
+                            <td>
+                                {{item.rest}}
+                            </td>
+                            <td>
+                                {{(item.count*1000-item.rest*1000)/1000 |number:4}}
+                            </td>
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+                                <button type="button" ng-click="buyRecord(item.id)" class="btn btn-primary tableButton" translate="PAGE.jydt.jfg.index.buyRecords">购买记录</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <tablelistdatashow></tablelistdatashow>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+<!--确认购买出售窗口-->
+<script type="text/ng-template" id="transaction_jfg_jydt.html">
+    <div class="panel-heading">
+        积分股{{affirm.text}}
+    </div>
+    <div class="panel-body text-center" style="color: #b9b9b9;">
+        <p></p>
+        你确认立即{{affirm.text}}吗 ？
+        <p></p>
+    </div>
+    <div class="panel-group" style="background-color: #fff;">
+        <button type="button" ng-click="confirm()" class="btn btn-info" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}" style="margin-left: 20px;">
+            <span class="text">确认</span><span class="text-active">确认中...</span>
+            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+        </button>
+        <button type="submit" class="btn btn-primary"   
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>
+

@@ -1,0 +1,83 @@
+﻿
+    <div class="wrapper-md shopDetail"  ng-controller="ShoppingDetailCtrl">
+        <ul class="breadcrumb bg-white b-a">
+            <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+            <li><a href="" translate="PAGE.shop.breadcrumb2"></a></li>
+            <li class="active" translate="PAGE.shop.sjrz.detail.title">商品详情</li>
+        </ul>
+        <div class="shopcarBox">
+           
+            <div class="shopCar">
+                <a href="#/app/mall/shopcar/index">
+                    
+               
+                <span>
+                    <i class="nav-icon fa fa-shopping-cart text-info-lter"></i>
+
+                </span>
+                <span translate="PAGE.shop.sjrz.detail.shopCar">
+                    购物车
+                </span>
+                </a>
+            </div>
+            <div class="order">
+                <a href="#/app/mall/order/index" translate="PAGE.shop.sjrz.detail.myOrder">
+                    我的订单
+                </a>
+               
+            </div>
+            <div class="address">
+                <a href="#/app/mall/address/index" translate="PAGE.shop.sjrz.detail.address">
+                    收货地址
+
+                </a>
+            </div>
+        </div>
+        
+            <div class="panel panel-default customPanel">
+                <div class="panel-body clearfix productBy">
+                    <div class="col-md-6 ">
+                        <div class="row" style="padding: 6% 8%">
+                            <img src="../../../img/adText.png" style="width: 50%; " />
+
+                        </div>
+                        <div class="row" style="padding: 0% 8%;font-size:18px;">
+                            <div class="col-md-3" style="padding-top:8px;  padding-right: 0px;" translate="PAGE.shop.sjrz.detail.redemption">
+                                兑换数量：
+                            </div>
+
+                            <div class="col-md-5">
+
+                                <input class="form-control" value="1" type="number" ng-model="productDetail.count" ng-focus="hasInput=false" required>
+                                <span class="field-validation-error" ng-show="hasInput"><span id="Count-error" class="" translate="PAGE.shop.sjrz.detail.Required">'购买数量' 是必填项.</span></span>
+
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" style="width: 100%;background: #cc1e1e;border: none;" ng-click="addShoppingCar()" class="btn btn-primary" translate="PAGE.shop.sjrz.detail.exchange">兑换</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <img src="../../../img/adImg.png" style="width: 100%;margin-top: 50px;" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default customPanel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.shop.sjrz.detail.title">商品详情</font>
+                        </font>
+                    </h3>
+
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <img src="../../../img/shopdetail.png" style="width: 100%;" />
+                    </div>
+                </div>
+            </div>
+
+        
+    </div>

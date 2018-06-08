@@ -1,0 +1,116 @@
+﻿<!--<div class="container w-xxl w-auto-xs ng-scope">
+    
+    <div class="m-b-lg">
+        <div class="wrapper text-center">
+            <strong></strong>
+        </div>
+        <form name="form" class="form-validation ng-pristine ng-valid-email ng-invalid ng-invalid-required">
+            <div class="text-danger wrapper text-center ng-binding ng-hide" ng-show="authError">
+                {{authError}}
+            </div>
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <img src="../../img/account.png" />
+                    <input type="text" placeholder="用户名" class="form-control no-border ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required" ng-model="user.usercode" required="">
+                </div>
+                <div class="list-group-item">
+                    <img src="../../img/password.png" />
+                    <input type="password" placeholder="密码" class="form-control no-border ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="user.password" required="">
+                </div>
+                <div class="form-group" style="padding-top:15px;overflow: auto">
+                    <img src="../../img/validate.png" />
+                    <input type="hidden" ng-model="user.sessionid" />
+                    <input type="text" placeholder="图片验证码" style="width:60%;" ng-model="user.verificationcode" class="form-control col-md-2" >
+                    <img src="{{VerifyCode}}" popover="点击切换验证码" popover-trigger="mouseenter" class="VerifyCode" ng-init="verifyCode()" alt="点击切换验证码" ng-click="verifyCode()" />
+                </div>
+            </div>
+            <button type="submit" class="btn  " ng-click="login(form.$valid)" ng-class="{'active': logining, 'btn': true, 'btn-lg': true, 'btn-primary':true,' btn-block':true,'disabled':logining}">
+                <span class="text">登录</span>
+                <span class="text-active">登录中...</span>
+                <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': logining, 'inline': logining}" id="spin"></i>
+            </button>
+            <div class="text-center m-t m-b"><a ui-sref="findByEmail">忘记密码?</a></div>
+            <div class="text-center m-t m-b">
+                CN55671 （杨）<br />
+                mh351555 （蒋）<br />
+                mh588730  （刘）<br />
+            </div>
+ 
+
+        </form>
+
+
+    </div>
+
+
+</div>-->
+<div class="container">
+    <div class="row">
+        <img class="loginlogo" src="../../img/LOGO.png" />
+    </div>
+ 
+    <div class="row">
+        <div class="loginBottom">
+            <form class="form-horizontal xhr-form" name="form">
+                <div class="text-danger wrapper text-center ng-binding ng-hide" ng-show="authError">
+                    {{authError}}
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                            <img src="../../img/account.png" />
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="text" placeholder="用户名" class="form-control no-border ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required"
+                            ng-model="user.usercode" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                         <img src="../../img/password.png" />
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="password" placeholder="密码" class="form-control no-border ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                            ng-model="user.password" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                            <img src="../../img/validate.png" />
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="hidden" ng-model="user.sessionid" />
+                        <input type="text" placeholder="图片验证码" style="width:60%;" ng-model="user.verificationcode" class="form-control pull-left">
+                        <div class="VerifyCode">
+                            <img src="{{VerifyCode}}" class="validateImg" ng-init="verifyCode()" alt="点击切换验证码" ng-click="verifyCode()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                    </label>
+                    <div class="col-xs-7">
+                        <button type="submit" class="btn btn-primary" ng-click="login(form.$valid)" ng-class="{'active': logining, 'btn': true, 'btn-lg': true, 'btn-primary':true,' btn-block':true,'disabled':logining}">
+                            <span class="text">登 录</span>
+                            <span class="text-active">登 录 中...</span>
+                            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': logining, 'inline': logining}" id="spin"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                    </label>
+                    <div class="col-xs-7">
+                        <div class="text-right m-r m-b"><a ui-sref="findByEmail">忘记密码?</a></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

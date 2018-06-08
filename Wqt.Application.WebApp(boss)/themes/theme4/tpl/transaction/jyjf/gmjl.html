@@ -1,0 +1,217 @@
+﻿
+<div class="wrapper-md" ng-controller="transaction_jyjf_gmjl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/app/transaction_jyjfdt"><i class="fa fa-btc"></i> 交易积分市场</a></li>
+        <li><a href="#/app/transaction_jyjf_gmjl">购买记录</a></li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">    购买记录</font>
+                </font>
+            </h3>
+           
+        </div>
+        <div class="panel-body  query-panel">
+            <form class="form-horizontal clearfix">
+                <div class="form-group col-sm-5">
+                    <label class="control-label col-sm-3"><font><font>卖家编号</font></font></label>
+                    <div class="col-sm-9">
+                        <input type="text" id="" ng-enter="query()" ng-model="userCode" class="form-control" placeholder="请输入">
+                    </div>
+                </div>
+                <div class="form-group col-sm-5">
+                    <label class="control-label col-sm-2"><font><font>时间</font></font></label>
+                    <div class="col-sm-5">
+                        <selectdatestart></selectdatestart>
+                    </div>
+                    <div class="col-sm-5">
+                        <selectdateend></selectdateend>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 text-center">
+                    <button type="button" ng-click="query()" class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                        <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:5%">序号</th>
+                            <th style="width:15%">流水号</th>
+                            <th style="width:5%">卖家</th>
+                            <th style="width:10%">打款金额</th>
+                            <th style="width:10%">打款凭证</th>
+                            <th style="width:15%">购买时间</th>
+                            <th style="width:10%">状态</th>
+                            <th style="width:15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.serialNumber}}
+                            </td>
+                            <td>
+                                {{item.saleUser}}
+                            </td>
+                            <td>
+                                {{item.price}}
+                            </td>
+                            <td>
+                                <img src="{{item.imgPath}}" ng-show='item.imgPath' enlarge-pic style="width: 100px;"/><span ng-show="!item.imgPath">无</span>
+                            </td>
+                            <td>
+                                {{item.createDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+                                <button type="button" ng-click="SumBuy(item.id, item.rest, item)" ng-show="item.statusText=='请打款,并上传交易凭证'" class="btn btn-primary jh tableButton">打款</button>
+                                <button type="button" ng-click="Check('transaction_jyjf_csjl_get.html',item.id, item)" class="btn btn-primary jh tableButton">查看</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+               <tablelistdatashow></tablelistdatashow>
+                   
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="totalItems" previous-text="<" next-text=">" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--打款凭证窗口-->
+<script type="text/ng-template" id="transaction_jyjf_gmjl_check.html">
+    <div class="panel-heading">
+        上传打款凭证
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <form action="" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-xs-4">交易流水号:</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" ng-model="serialNumber" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">支付凭证:</label>
+                <div class="col-xs-8">
+                    <input ui-jq="filestyle" type="file" id="FontImg" accept="image/JPG,image/jpg" data-icon="false" data-classButton="btn btn-primary" data-classInput="form-control inline v-middle input-s">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">凭证预览:</label>
+                <div class="col-xs-8 text-left">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img id="imgShow" ng-src="{{myInfo.FontImg}}" style="width: 200px;height: 200px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-group customstyle col-xs-offset-8" style="margin-top: 15px;margin-bottom: 0px;">
+        <button type="submit" class="btn btn-info" style="width: auto; font-size: 14px;" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}"
+                ng-click="Confirm()">
+            确定
+            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+        </button>
+        <button type="submit" style="width: auto; font-size: 14px;" class="btn btn-primary"
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>
+
+<!--查看窗口-->
+<script type="text/ng-template" id="transaction_jyjf_csjl_get.html">
+    <div class="panel-heading">
+        详情查看
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <form action="" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-xs-5">交易流水号:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{serialNumber}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">打款人:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BuyUserCode}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">打款金额:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{Total}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">打款人联系方式:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BuyMobile}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">收款人:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{SellUserCode}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">收款人联系方式:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{SellMobile}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">银行账号:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BankCode}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">支付方式:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{AlipayType}}
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+<!-- 图片放大遮罩层 -->
+
+<div class="mask" close-Pic>
+    <div class="mask-box"></div>
+    <div class="big-pic-wrap">
+        <img src="" alt="" class="bigPic" />
+        <span class="close-pic"><i class="fa fa-close"></i></span>
+    </div>
+</div>  

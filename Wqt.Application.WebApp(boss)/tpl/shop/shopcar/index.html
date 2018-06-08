@@ -1,0 +1,83 @@
+﻿
+<div class="wrapper-md" ng-controller="ShoppingCarCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+        <li><a href="" translate="PAGE.shop.breadcrumb2">在线购物</a></li>
+        <li class="active" translate="PAGE.shop.shopcar.title">购物车</li>
+    </ul>
+
+    <div ng-show="hasGoods">
+        <div class="main-bar">
+            <div class="product">
+                <h3 translate="PAGE.shop.shopcar.title">产品</h3>
+            </div>
+            <div class="quantity">
+                <h3 translate="PAGE.shop.shopcar.count">数量</h3>
+            </div>
+            <div class="price">
+                <h3 translate="PAGE.shop.shopcar.price">单价</h3>
+            </div>
+            <div class="setting">
+                <h3 translate="PAGE.shop.shopcar.operate">操作</h3>
+            </div>
+            <div class="clear">
+
+            </div>
+        </div>
+        <div class="items">
+            <div class="item" ng-repeat="item in productItems">
+                <div class="close1">
+
+                    <div class="image">
+
+                    </div>
+                    <div class="title">
+                        <p>
+                            {{item.productName}}
+                        </p>
+                    </div>
+                    <div class="quantity">
+                        <form>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="reduce(item.productId)" ng-disabled="item.count<=1">－</button>
+                            <input type="number" size="5" ng-model="item.count" ng-keydown="quantityKeydown()" ng-keyup="quantityKeyup()">
+                            <button type="button" class="btn btn-default btn-xs" ng-click="add(item.productId)">＋</button>
+                        </form>
+                    </div>
+                    <div class="price">
+                        <p>{{item.price}}</p>
+                    </div>
+                    <div class="delete">
+                        <button class="btn btn-primary" ng-click="delete(item.productId)" translate="PAGE.shop.shopcar.remove">移除</button>
+                    </div>
+                    <div class="clear">
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="total">
+            <div class="total1" translate="PAGE.shop.shopcar.total">合计</div>
+            <div class="total2">￥{{getTotalAmount()}}</div>
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="checkout">
+            <div class="checkout-btn">
+                <a href="#/app/mall/shopcar/detail" translate="PAGE.shop.shopcar.Settlement">去结算</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div ng-hide="hasGoods">
+        <div class="alert alert-warning" role="alert">
+            <span class="sr-only"></span>
+            {{'PAGE.shop.shopcar.empty'|translate}}
+        </div>
+        <a class=" btn-info btn" href="#/app/mall/gwgc/index" name="" translate="PAGE.shop.shopcar.goShopping"> 去购物</a>
+    </div>
+</div>

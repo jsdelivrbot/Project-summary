@@ -1,0 +1,196 @@
+﻿<style>
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        margin: 0;
+        padding: 0;
+    }
+    #myTab li {
+        width: 33%;
+        float: left;
+        height: 40px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+        #myTab li img {
+            float: left;
+            height: 40px;
+        }
+        #myTab li a {
+            color: white;
+            text-align: center;
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+    .blue {
+        background: #0f9af2;
+    }
+    .gray {
+        background: #dfdfdf;
+    }
+    .tabPaneUl {
+        width: 700px;
+        margin: 0 auto;
+        list-style: none;
+    }
+        .tabPaneUl li {
+            height: 40px;
+            line-height: 40px;
+        }
+    .tab-pane {
+        margin-top: 50px;
+    }
+</style>
+<div class="wrapper-md">
+    <div ng-controller="SMRZCtrl" >
+        <toaster-container  toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+        <div class="row">
+            <ul class="breadcrumb bg-white b-a">
+                <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+                <li><a href="" translate="PAGE.account.breadcrumb2">个人资料</a></li>
+                <li class="active" translate="PAGE.account.smrz.title">实名认证</li>
+            </ul>
+
+            <form name="form" class="form-validation form-horizontal">
+                <div class="panel panel-default customPanel">
+                    <div class="panel-heading ">
+                        <font>
+                            <font class="customTitle" translate="PAGE.account.smrz.title">实名认证</font>
+                        </font>
+                    </div>
+                    <div class="panel-body" ng-init="accountStateNull=false" ng-show="showForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.account.smrz.RealName">真实姓名：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="请输入真实姓名确保和身份证上的一致" required ng-model="myInfo.RealName">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.account.smrz.CardType">证件类型：</span><i class="void"></i></label>
+                            <div class="col-sm-10">
+                                <select name="account" class="form-control m-b" ng-model="myInfo.CardType">
+                                    <option value="1">居民身份证</option>
+                                    <option value="2">港澳台通行证</option>
+                                    <option value="3">海外证件</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.account.smrz.CardNo">证件号码号码：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="请输入证件号码"  class="form-control" required ng-model="myInfo.CardNo">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.account.smrz.FontImg">证件照正面：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <div class="m-b">
+                                    <input type="file" ui-jq="filestyle" id="FontImg" accept="image/JPG,image/jpg" name="file" />
+                                </div>
+                                <div class="hbox hbox-auto-xs">
+                                    <div class="col-md-5 smrzpadding">
+                                        <div class="inline bg-white wrapper-sm b-a " style="padding:80px;">
+                                            <div class="bg-light">
+                                                <img ng-src="{{myInfo.FontImg}}" class="img-responsive" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.account.smrz.BackImg">证件照背面：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <div class="m-b">
+                                    <input ui-jq="filestyle" id="BackImg" accept="image/JPG,image/jpg" name="file"  type="file" data-icon="false" data-classButton="btn" data-classInput="form-control inline v-middle input-s">
+                                  
+                                </div>
+                                <div class="hbox hbox-auto-xs">
+                                    <div class="col-md-5 smrzpadding">
+                                        <div class="inline bg-white wrapper-sm b-a" style="padding:80px;">
+                                            <div class="bg-light">
+                                                <img ng-src="{{myInfo.BackImg}}" class="img-responsive" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-5 col-lg-10">
+                                <button type="submit" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}" ng-click="RZ(form.$valid)">
+                                    <span class="text" translate="BUTTON.smrz">实名认证</span>
+                                    <span class="text-active" translate="BUTTON.smrzing">实名认证...</span>
+                                    <i class="fa fa-spin fa-spinner hide" id="spin"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body" ng-show="showDetail">
+                        <div class="panel-heading smrzhead">
+                            <h3 class="panel-title " translate="PAGE.account.smrz.title2">审核进度</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul id="myTab" role="tablist">
+                                <li id="step1Li" class="active skyBlue text-center">
+                                    <a id="TabLiNav01" href ="javascript:return false;" role="tab" data-toggle="tab" translate="PAGE.account.smrz.havesubmit">
+                                        1.已提交审核
+                                    </a>
+                                </li>
+                                <li id="step2Li" class="gray xs-block skyBlue text-center">
+                                    <img id="step2Img" src="img/accountBG.png" />
+                                    <a id="TabLiNav02" href ="javascript:return false;" role="tab" data-toggle="tab" translate="PAGE.account.smrz.submiting">
+                                        2.审核中
+                                    </a>
+                                </li>
+                                <li id="step3Li" class="gray xs-block purple text-center">
+                                    <img id="step3Img" src="img/accountGG.png" />
+                                    <a id="TabLiNav03" role="tab" data-toggle="tab" translate="PAGE.account.smrz.result">
+                                        3.审核结果
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content" ng-init="TabLiNav01=true;">
+                                <div id="step1" class="tab-pane fade text-center" ng-class="{'active in':TabLiNavResult01}">
+                                    <!--1.审核中-->
+                                </div>
+                                <div id="step2" class="tab-pane fade text-center" ng-class="{'active in':TabLiNavResult02}">
+                                    <!--2.审核通过-->
+                                </div>
+                                <div id="step3" class="tab-pane fade text-center" ng-class="{'active in':TabLiNavResult03}">
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        {{AuditResult}}
+                                    </div>
+                                    <div ng-show="AuditResultLose">
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                        <div class="form-group">
+                                            <button class="btn btn-lg btn-success" ng-click="afresh()" ng-model="$parent.accountStateNull" translate="BUTTON.reApply">
+                                                重新提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+          
+        </div>
+       
+    </div>
+</div>

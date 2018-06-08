@@ -1,0 +1,206 @@
+﻿<style>
+    .form-group .col-sm-8 {
+        color: #ebcb76;
+        font-size: 20px;
+    }
+
+</style>
+<div class="wrapper" ng-controller="jydtCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="">交易管理</a></li>
+        <li class="active">积分股交易中心</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">积分股价位趋势图</font>
+                </font>
+            </h3>
+            
+        </div>
+        <div class="panel-body">
+            <div class="clearfix" style="text-align:center;color: #abacb5; font-size: 14px; padding: 10px 0 0 0;">
+                <div class="radio pull-right" ng-click="changeMonth2()" style="margin: 5px 38px 0 0;">
+                    <label class="i-checks i-checks-sm">
+                        <input type="radio" name="a">
+                        <i style="background-color: #1a1c35;border: none;"></i>
+                        月
+                    </label>
+                </div>
+                <div class="radio pull-right" ng-click="changeWeek()" style="margin: 5px 8px 0 0;">
+                    <label class="i-checks i-checks-sm">
+                        <input type="radio" name="a">
+                        <i style="background-color: #1a1c35;border: none;"></i>
+                        周
+                    </label>
+                </div>
+
+                <div class="radio pull-right" ng-click="changeMonth()" style="margin: 5px 10px 0 50px;">
+                    <label class="i-checks i-checks-sm">
+                        <input type="radio" checked name="a">
+                        <i style="background-color: #1a1c35;border: none;"></i>
+                        24小时
+                    </label>
+                </div>
+
+
+            </div>
+
+            <div class="hbox hbox-auto-xs no-border">
+                <div class="col wrapper">
+
+                    <div id="chart2" style="">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 buyJifen" style="padding:15px 15px 15px 0px">
+        <form class="form-horizontal">
+            <div class="panel customPanel">
+                <div class="panel-heading" style="background-color: #262c4b;">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">积分股认购</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">当前价格:</label>
+                        <div class="col-sm-8 text-left control-label">
+                            ${{buyInfo.price |number:2}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">积分股余额:</label>
+                        <div class="col-sm-8 text-left control-label">
+                            ${{buyInfo.userStock |number:2}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">市值 :</label>
+                        <div class="col-sm-8 text-left control-label">
+                            ${{buyInfo.price*buyInfo.rest|number:2}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">购买金额 :</label>
+                        <div class="col-sm-8">
+                            <input type="text"  ng-model="buyInfo.Count" class="form-control" onkeyup="value=value.replace(/[^\d.]/g,'')">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">交易密码 :</label>
+                        <div class="col-sm-8">
+                            <input type="password" ng-model="buyInfo.L2pwd" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">支付方式 :</label>
+                        <div class="col-sm-8 text-left control-label">
+                            电子积分钱包
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" style="background-color: #262c4b;">
+                    <div class="form-group">
+                        <div class="col-xs-5 col-xs-offset-1">
+                            <!--<img src="../../../img/btagcoin_cn.png"/>-->
+                            <button class="btn btn-primary form-control  Buy" ng-click="sumbitBuy(buyInfo)" ></button>
+                        </div>
+                        <div class="col-xs-5">
+                            <a href="#/app/transaction_jfggmxq" class="btn btn-primary form-control jifenbuy BuyDetail"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6 sellJifen" style="padding:15px 0px 15px 15px">
+        <form class="form-horizontal">
+            <div class="panel">
+                <div class="panel-heading" style="background-color: #262c4b;">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">积分股出售</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group cspadding">
+                        <label class="col-sm-3 control-label text-right">当前价格 :</label>
+                        <div class="col-sm-8 text-left control-label">
+                            ${{sellInfo.price |number:2}}
+                        </div>
+                    </div>
+                    <div class="form-group cspadding">
+                        <label class="col-sm-3 control-label text-right">积分股余额 :</label>
+                        <div class="col-sm-8 text-left control-label">
+                            ${{sellInfo.userStock |number:2}}
+                        </div>
+                    </div>
+                    <div class="form-group cspadding">
+                        <label class="col-sm-3 control-label text-right">市值 :</label>
+                        <div class="col-sm-8 text-left control-label">
+                            ${{sellInfo.price*buyInfo.rest|number:2}}
+                        </div>
+                    </div>
+                    <div class="form-group cspadding">
+                        <label class="col-sm-3 control-label text-right">出售数量 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="JFG_Sell.Count" class="form-control" onkeyup="value=value.replace(/[^\d.]/g,'')">
+                        </div>
+                    </div>
+                    <div class="form-group cspadding">
+                        <label class="col-sm-3 control-label text-right">交易密码 :</label>
+                        <div class="col-sm-8">
+                            <input type="password" ng-model="JFG_Sell.L2pwd" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" style="background-color: #262c4b;">
+                    <div class="form-group">
+                        <div class="col-xs-5 col-xs-offset-1">
+                            <button class="btn btn-primary form-control Sell" ng-click="sumbitSell(JFG_Sell)"></button>
+                        </div>
+                        <div class="col-xs-5">
+                            <a href="#/app/transaction_jfgcsxq" class="btn btn-primary form-control jifenbuy SellDetail"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--确认购买出售窗口-->
+<script type="text/ng-template" id="transaction_jfg_jydt.html">
+    <div class="panel-heading">
+        积分股{{affirm.text}}
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <p></p>
+        你确认立即{{affirm.text}}吗 ？
+        <p></p>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-group col-xs-offset-8">
+        <button type="button" ng-click="confirm()" class="btn btn-info" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+            <span class="text">确认</span><span class="text-active">确认中...</span>
+            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+        </button>
+        <button type="submit" class="btn btn-info"
+                ng-click="cancel()">
+            取消
+        </button>
+    </div>
+</script>
+

@@ -1,0 +1,236 @@
+﻿<style>
+    .jianghui-yellow {
+        color: #e1ae1f;
+    }
+    .jianghui-red {
+        color: #ff2d81;
+    }
+    .jianghui-blue {
+        color: #0ab4ee;
+    }
+    .jianghui-green {
+        color: #0ad785;
+    }
+</style>
+<div class="wrapper" ng-controller="transaction_jyjf_index">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <div class="form-horizontal">
+        <ul class="breadcrumb bg-white b-a">
+            <li><a href="#/app/transaction_jyjfdt"><i class="fa fa-btc"></i> <span>交易积分交易大厅</span></a></li>
+        </ul>
+        <div class="panel panel-default customPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <font>
+                        <font class="customTitle">  我的积分详情</font>
+                    </font>
+                </h3>
+              
+            </div>
+            <div class="panel-body clearfix">
+                <div class="form-group col-sm-6 col-md-3">
+                    <label class="control-label col-xs-6">积分余额:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" ng-model="jFAmount" readonly style="color: #15ff83;"/>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 col-md-3">
+                    <label class="control-label col-xs-6">当前汇率:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" ng-model="NowLV" readonly style="color: #0ab4ee;"/>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 col-md-6 text-right">
+                    <button class="btn btn-primary" ng-click="sellOutProduct(NowLV)">出售</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-primary active" href="#/app/transaction_jyjf_gmjl">购买记录</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-primary active" href="#/app/transaction_jyjf_csjl">出售记录</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default customPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <font>
+                        <font>查询</font>
+                    </font>
+                </h3>
+            </div>
+            <div class="panel-body clearfix  query-panel">
+                <div class="form-group col-sm-2">
+                    <input type="text" id="EnterQuery" ng-model="userCode"  ng-enter="query()" class="form-control" placeholder="请输入卖家编号" />
+                </div>
+                <div class="form-group col-sm-4 clearfix">
+                    <label class="control-label col-xs-4" translate="QUERY.startTime">开始时间：</label>
+                    <div class="col-xs-8">
+                        <selectdatestart></selectdatestart>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4 clearfix">
+                    <label class="control-label col-xs-4" translate="QUERY.endTime">结束时间：</label>
+                    <div class="col-xs-8">
+                        <selectdateend></selectdateend>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 text-center">
+                    <button type="button" id="btnSearch" ng-click="query()" class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                        <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                    </button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="panel panel-default customPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <font>
+                        <font class="customTitle">   购买列表</font>
+                    </font>
+                </h3>
+               
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">序号</th>
+                                <th style="width:15%">流水号</th>
+                                <th style="width:10%">会员编号</th>
+                                <th style="width:10%">类型</th>
+                                <th style="width:15%">剩余数量</th>
+                                <th style="width:10%">价格</th>
+                                <th style="width:15%">日期</th>
+                                <th style="width:10%">状态</th>
+                                <th style="width:10%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in rows">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    {{item.serialNumber}}
+                                </td>
+                                <td>
+                                    {{item.userCode}}
+                                </td>
+                                <td>
+                                    {{item.typeText}}
+                                </td>
+                                <td>
+                                    {{item.rest}}
+                                </td>
+                                <td>
+                                    {{item.price}}
+                                </td>
+                                <td>
+                                    {{item.createDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                                <td ng-class="{'jianghui-yellow':item.statusText=='等待中','jianghui-red':item.statusText=='待完成','jianghui-blue':item.statusText=='已付款','jianghui-green':item.statusText=='交易完成'}">
+                                    {{item.statusText}}
+                                </td>
+                                <td>
+                                    <button type="button" ng-click="SumBuy(item.serialNumber,item.rest)" class="btn btn-primary jh tableButton">购买</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                   <tablelistdatashow></tablelistdatashow>
+                      
+
+                   
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 text-center" ng-hide="noData">
+                                <pagination total-items="totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                            </div>
+                        </div>
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--确认出售窗口-->
+<script type="text/ng-template" id="transaction_jyjfdt_cs.html">
+    <div class="panel-heading">
+        出售交易积分
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <form action="" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-4">出售数量:</label>
+                <div class="col-sm-8">
+                    <input type="number" min="0" ng-model="SellNumberSum" onkeyup="value=value.replace(/[^\d.]/g,'')" class="form-control" placeholder="值必须大于等于100，且为100的整数">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">当前汇率:</label>
+                <div class="col-sm-8 text-left control-label">
+                    {{NowLV}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">二级密码:</label>
+                <div class="col-sm-8">
+                    <input type="password" ng-model="SellL2Pwd" class="form-control">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-group customstyle" style="margin-top: 15px;margin-bottom: 0px;">
+        <button class="btn btn-primary" style="width: auto; font-size: 14px;" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}"
+                ng-click="Confirm()">
+            出售
+            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+        </button>
+        <button type="submit" style="width: auto; font-size: 14px;" class="btn btn-primary"
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>
+
+<!--购买窗口-->
+<script type="text/ng-template" id="transaction_jyjfdt_gm.html">
+    <div class="panel-heading">
+        购买
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <div class="form-group clearfix">
+            <label class="control-label col-xs-5">出售剩余数量:</label>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" ng-model="Rest" disabled>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <label class="control-label col-xs-5">购买数量:</label>
+            <div class="col-xs-6">
+                <input type="number" class="form-control" onkeyup="value=value.replace(/[^\d.]/g,'')" ng-model="BuyNum">
+            </div>
+        </div>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-group customstyle col-xs-offset-8" style="margin-top: 15px;margin-bottom: 0px;">
+        <button type="submit" class="btn btn-primary" style="width: auto; font-size: 14px;" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}"
+                ng-click="Confirm()">
+            确定
+            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+        </button>
+        <button type="submit" style="width: auto; font-size: 14px;" class="btn btn-primary"
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>

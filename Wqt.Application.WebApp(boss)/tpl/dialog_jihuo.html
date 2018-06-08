@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" >激活预览</h3>
+   
+</div>
+<div class="modal-body">
+    <form class="form-horizontal xhr-form" name="form">
+        
+        <div class="form-group">
+            <label class="control-label col-sm-4 col-md-3"><font><font translate="PAGE.dialog.Jihuo.jihuoform.userCode">会员编号:</font></font></label>
+            <div class="col-sm-6 col-md-5 col-lg-5">
+                <input type="text" name="userCode" placeholder="" class="form-control" ng-model="jihuoList.userCode"  disabled>
+                <input type="text" name="userCode" placeholder="" class="form-control hidden" ng-model="jihuoList.userid" disabled>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="control-label col-sm-4 col-md-3 "><font><font translate="PAGE.dialog.Jihuo.jihuoform.nickName">会员姓名:</font></font></label>
+            <div class="col-sm-6 col-md-5 col-lg-5">
+                <input type="text" name="username" placeholder="" class="form-control" ng-model="jihuoList.nickName" disabled>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="control-label col-sm-4 col-md-3 "><font><font translate="PAGE.dialog.Jihuo.jihuoform.mobile">手机号码:</font></font></label>
+            <div class="col-sm-6 col-md-5 col-lg-5">
+                <input type="text" name="phonenumber" placeholder="" class="form-control" ng-model="jihuoList.mobile"  disabled>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="control-label col-sm-4 col-md-3 "><font><font translate="PAGE.dialog.Jihuo.jihuoform.tcId">激活级别:</font></font></label>
+            <div class="col-sm-6 col-md-5 col-lg-5">
+                <select class="level form-control" id="level" ng-model="jihuoList.tcId" required>
+                    <option value="{{item.id}}" ng-repeat="item in taoCanList">{{item.name}}:消费${{item.price}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer" style="text-align:right">
+            <button class="btn btn-info" ng-click="confirm(jihuoList)" translate="BUTTON.confirm">确认</button>
+            <button class="btn btn-primary" ng-click="Cancel()">取消 </button>
+        </div>
+    </form>
+</div>

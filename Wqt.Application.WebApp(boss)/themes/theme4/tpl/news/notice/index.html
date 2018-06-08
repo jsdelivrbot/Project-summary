@@ -1,0 +1,28 @@
+<div class="wrapper" ng-controller="NewsListCtrl" >
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.news.breadcrumb2">信息管理</a></li>
+        <li class="active" translate="PAGE.news.notice.title">新闻公告</li>
+    </ul>
+    <div class="panel panel-default customPanel" draggable="true">
+        <div class="panel-heading">
+            <font>
+                <font class="customTitle" translate="PAGE.news.notice.title">新闻公告</font>
+            </font>
+        </div>
+        <div class="panel-body" ng-init="format()">
+            <article class="media" ng-repeat="item in newList">
+                <div class="media-body">
+                    <a  ng-click="showDetails(item.id)" class="h4">
+                        <font>
+                            <font>{{item.title}}</font>
+                        </font>
+                    </a>
+                    <small class="block m-t-xs"><font><font>{{item.id}}</font><font>仔细阅读以了解哪些适合您的特殊需求。</font></font></small>
+                    <em class="text-xs"><font><span class="text-danger"><font>{{item.createDate}}</font></span></font></em>
+                </div>
+            </article>
+            <div class="line pull-in"></div>
+        </div>
+    </div>
+</div>

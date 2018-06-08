@@ -1,0 +1,127 @@
+﻿<div class="wrapper-md" ng-controller="ProductListCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a>购物大厅</a></li>
+    </ul>
+    <tabset vertical="true" type="pills" class="tab-container">
+            <tab heading="全部">
+            <div class="panel-body">
+                <div class="col-md-4" ng-repeat="item in productList">
+
+                    <div class="panel b-a">
+                        <div class="panel-heading no-border bg-primary" style="background-color: #9280fe;">
+                            <span class="text-lt">{{item.productName}}</span>
+                        </div>
+                        <div class="item m-l-n-xxs m-r-n-xxs">
+                            <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                                <img src="img/c0.jpg" class="img-full">
+                            </a>
+                        </div>
+                        <div class="hbox text-center b-b b-light text-sm">
+                            <a href="" class="col padder-v text-muted b-r b-light">
+                                价格
+                                <span>{{item.price}}</span>
+                            </a>
+                            <a href="" class="col padder-v text-muted b-r b-light">
+                                规格
+                                <span>{{item.guiGe}}</span>
+                            </a>
+                            <a href="" class="col padder-v text-muted">
+                                产品代码
+                                <span>{{item.productCode}}</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="Grid.pager.currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                    </div>
+                </div>
+            </footer>
+        </tab>
+                <tab heading="手机数码" class="inline">
+                </tab>
+                <tab heading="电脑办公" class="inline">
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading font-bold">
+                            电脑办公
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <tbody></tbody>
+                                </table>
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="Grid.pager.currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="品牌家电" class="inline">
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading font-bold">
+                            品牌家电
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <tbody></tbody>
+                                </table>
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="Grid.pager.currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="日常用品" class="inline">
+                    <div class="panel panel-default" style="margin-top: 10px;">
+                        <div class="panel-heading font-bold">
+                            日常用品
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <tbody></tbody>
+                                </table>
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="Grid.pager.currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+          
+
+        <div class="panel panel-default" style="margin-top: 10px;">
+            <!--<div class="panel-heading font-bold">
+            手机数码
+        </div>-->
+           
+        </div>
+
+        
+    </tabset>
+
+</div>

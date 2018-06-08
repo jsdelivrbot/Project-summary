@@ -1,0 +1,19 @@
+﻿<div class="panel-heading">
+   确认窗口
+</div>
+<div class="panel-body text-center" style="color: #b9b9b9;">
+    <p></p>
+    确认操作 ？
+    <p></p>
+</div>
+<div class="panel-group customstyle" style="margin-bottom: 0px;">
+    <button type="submit" class="btn btn-info" style="width: auto; font-size: 14px;" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}"
+            ng-click="Confirm()">
+        确定
+        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+    </button>
+    <button type="submit" style="width: auto; font-size: 14px;" class="btn btn-primary"
+            ng-click="closeThisDialog()">
+        取消
+    </button>
+</div>

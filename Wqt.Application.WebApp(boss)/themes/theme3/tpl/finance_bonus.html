@@ -1,0 +1,243 @@
+
+    <div class="wrapper-md">
+        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+        <ul class="breadcrumb bg-white b-a">
+            <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+            <li><a href="">财务管理</a></li>
+            <li class="active">奖金明细</li>
+        </ul>
+        <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+            <tab heading="{{'PAGE.finance.bonus.Dynamic'|translate}}" active="steps.step1" select="steps.percent=10" ng-controller="finance_dynamicBonus">
+                <div class="panel panel-default customPanel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <font>
+                                <font class="customTitle">查询</font>
+                            </font>
+                        </h3>
+                    </div>
+                    <div class="panel-body clearfix  query-panel">
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-4 datestyle"><font><font> 奖金类型：</font></font></label>
+                            <div class="col-sm-8">
+                                <select name="" class="form-control m-b" ng-model="SelectVal" style="margin-bottom: 0;">
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option ng-repeat="items in prizeType" value="{{$index + 1}}">{{items.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-3 ">
+                            <label class="control-label col-sm-4 datestyle"><font><font>开始时间：</font></font></label>
+                            <div class="col-sm-8">
+                                <selectdatestart></selectdatestart>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3 ">
+                            <label class="control-label col-sm-4 datestyle"><font><font>结束时间：</font></font></label>
+                            <div class="col-sm-8">
+                                <selectdateend></selectdateend>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-2 text-center">
+                            <button type="button" ng-click="query()"  class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                                <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                                <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <font>
+                                <font class="customTitle">奖金列表</font>
+                            </font>
+                        </h3>
+                        
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%">序号</th>
+                                        <th style="width:10%">日期</th>
+                                        <th style="width:10%">奖金名称</th>
+                                        <th style="width:10%">奖金总额</th>
+                                        <th style="width:10%">交易积分</th>
+                                        <th style="width:10%">Bos基金</th>
+                                        <th style="width:10%">商城积分</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in rows">
+                                        <td>
+                                            {{$index+1}}
+                                        </td>
+                                        <td>
+                                            {{item.createDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{item.prizeType}}
+                                        </td>
+                                        <td>
+                                            {{item.prizeTotal}}
+                                        </td>
+                                        <td>
+                                            {{item.jYJF}}
+                                        </td>
+                                        <td>{{item.bOSJJ}}</td>
+                                        <td>{{item.sCJF}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped b-t b-light" ng-show="!noData">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%">合计</th>
+                                        <th style="width:10%"></th>
+                                        <th style="width:10%"></th>
+                                        <th style="width:10%">{{SumprizeTotal || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumjYJF || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumbOSJJ || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumsCJF || 0 | number:2}}</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                           <tablelistdatashow></tablelistdatashow>
+                              
+
+                            
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center" ng-hide="noData">
+                                        <pagination total-items="totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                    </div>
+                                </div>
+                            </footer>
+
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'PAGE.finance.bonus.static'|translate}}" active="steps.step2" select="steps.percent=30" ng-controller="finance_staticBonus">
+                <div class="panel panel-default customPanel query-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <font>
+                                <font class="customTitle">查询</font>
+                            </font>
+                        </h3>
+                    </div>
+                    <div class="panel-body clearfix  ">
+                        <div class="form-group col-sm-3 ">
+                            <label class="control-label col-sm-4 datestyle"><font><font>开始时间：</font></font></label>
+                            <div class="col-sm-8">
+                                <selectdatestart></selectdatestart>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3 ">
+                            <label class="control-label col-sm-4 datestyle"><font><font>结束时间：</font></font></label>
+                            <div class="col-sm-8">
+                                <selectdateend></selectdateend>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-2 text-center">
+                            <button type="button" ng-click="query()"  class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                                <span class="text">&nbsp;查&nbsp;&nbsp;询&nbsp;</span><span class="text-active">&nbsp;查&nbsp;&nbsp;询&nbsp;&nbsp;中&nbsp;&nbsp;...&nbsp;</span>
+                                <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <font>
+                                <font class="customTitle">奖金列表</font>
+                            </font>
+                        </h3>
+                        
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%" translate="ORDER">序号</th>
+                                        <th style="width:10%">日期</th>
+                                        <th style="width:10%">奖金总额</th>
+                                        <th style="width:10%">交易积分</th>
+                                        <th style="width:10%">电子积分</th>
+                                        <th style="width:10%">商城积分</th>
+                                        <th style="width:10%">服务费用</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in rows">
+                                        <td>
+                                            {{$index+1}}
+                                        </td>
+                                        <td>
+                                            {{item.createDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                       
+                                        <td>
+                                            {{item.prizeTotal}}
+                                        </td>
+                                        <td>
+                                            {{item.jYJF}}
+                                        </td>
+                                        <td>
+                                            {{item.dZJF}}
+                                        </td>
+                                        <td>
+                                            {{item.sCJF}}
+                                        </td>
+                                        <td>
+                                            {{item.fWF}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <table class="table table-striped b-t b-light" ng-show="!noData">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%">合计</th>
+                                        <th style="width:10%"></th>
+                                        <th style="width:10%">{{SumprizeTotal || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumjYJF || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumdZJF || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumsCJF || 0 | number:2}}</th>
+                                        <th style="width:10%">{{SumfWF || 0 | number:2}}</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                           <tablelistdatashow></tablelistdatashow>
+                               
+                          
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center" ng-hide="noData">
+                                        <pagination total-items="totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                    </div>
+                                </div>
+                            </footer>
+
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+ 

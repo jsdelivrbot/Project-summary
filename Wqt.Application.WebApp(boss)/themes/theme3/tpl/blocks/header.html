@@ -1,0 +1,133 @@
+      <!-- navbar header -->
+<div class="navbar-header {{app.settings.navbarHeaderColor}} ">
+    <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+        <i class="glyphicon glyphicon-cog"></i>
+    </button>
+    <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll="app">
+        <i class="glyphicon glyphicon-align-justify"></i>
+    </button>
+    <!-- brand -->
+    <a href="#/" class="navbar-brand text-lt">
+
+        <span class="hidden-folded">
+            <img src="../../img/LOGO.png" alt=".">
+        </span>
+        <span class="logoEn">BOSINTERNATIONAL</span>
+    </a>
+    <!-- / brand -->
+</div>
+<!-- / navbar header -->
+<!-- navbar collapse -->
+<div class=" headernav collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}" style="height:88px !important">
+    <!-- buttons -->
+    <div class="nav navbar-nav hidden-xs">
+        <a href class="btn no-shadow navbar-btn"  ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+        </a>
+    </div>
+    <!-- / buttons -->
+
+    <!--<ul class="nav navbar-nav hidden-sm">
+          <li class="hidden-sm">
+            <a style="font-size: 24px;">
+                BOS国际会员管理平台
+            </a>
+        </li>
+    </ul>-->
+   
+    <!-- nabar right -->
+    <!--<ul class="nav navbar-nav navbar-right">
+
+        <li class="hidden-xs">
+            <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
+        </li>
+        <li class="hidden-xs">
+            <a>
+                <img class="home_img" src="../../img/header_memeber.png" />
+                <span>个人中心</span>
+            </a>
+        </li>
+        <li class="hidden-sm">
+            <a ng-click="loginout()">
+                <img class="home_img" src="../../img/header_loginout.png" />
+                <span>退出</span>
+            </a>
+        </li>
+        <li class="dropdown hidden-sm" is-open="lang.isopen" dropdown>
+        <a href class="dropdown-toggle" dropdown-toggle>
+          {{selectLang}} <b class="caret"></b>
+        </a>
+        </li>
+       
+    </ul>-->
+
+    <ul class="nav navbar-nav navbar-right headerdrop">
+        <li class="dropdown hidden-sm" is-open="lang.isopen" dropdown>
+            <a href class="dropdown-toggle" dropdown-toggle>
+                {{selectLang}} <b class="caret"></b>
+            </a>
+            <!-- dropdown -->
+            <ul class="dropdown-menu animated fadeInRight w headDropdown">
+                <li ng-repeat="(langKey, label) in langs">
+                    <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
+                </li>
+            </ul>
+            <!-- / dropdown -->
+        </li>
+    <!-- / dropdown -->
+        <li class="hidden-xs">
+            <a ui-fullscreen></a>
+        </li>
+        <li class="dropdown" dropdown>
+            <a href class="dropdown-toggle" dropdown-toggle>
+                <i class="icon-bell fa-fw"></i>
+                <span class="visible-xs-inline">notifications</span>
+                <span class="badge badge-sm up bg-danger pull-right-xs">{{unreadnumber>0?unreadnumber:null;}}</span>
+            </a>
+          
+            <div class="dropdown-menu w-xl animated fadeInUp headDropdown">
+                <div class="panel bg-white">
+                    <div class="panel-heading b-light bg-light">
+                        <strong>You have <span>{{UnreadNumber}}</span> notifications</strong>
+                    </div>
+                    <div class="list-group">
+                        <a class="media list-group-item" ng-repeat="items in MessageNumber">
+                            <span class="pull-left thumb-sm" style="word-break: break-all; overflow:hidden; height: 40px;">
+                                {{items.subTitle}}
+                            </span>
+                            <span class="media-body block m-b-none" style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                {{items.mainTitle}}<br>
+                                <small class="text-muted">&nbsp;&nbsp;{{items.createDate | date:'shortDate'}}</small>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="panel-footer text-sm">
+                        <a href class="pull-right"><i class="fa fa-cog"></i></a>
+                        <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
+                    </div>
+                </div>
+            </div>
+          
+        </li>
+        <li class="dropdown" dropdown>
+         
+            <a href class="dropdown-toggle clear" dropdown-toggle>
+                <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm" style="margin-right:15px">
+                    <img src="img/a0.jpg" alt="...">
+                    <i class="on md b-white bottom"></i>
+                </span>
+                <span  class="hidden-sm hidden-md">{{curUser.nickname}}</span> <b class="caret"></b>
+            </a>
+            <!-- dropdown -->
+            <ul class="dropdown-menu animated fadeInRight w headDropdown">
+                <li>
+                    <a ng-click="loginout()">登出</a>
+                </li>
+            </ul>
+            <!-- / dropdown -->
+        </li>
+    <!-- dropdown  -->
+    <!-- / navbar right -->
+   </ul>
+</div>
+<!-- / navbar collapse -->

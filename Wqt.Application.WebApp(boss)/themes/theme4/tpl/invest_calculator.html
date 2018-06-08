@@ -1,0 +1,197 @@
+<div class="wrapper">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <font>
+                        <font>计算器</font>
+                    </font>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="calc-simulator" method="post" action="../../../calculator">
+                    <input type="hidden" name="action" value="simulate">
+                    <input type="hidden" name="6306f70ed843" value="b0efa2fe6ec946940b51e8b79177c64bb890abde">
+                    <input type="hidden" name="a1b978d139c8" value="d4d24d775dcfee732ae2923056b8e63f0b82d078">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-4"><font><font>钱包</font></font></label>
+                        <div class="col-sm-6">
+                            <select name="420313da811d" class="form-control calc-currencies">
+                            <option value="BTC" data-currency-sign="Ƀ"><font><font>比特币（Ƀ）</font></font></option>
+                            <option value="EUR" data-currency-sign="€"><font><font>欧元（€）</font></font></option>
+                            <option value="PTS" data-currency-sign="₱"><font><font>L-Points积分</font></font></option>
+                            <option value="USD" data-currency-sign="$"><font><font>美元（$）</font></font></option>
+                            <option value="USD" data-currency-sign="$"><font><font>卢布（R）</font></font></option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-4"><font><font>货币金额</font></font></label>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon set-currency-sign"><font><font>Ƀ</font></font></span>
+                                <input type="text" name="97af1b093c11" data-onload-value="1" data-round="4" placeholder="0.0000" class="form-control calc-amount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-4"><font><font>复利</font></font></label>
+                        <div class="col-md-6 col-sm-8">
+                            <select name="94981d055e83" class="form-control"><font><font>。</font></font>
+                                <option value="0" selected=""><font><font>无复合（0％）</font></font></option>
+                                <option value="10"><font><font>10％</font></font></option>
+                                <option value="20"><font><font>20％</font></font></option>
+                                <option value="30"><font><font>30％</font></font></option>
+                                <option value="40"><font><font>40％</font></font></option>
+                                <option value="50"><font><font>50％</font></font></option>
+                                <option value="60"><font><font>60％</font></font></option>
+                                <option value="70"><font><font>70％</font></font></option>
+                                <option value="80"><font><font>80％</font></font></option>
+                                <option value="90"><font><font>90％</font></font></option>
+                                <option value="100"><font><font>100％</font></font></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-4"><font><font>平均投资回报率</font></font></label>
+                        <div class="col-md-4 col-sm-6">
+                           <p class="form-control">
+                                <font>
+                                    <font>1.5%</font>
+                                </font>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-4"><font><font>锁本周期天数</font></font></label>
+                        <div class="col-md-4 col-sm-6">
+                            <p class="form-control">
+                                <font>
+                                    <font>7天</font>
+                                </font>
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <div class="col-sm-8 col-sm-offset-4 col-md-offset-3">
+                            <button type="submit" class="btn btn-danger btn-lg"><font><font>计算</font></font></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="simulation" class="panel panel-default" style="display: none;">
+            <div class="panel-body">
+                <h3 style="margin-top:0;">Investment Simulation</h3>
+                <div class="row calc-result">
+                    <div class="col-md-3 col-sm-4 col-xs-6"><strong>Your Investment</strong><br>
+                        <span data-simulation="principal"></span></div>
+                    <div class="col-md-3 col-sm-4 col-xs-6"><strong>Compounding</strong><br>
+                        <span data-simulation="compounded"></span></div>
+                    <div class="col-md-3 col-sm-4 col-xs-6"><strong>Total Return</strong><br>
+                        <span data-simulation="return"></span></div>
+                    <div class="col-md-3 col-sm-4 col-xs-6"><strong>Total Profit</strong><br>
+                        <span data-simulation="profit"></span></div>
+                    <div class="col-md-3 col-sm-4 col-xs-6"><strong>Duration</strong><br>
+                        <span data-simulation="duration"></span></div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="simulation-days" class="table table-bordered table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Day</th>
+                            <th class="text-right">Running Amount</th>
+                            <th class="text-right">ROI</th>
+                            <th class="text-right" colspan="2">Share</th>
+                            <th class="text-right">Total</th>
+                            <th class="text-right">Withdrawn</th>
+                            <th class="text-right">Compounded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-database"></i>
+                    <font>
+                        <font> 我的钱包</font>
+                    </font>
+                </h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <td width="50%" class="text-left">
+                                <font>
+                                    <font>比特币</font>
+                                </font>
+                            </td>
+                            <td width="50%" class="text-right">
+                                <font>
+                                    <font>Ƀ2.05348523</font>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%" class="text-left">
+                                <font>
+                                    <font>欧元</font>
+                                </font>
+                            </td>
+                            <td width="50%" class="text-right">
+                                <font>
+                                    <font>€0.0000</font>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%" class="text-left">
+                                <font>
+                                    <font>L-Points积分</font>
+                                </font>
+                            </td>
+                            <td width="50%" class="text-right">
+                                <font>
+                                    <font>₱1000.0000</font>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%" class="text-left">
+                                <font>
+                                    <font>美元</font>
+                                </font>
+                            </td>
+                            <td width="50%" class="text-right">
+                                <font>
+                                    <font>$ 153.7891</font>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%" class="text-left">
+                                <font>
+                                    <font>卢布</font>
+                                </font>
+                            </td>
+                            <td width="50%" class="text-right">
+                                <font>
+                                    <font>R 151</font>
+                                </font>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿
+<div class="wrapper-md" ng-controller="finance_report">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="">财务管理</a></li>
+        <li class="active">收益报表</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">查询</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body clearfix  query-panel">
+            <div class="form-group col-sm-4 clearfix">
+                <label class="control-label col-xs-4 datestyle" translate="QUERY.startTime">开始时间：:</label>
+                <div class="col-xs-8">
+                    <selectdatestart></selectdatestart>
+                </div>
+            </div>
+            <div class="form-group col-sm-4 clearfix">
+                <label class="control-label col-xs-4 datestyle" translate="QUERY.endTime">结束时间：</label>
+                <div class="col-xs-8">
+                    <selectdateend></selectdateend>
+                </div>
+            </div>
+            <div class="form-group col-sm-2 text-center">
+                <button type="button" ng-click="query()" ng-enter="query()" class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                    <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                </button>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="panel panel-default customPanel" style="margin-top: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle"> 奖金列表</font>
+                </font>
+            </h3>
+           
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:10%" translate="ORDER">序号</th>
+                            <th style="width:20%">日期</th>
+                            <th style="width:10%">直推奖</th>
+                            <th style="width:10%">对碰奖</th>
+                            <th style="width:10%">管理奖</th>
+                            <th style="width:10%">见点奖</th>
+                            <th style="width:10%">报单奖</th>
+                            <th style="width:10%">静态收益</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.createdate | date:'yyyy-MM-dd'}}
+                            </td>
+                            <td>
+                                {{item.field_1}}
+                            </td>
+                            <td>
+                                {{item.field_2}}
+                            </td>
+                            <td>
+                                {{item.field_3}}
+                            </td>
+                            <td>
+                                {{item.field_4}}
+                            </td>
+                            <td>
+                                {{item.field_5}}
+                            </td>
+                            <td>
+                                {{item.field_6}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped b-t b-light" ng-show="!noData">
+                    <thead>
+                        <tr>
+                            <th style="width:10%;">合计</th>
+                            <th style="width:20%;"></th>
+                            <th style="width:10%">{{Sumfield_1 | number:2 || 0}}</th>
+                            <th style="width:10%">{{Sumfield_2 | number:2 || 0}}</th>
+                            <th style="width:10%">{{Sumfield_3 | number:2 || 0}}</th>
+                            <th style="width:10%">{{Sumfield_4 | number:2 || 0}}</th>
+                            <th style="width:10%">{{Sumfield_5 | number:2 || 0}}</th>
+                            <th style="width:10%">{{Sumfield_6 | number:2 || 0}}</th>
+                        </tr>
+                    </thead>
+                </table>
+               <tablelistdatashow></tablelistdatashow>
+                   
+               
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="totalItems" max-size="maxSize" ng-model="currentPage" previous-text="<" next-text=">" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,121 @@
+﻿
+<div class="wrapper-md">
+    
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="">在线购物</a></li>
+        <li class="active">申请供货</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+        <tab heading="申请供货商资格" active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                <div class="panel-body" ng-controller="shopping_sjghSet">
+                    <form class="form-horizontal" method="get">
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">姓名：</label>
+                            <div class="col-sm-10 control-label text-left">
+                                {{userName}}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机号：</label>
+                            <div class="col-sm-10 control-label text-left">
+                                {{phoneNumber}}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="col-sm-2 control-label">代表图：</label>
+                            <div class="col-sm-10 control-label text-left">
+                                <div class="m-b">
+                                    <input type="file" id="FontImg" accept="image/JPG,image/jpg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <div class="inline bg-white wrapper-sm b-a">
+                                    <div class="bg-light">
+                                        <img id="imgShow" ng-src="{{myInfo.FontImg}}" style="width: 200px; height: 200px;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">申请说明：</label>
+                            <div class="col-sm-10">
+                                <div ui-jq="wysiwyg" id="applyRemark" class="form-control" style="overflow: scroll; height: 200px; max-height: 200px">
+                                    申请说明&hellip;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="button" ng-click="Submit()" class="btn btn-primary" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                                    <span class="text">提交</span><span class="text-active">提交中...</span>
+                                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </tab>
+        <tab heading="申请供货商记录" active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="shopping_sjghList">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%">申请日期</th>
+                                <th style="width: 20%">产品图片</th>
+                                <th style="width: 20%">申请描述</th>
+                                <th style="width: 10%">状态</th>
+                                <th style="width: 15%">处理时间</th>
+                                <th style="width: 15%">处理反馈</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in rows">
+                                <td>
+                                    {{item.checkedDate ||'无' | date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                                <td>
+                                    <img src="{{item.img}}" ng-show='item.img' enlarge-pic style="width: 100px;"/><span ng-show="!item.img">无</span>
+                                </td>
+                                <td>
+                                    {{item.applyRemark ||'无'}}
+                                </td>
+                                <td>
+                                    {{item.auditStatusText ||'无'}}
+                                </td>
+                                <td>
+                                    {{item.checkedDate||'无' | date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                                <td>
+                                    {{item.auditRemark ||'无'}}
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <tablelistdatashow></tablelistdatashow>
+                        <tablelistfooter></tablelistfooter>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+
+

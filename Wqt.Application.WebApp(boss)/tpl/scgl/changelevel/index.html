@@ -1,0 +1,64 @@
+﻿
+<div class="wrapper" ng-controller="UpgradeCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.scgl.breadcrumb2">市场管理</a></li>
+        <li class="active" translate="PAGE.scgl.changelevel.title">申请会员升级</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.scgl.changelevel.title">申请会员升级</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal xhr-form" name="form">
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.scgl.changelevel.currentLevel">当前等级：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <select class="level form-control appearance levelFont" style="background: url('../../img/level{{Upgrade.currentLevelId}}.png') no-repeat 1%; background-size: contain;padding-left: 40px;" id="level" ng-model="Upgrade.currentLevelId" disabled>
+                            <option value="{{item.value}}" ng-repeat="item in userLevel">{{item.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.scgl.changelevel.userCode">用户编号：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" name="userCode" placeholder="" class="form-control" ng-model="Upgrade.userCode" disabled>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.scgl.changelevel.nickName">姓名：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input  type="text" name="username" placeholder="" class="form-control" ng-model="Upgrade.nickName" disabled>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.scgl.changelevel.level">升级级别：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <select class="level form-control levelFont"  id="level" ng-model="Upgrade.level">
+                            <option value translate="OPPTION2">==BOS级别==</option>
+                            <option value="{{item.value}}" ng-repeat="item in canChangeList">{{item.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <div class="col-lg-offset-4 col-xs-offset-3 col-lg-10">
+                        <button type="submit" ng-class="{ 'btn': true, 'btn-primary': true,'disabled': canChange,}" ng-click="dialogOpen()" translate="BUTTON.changeLevel">
+                            升级
+                        </button>
+                        <!--<a href="#/app/finance_insidePay" class="btn btn-primary" translate="BUTTON.goto">前往充值中心 </a>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

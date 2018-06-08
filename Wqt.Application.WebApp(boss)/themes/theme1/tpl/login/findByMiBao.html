@@ -1,0 +1,129 @@
+﻿<!--<div class="container w-xl w-auto-xs" ng-controller="FindPsdByMiBao">
+    <a href class="navbar-brand block m-t">{{app.name}}</a>
+    <div class="m-b-lg">
+        <div class="wrapper text-center">
+            <strong>请输入填写密保问题答案</strong>
+        </div>
+        <form name="reset" ng-init="isCollapsed=true">
+            <div class="text-danger wrapper text-center ng-binding ng-hide" ng-show="authError">
+                {{authError}}
+            </div>
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <input type="text" placeholder="用户名" ng-model="user.usercode"  class="form-control no-border" required>
+                </div>
+                <span style="text-align:center;color:red" ng-show="isNull">用户名不能为空</span>
+
+            </div>
+            <div class="list-group list-group-sm">
+
+                <div class="list-group-item" style="margin-bottom:15px;padding: 20px 15px;" popover="点击获得密保问题" popover-trigger="mouseenter" ng-click="getQus()">
+                    {{question}}
+                </div>
+                <div class="list-group-item">
+                    <input type="text" placeholder="请输入问题答案" ng-model="user.SecretSecurityMatchText " class="form-control no-border" required>
+                </div>
+            </div>
+            <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-primary btn-block" ng-click="FindSecret(isCollapsed)">发送</button>
+
+            <div class="text-center m-t m-b"><a ui-sref="findByEmail">通过邮箱找回找回</a></div>
+        </form>
+        <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="back()">返回登录</button>
+
+        <div ng-hide="isCollapsed" class="m-t">
+            <div class="alert alert-success">
+                <p>{{findPsd}}<a ui-sref="/" class="btn btn-sm btn-success">登录</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>-->
+<div class="container" ng-controller="FindPsdByMiBao">
+    <div class="row">
+        <img class="loginlogo" src="../../img/LOGO.png" />
+    </div>
+    <div class="row">
+        <div class="loginBottom">
+            
+            <form class="form-horizontal xhr-form" name="form">
+                
+                <div class="form-group">
+                    <div class="control-label col-xs-3">
+                        <div class="text-center m-t m-b">
+                            {{authError}}
+                        </div>
+                    </div>
+                </div>
+          
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <img src="../../img/account.png" />
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="text" placeholder="用户名" ng-model="user.usercode" class="form-control no-border" required>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                    </label>
+                    <div class="col-xs-7">
+                        <div class="form-control" popover="点击获得密保问题" popover-trigger="mouseenter" ng-click="getQus()">
+                            {{question}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <input type="text" placeholder="请输入问题答案" ng-model="user.SecretSecurityMatchText " class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <button type="submit" ng-disabled="reset.$invalid" class="btn  btn-primary btn-block btn-lg" ng-click="FindSecret(isCollapsed)">发送</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <div class="text-center m-t m-b"><a ui-sref="findByEmail">通过邮箱找回找回</a></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="back()">返回登录</button>
+                    </div>
+                </div>
+                <div class="form-group" ng-hide="isCollapsed">
+                    <label class="control-label col-xs-3">
+                        <div class="row">
+                        </div>
+                    </label>
+                    <div class="col-xs-7">
+                        <div class="alert alert-success">
+                            <p>{{findPsd}}<a ui-sref="/" class="btn btn-sm btn-success">登录</a></p>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

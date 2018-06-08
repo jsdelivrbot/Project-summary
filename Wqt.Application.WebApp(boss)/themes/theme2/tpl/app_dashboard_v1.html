@@ -1,0 +1,240 @@
+
+<div ng-controller="homePageCtrl" class="homepage">
+  <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = true; 
+    app.settings.asideDock = false;
+  ">
+    <!-- main -->
+     
+    <div class="col">
+      <!-- main header -->
+      <div class="wrapper myposition">
+        <div class="row">
+          <div class="col-sm-4 hidden-xs">
+            <div class="m-n font-thin  text-black ">您当前的位置：<img class="home_img" src="../img/content_home.png"/><a>首页</a></div>
+          </div>
+        </div>
+      </div>
+        <!--个人账户-->
+        <div class="wrapper mywallet">
+            <!-- 个人钱包 -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel no-border">
+                        <div class="panel-heading wrapper b-b b-light mycountHeading">
+                            <h4 class="font-thin m-t-none m-b-none text-center">我的账户</h4>
+                        </div>
+                        <ul class="list-group list-group-lg m-b-none">
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="../img/mycount1.png" class="r r-2x">
+                                </a>
+                               
+                                <a href="">国际贵宾账户</a>
+                                <span class="pull-right label  inline m-t-sm">{{MemberInfo.userCode}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="../img/mycount1.png" class="r r-2x">
+                                </a>
+                                <span class="pull-right label  inline m-t-sm">{{MemberInfo.name}}</span>
+                                <a href="">姓名</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="../img/mycount2.png" class="r r-2x">
+                                </a>
+                                <span class="pull-right label  inline m-t-sm">{{MemberInfo.teamCount}}</span>
+                                <a href="">消费金额</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="" class="thumb-sm m-r">
+                                    <img src="../img/mycount3.png" class="r r-2x">
+                                </a>
+                                <span class="pull-right label  inline m-t-sm">{{MemberInfo.name}}</span>
+                                <a href="">注册日期</a>
+                            </li>
+                        </ul>
+                    </div>
+             
+                </div>
+                <div class="col-md-9 mycountchart1">
+                    <h3 class="m-n font-thin h3 text-black content_home">积分股价格变化曲线</h3>
+                    <div class="clearfix" style="text-align:center;color: #abacb5; font-size: 14px; padding: 10px 0 0 0;">
+                        <div class="radio pull-right" ng-click="changeMonth2()" style="margin: 5px 38px 0 0;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" name="aD">
+                                <i style="background-color: #1a1c35;border: none;"></i>
+                                月
+                            </label>
+                        </div>
+                        <div class="radio pull-right" ng-click="changeWeek2()" style="margin: 5px 8px 0 0;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" name="aD">
+                                <i style="background-color: #1a1c35;border: none;"></i>
+                                周
+                            </label>
+                        </div>
+
+                        <div class="radio pull-right" ng-click="changeDay2()" style="margin: 5px 10px 0 50px;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" checked name="aD">
+                                <i style="background-color: #1a1c35;border: none;"></i>
+                                24小时
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                    <div class="hbox hbox-auto-xs no-border">
+                        <div class="col wrapper">
+
+
+
+                            <div id="chart2" style="">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- / 个人钱包 -->
+        <!--个人账户-->
+      <!-- / main header -->
+      
+
+        <!-- tasks -->
+        <div class="wrapper mywallet">
+          <div class="row">
+
+            <div class="col-md-6 col-xs-12 ">
+                <div class="panel chart2Panel">
+                    <h3 class="m-n font-thin h3 text-black content_home"><img class="home_img" src="../img/home_jiangjin.png" />每日奖金(不计算扣税，手续费)</h3>
+                    <div class="clearfix" style="text-align:center;color: #abacb5; font-size: 14px; padding-top: 10px;">
+                        <div class="radio pull-right" ng-click="changeMonth()" style="margin: 5px 38px 0 0;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" name="b">
+                                <i style="background-color: #1a1c35;border: none;"></i>
+ 月
+                            </label>
+                        </div>
+                        <div class="radio pull-right" ng-click="changeWeek()" style="margin: 5px 10px 0 0;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" name="b">
+                                <i style="background-color: #1a1c35;border: none;"></i>
+                                周
+                            </label>
+                        </div>
+
+                        <div class="radio pull-right" ng-click="changeDay()" style="margin: 5px 10px 0 50px;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" checked name="b">
+                                <i style="background-color: #1a1c35;border: none;"></i>
+                                24小时
+                            </label>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="hbox hbox-auto-xs no-border">
+                        <div class="col wrapper">
+
+                            <div id="chart1">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 myWallets"> 
+                  <h3 class="m-n font-thin h3 text-black content_home" style=""><img class="home_img" src="../img/wallet.png" />我的钱包</h3>
+                  <div class="row row-sm text-center shopstorerow">
+                      <!--<div class="col-md-6 col-xs-12">
+                <a class="block homepanel padder-v bg-info item">
+
+                    <span class="text-muted  jifenWallet">{{shopstore.name}}</span>
+
+                    <span class="text-white font-thin h3 block">{{shopstore.value}}</span>
+                </a>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <a href class="block homepanel padder-v bg-info  bg-pink item">
+
+                    <span class="text-muted  jifenWallet">{{plat.name}}</span>
+
+                    <span class="text-white font-thin h3 block greenJifen">{{plat.value}}</span>
+                </a>
+            </div>-->
+
+                      <div ng-repeat="v in home.wallet">
+                          <div class="col-md-4 col-xs-12" style="padding-top: 25px;" id="{{$index}}">
+                              <div class="homepanel padder-l item">
+                                  <img ng-if="v.id=='1'" class="jifenImg" src="../img/jifenicon6.png" />
+                                  <img ng-if="v.id=='3'" class="jifenImg" src="../img/jifenicon5.png" />
+                                  <img ng-if="v.id=='4'" class="jifenImg" src="../img/jifenicon5.png" />
+                                  <img ng-if="v.id=='6'" class="jifenImg" src="../img/jifenicon1.png" />
+                                  <img ng-if="v.id=='7'" class="jifenImg" src="../img/jifenicon3.png" />
+                                  <img ng-if="v.id=='8'" class="jifenImg" src="../img/jifenicon2.png" />
+                                  <span class="text-muted text-xl jifenSpan">{{ v.name}}</span>
+                                  <div class="h3 text-info font-thin h3 jifenDiv">{{ v.value}}</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+        </div>
+        <!-- / tasks -->
+
+        <!-- service -->
+        <!-- / service -->
+
+        <!-- tasks -->
+          <!--<div class="wrapper mywallet" ng-controller="qrcode">
+              <div class="row">
+                  <div class="col-xs-12">
+                      <h3  class="m-n font-thin h3 text-black content_home"><img class="home_img" src="../img/home_gujia.png" />二维码(4天)</h3>
+                      <div class="m-b" style="margin-top:15px;">
+                          <div style="font-size:18px; ">
+                              <span class="url">{{text}}</span>
+                              <button class="btn btn-default urlcopy" data-clipboard-action="copy" data-clipboard-target=".url">复制地址</button>
+                          </div>
+                          <div style="margin-top:15px;" id="qrcodeCanvas"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>-->
+        <!-- / tasks -->
+        <!-- 公告 -->
+
+        <!-- /公告 -->
+      
+    </div>
+    <!-- / main -->
+    <!-- right col -->
+    <!-- / right col -->
+  </div>
+  <div class="TantiaoNews" ng-hide="isNews">
+    <div class="layui-layer layui-layer-page  layer-anim" id="layui-layer3" type="page" times="3" showtime="0" contype="string"
+      style="width: 300px;">
+      <div id="LAY_layuipro" class="layui-layer-content">
+        <div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
+          <h2 class="m-t-none text-center c-white" ag-bind="tUser.TantiaoNews.Title">{{notice.category}}</h2>
+          <p class="text-center c-white text-md" ag-bind="firstUser.TantiaoNews.Summary">{{notice.fullHead}}</p>
+          <div class="c-white" ag-bind="firstUser.TantiaoNews.Content" style="text-indent: 40px;">
+              {{notice.newsContent}}
+          </div>
+        </div>
+      </div><span class="layui-layer-setwin"></span>
+      <div class="layui-layer-btn layui-layer-btn-" ng-click="NewsClose()" style="text-align: center;padding: 10px;background-color: powderblue;">
+        <a class="layui-layer-btn0">知道了</a>
+      </div>
+    </div>
+  </div>
+</div>

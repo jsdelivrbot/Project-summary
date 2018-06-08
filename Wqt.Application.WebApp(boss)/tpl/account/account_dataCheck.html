@@ -1,0 +1,143 @@
+
+<div class="wrapper" ng-controller="userInfoController">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+        <li><a href="" translate="PAGE.account.breadcrumb2">个人信息</a></li>
+        <li class="active" translate="PAGE.account.detail.title">资料信息</li>
+    </ul>
+
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.account.detail.title">资料信息</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal xhr-form" name="form">
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.usercode">会员编号：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" id="" placeholder="" ng-model="userInfo.userCode" disabled required>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.name"></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" id="" disabled placeholder="" ng-model="userInfo.nickName ">
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.level">套餐等级：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <select style="background: url('../../img/level{{userInfo.currentLevelId}}.png') no-repeat 1%; background-size: contain;padding-left: 40px;"  class="BankName form-control appearance levelFont" id="BankName" disabled  ng-model="userInfo.currentLevelId" required>
+                            <option  ng-selected="userInfo.currentLevelId==item.value" ng-repeat="item in userLevel">{{item.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.tel">手机号码：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" id="" disabled placeholder="" ng-model="userInfo.mobile">
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.numberID">身份证信息：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.iD_Number" required>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.email">邮箱：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="email" class="form-control"  disabled id="" placeholder="" ng-model="userInfo.email" required>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.bankCode">银行账户信息：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" id="" disabled placeholder="" ng-model="userInfo.bankCode">
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.bankName">银行名称：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.bankName" required>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.bankAddress">支行地址：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.bankAddress" required>
+
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.Country">国籍：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.countryName" required>
+
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font translate="PAGE.account.detail.area">地区：</font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.areaText" required>
+
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3" translate="PAGE.account.detail.address">地址：</label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.provinceName" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.cityName" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="newPassword" disabled id="" placeholder="" ng-model="userInfo.countyName" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<div class="wrapper" ng-controller="qrcode">
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title" style="height: 30px; line-height: 30px;" translate="PAGE.account.detail.QRcode">二维码</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-sm-4 col-md-3 col-lg-3"><button class="btn btn-default urlcopy pull-right" data-clipboard-action="copy" data-clipboard-target=".url" translate="PAGE.account.detail.copy">复制地址</button></label>
+                <div class="col-sm-6 col-md-5 col-lg-5" style="font-size:18px; ">
+                    <span class="url">{{text}}</span>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4 col-md-3 col-lg-3"></label>
+                <div class="col-sm-6 col-md-5 col-lg-5">
+                    <div style="" id="qrcodeCanvas"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

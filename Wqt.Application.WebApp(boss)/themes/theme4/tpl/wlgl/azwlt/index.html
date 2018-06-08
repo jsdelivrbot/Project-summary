@@ -1,0 +1,92 @@
+﻿
+<div class="wrapper" ng-controller="AzNetController">
+    <div id="loading-bar-container"></div>
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.wlgl.breadcrumb2">网络管理</a></li>
+        <li class="active" translate="PAGE.wlgl.azwlt.title">安置网络图</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.wlgl.azwlt.title">安置网络图</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div ui-orgchart data-datascource ></div>
+            <div class="position  divNodeDetail" style="display:none">
+                <!--<div class="cancel">
+                    <button class="btn btn-sm btn-icon btn-rounded btn-info pull-right clickhide"><i class="fa fa-times"></i></button>
+                </div>-->
+                <div class="list-group list-group-lg list-group-sp" style="margin-bottom:0px;">
+
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            <span>左 </span>
+                            <span>右</span>
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            对等余额
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            <span id="LeftPerformance"></span>
+                            <span id="RightPerformance"></span>
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            今日累计业绩
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            <span id="ToDayLeftPerformance"></span>
+                            <span id="ToDayRightPerformance"></span>
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear" >
+                            总累计业绩
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            <span id="TotalLeftPerformance"></span>
+                            <span id="TotalRightPerformance"></span>
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            会员统计
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            <span id="LeftUserCount"></span>
+                            <span id="RightUserCount"></span>
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            总会员统计
+                        </span>
+                    </a>
+                    <a herf="" class="list-group-item clearfix">
+                        <span class="clear">
+                            <span id="TotalUserCount" style="padding-left:80px"></span>
+                          
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

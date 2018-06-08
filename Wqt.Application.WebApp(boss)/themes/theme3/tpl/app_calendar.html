@@ -1,0 +1,284 @@
+<div class="">
+  <div ng-controller="FullcalendarCtrl">
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+      <div class="col wrapper">
+        <div class="pos-rlt" style="overflow: auto;">
+          <div class="calendar" ng-model="eventSources" config="uiConfig.calendar" ui-calendar="uiConfig.calendar" style="min-width: 920px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-database"></i>
+        <font>
+          <font> 我的钱包</font>
+        </font>
+      </h3>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <tbody>
+          <tr>
+            <td width="50%" class="text-left">
+              <font>
+                <font>比特币</font>
+              </font>
+            </td>
+            <td width="50%" class="text-right">
+              <font>
+                <font>Ƀ2.05348523</font>
+              </font>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%" class="text-left">
+              <font>
+                <font>欧元</font>
+              </font>
+            </td>
+            <td width="50%" class="text-right">
+              <font>
+                <font>€0.0000</font>
+              </font>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%" class="text-left">
+              <font>
+                <font>L-Points积分</font>
+              </font>
+            </td>
+            <td width="50%" class="text-right">
+              <font>
+                <font>₱1000.0000</font>
+              </font>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%" class="text-left">
+              <font>
+                <font>美元</font>
+              </font>
+            </td>
+            <td width="50%" class="text-right">
+              <font>
+                <font>$ 153.7891</font>
+              </font>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%" class="text-left">
+              <font>
+                <font>卢布</font>
+              </font>
+            </td>
+            <td width="50%" class="text-right">
+              <font>
+                <font>R 151</font>
+              </font>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-database"></i>
+        <font>
+          <font> 活跃存款</font>
+        </font>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-sm-3 col-xs-6">
+        <font>
+          <font>
+            levels.level-1 </font>
+        </font><span class="text-success"><font><font>（60％）</font></font></span>
+      </div>
+      <div class="col-sm-3 col-sm-offset-6 text-right col-xs-6">
+        <font>
+          <font>
+            levels.level-1 </font>
+        </font><span class="text-muted"><font><font>（60％）</font></font></span>
+      </div>
+      <div class="m-t-10 col-xs-12">
+        <div class="progress text-center" style="margin-bottom: 0;">
+          <div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100" style="width: 50%">
+            <span class=""><font><font>
+                                50％
+                            </font></font></span>
+          </div>
+        </div>
+        <div class="col-xs-3 text-muted">
+          <small><font><font>投资总额：200$</font></font></small>
+        </div>
+        <div class="col-xs-6 text-center text-muted">
+          <small><font><font>进度到level.level-1计划</font></font></small>
+        </div>
+        <div class="col-xs-3 text-right text-muted">
+          <small><font><font>$ 25</font></font></small>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive" style="height: 150px; overflow: auto;">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">
+              <font>
+                <font>ID</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font>状态</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font>经营资本</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font class="">可提现</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font>投资回报率</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font>剩余复利天数</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font>分红倒计时</font>
+              </font>
+            </th>
+            <th class="text-center">
+              <font>
+                <font>操作</font>
+              </font>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <td>0001</td>
+            <td>在线</td>
+            <td>$400</td>
+            <td>$200</td>
+            <td>1.274%</td>
+            <td>2天</td>
+            <td>20h 40m 2s</td>
+            <td>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="更改复合比例"></i>
+              </a>
+              <a href="#/app/invest_withdraw">
+                <i class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="撤回本金"></i>
+              </a>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td>0001</td>
+            <td>在线</td>
+            <td>$400</td>
+            <td>$200</td>
+            <td>1.274%</td>
+            <td>2天</td>
+            <td>20h 40m 2s</td>
+            <td>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="更改复合比例"></i>
+              </a>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="撤回本金"></i>
+              </a>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td>0001</td>
+            <td>在线</td>
+            <td>$400</td>
+            <td>$200</td>
+            <td>1.274%</td>
+            <td>2天</td>
+            <td>20h 40m 2s</td>
+            <td>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="更改复合比例"></i>
+              </a>
+              <a href="#/app/invest_withdraw">
+                <i class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="撤回本金"></i>
+              </a>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td>0001</td>
+            <td>在线</td>
+            <td>$400</td>
+            <td>$200</td>
+            <td>1.274%</td>
+            <td>2天</td>
+            <td>20h 40m 2s</td>
+            <td>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="更改复合比例"></i>
+              </a>
+              <a href="#/app/invest_withdraw">
+                <i class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="撤回本金"></i>
+              </a>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td>0001</td>
+            <td>在线</td>
+            <td>$400</td>
+            <td>$200</td>
+            <td>1.274%</td>
+            <td>2天</td>
+            <td>20h 40m 2s</td>
+            <td>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="更改复合比例"></i>
+              </a>
+              <a href="#/app/invest_withdraw">
+                <i class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="撤回本金"></i>
+              </a>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td>0001</td>
+            <td>在线</td>
+            <td>$400</td>
+            <td>$200</td>
+            <td>1.274%</td>
+            <td>2天</td>
+            <td>20h 40m 2s</td>
+            <td>
+              <a href="#/app/invest_scale">
+                <i class="glyphicon glyphicon-resize-small" data-toggle="tooltip" data-placement="top" title="更改复合比例"></i>
+              </a>
+              <a href="#/app/invest_withdraw">
+                <i class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="top" title="撤回本金"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

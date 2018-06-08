@@ -1,0 +1,124 @@
+<div class="wrapper" ng-controller="ModDemoCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.account.breadcrumb2">个人资料</a></li>
+        <li class="active" translate="PAGE.account.modifyInfo.title">修改个人资料</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.account.modifyInfo.title">修改个人资料</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal xhr-form ng-pristine ng-valid form-validation" name="form">
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.userCode">会员编号：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" class="form-control" id="UserCode" placeholder="" disabled ng-model="user.userCode"  >
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.nickName">姓名：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" class="form-control" id="NickName" placeholder="" ng-model="user.nickName" disabled>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.idNumber">身份证信息：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" name="cardId" class="form-control" id="CardNo" placeholder="" ng-model="user.iD_Number"  disabled >
+                        <p ng-show="form.cardId.$invalid && !form.cardId.$pristine" class="help-block">请输入正确的身份证号码.</p>
+
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.bankName">开户银行：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" class="form-control"  placeholder=""  ng-model="user.bankName">
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.bankUserName">开户姓名：</span><i class="void"></i></font></font></label>
+                   
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+
+                        <input type="text" style="width:100%" class="form-control" id="BankUserName" placeholder="" ng-model="user.bankUserName">
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.bankAddress">支行信息：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text" style="width:100%" class="form-control" id="bankAddress" placeholder="" ng-model="user.bankAddress">
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.secretSecurityId">密保问题：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <select class="userLevel form-control" id="userLevel" ng-model="user.secretSecurityId">
+                            <option value="{{item.value}}"  ng-selected="user.secretSecurityId==item.value" ng-repeat="item in secretSecurityList">{{item.text}}</option>
+                        </select>                   
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font><span translate="PAGE.account.modifyInfo.secretSecurityMatchText">密保答案：</span><i class="void"></i></font></font></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <input type="text"  class="form-control" ng-model="user.secretSecurityMatchText" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"  ></div>
+                <div class="form-group"  >
+                    <label class="control-label col-sm-4 col-md-3 col-lg-3"><span translate="PAGE.account.modifyInfo.erea">地区信息：</span><i class="void"></i></label>
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select  class="form-control" ng-model="selectedProvince"  ng-change="loadCity()">
+                                    <option  ng-selected="selectedProvince==item.areaCode"  value="{{item.areaCode}}" ng-repeat="item in regionData">{{item.areaName}}</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-md-4" >  
+                                <select class="form-control" ng-model="selectedCity"  ng-change="loadDistrict()" >
+                                   
+                                          
+                                    <option ng-selected="selectedCity==item.areaCode" value="{{item.areaCode}}" ng-repeat="item in citys">{{item.areaName}}</option>
+                                    
+                                     
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" ng-model="selectedDstrict">
+                                    <option  ng-selected="selectedDstrict==item.areaCode"  value="{{item.areaCode}}" ng-repeat="item in districts">{{item.areaName}}</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <div class="col-lg-offset-5 col-lg-10">
+                        <button type="submit"  ng-click="mod(form.$valid)" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                            <span class="text" translate="BUTTON.savemodify">保存更改</span>
+                            <span class="text-active" translate="BUTTON.saveing">保存中...</span>
+                            <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                        </button>
+                        
+                    </div>
+                </div>
+               
+            </form>
+        </div>
+    </div>
+</div>
+ 

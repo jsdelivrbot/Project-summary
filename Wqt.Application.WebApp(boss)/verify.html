@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var userInfo = JSON.parse(window.localStorage['userInfo'] || '{}');
+        isLogin = userInfo.isLogin;
+
+        if(isLogin) {
+            window.location.href ='/index.html#/app/dashboard-v1';
+        } else {
+            window.location.href ='/Login.html#/';
+        }
+    </script>
+</body>
+</html>

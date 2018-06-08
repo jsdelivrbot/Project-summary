@@ -1,0 +1,60 @@
+﻿<div ng-controller="shop_indexController">
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+        <li><a href="">在线购物</a></li>
+        <li class="active">购物广场</li>
+    </ul>
+
+    <!--shop_info S-->
+    <div class=" shop_info shop_bx shopHall" >
+        <div class="bos_select" >
+            <div class="bos_select_top">
+                套餐分类
+            </div>
+            <div class="bos_select_content">
+                <ul>
+                    <li class="active"  ng-repeat="c in productList" on-finish>{{c.name}}</li>
+                </ul>
+            </div>
+            <div class="bos_select_bottom">
+                收起
+            </div>
+        </div>
+
+        <div class="bos_list">
+            <div class="bos_item active" ng-repeat="c in productList" id="BOS{{$index}}">
+                <div class="bos_item_top">
+                   {{c.name}}
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in c.productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="{{item.imageUrl}}" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <!--shop_info E-->
+</div>

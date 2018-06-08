@@ -1,0 +1,133 @@
+﻿<div class="wrapper-md" ng-controller="transaction_jyjf_csjl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/app/transaction_jyjfdt"><i class="fa fa-btc"></i> EP交易市场</a></li>
+        <li><a href="#/app/transaction_jyjf_csjl" translate="PAGE.jydt.EPJY.csjl.title">出售记录</a></li>
+    </ul>
+    <div class="form-horizontal">
+        <div class="panel panel-default customPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <font>
+                        <font class="customTitle" translate="PAGE.jydt.EPJY.csjl.query"> 查询</font>
+                    </font>
+                </h3>
+            </div>
+
+            <div class="panel-body clearfix  query-panel">
+                <div class="form-group col-sm-2">
+                    <input type="text" ng-model="SerialNumber" ng-enter="query()" class="form-control" placeholder="请输入查询流水">
+                </div>
+                <div class="form-group col-sm-4 clearfix">
+                    <label class="control-label col-xs-4" translate="QUERY.startTime" translate="PAGE.jydt.EPJY.csjl.startTime">开始时间：</label>
+                    <div class="col-xs-8">
+                        <selectdatestart></selectdatestart>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4 clearfix">
+                    <label class="control-label col-xs-4" translate="QUERY.endTime" translate="PAGE.jydt.EPJY.csjl.endTime">结束时间：</label>
+                    <div class="col-xs-8">
+                        <selectdateend></selectdateend>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 text-center">
+                    <button type="button" id="btnSearch" ng-click="query()" class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                        <span class="text"><i class="fa fa-search"></i>&nbsp;{{'BUTTON.query'|translate}}</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;{{'BUTTON.querying'|translate}}</span>
+                        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.jydt.EPJY.csjl.title">   出售记录</font>
+                </font>
+            </h3>
+            
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:5%" translate="PAGE.jydt.EPJY.csjl.order">序号</th>
+                            <th style="width:15%" translate="PAGE.jydt.EPJY.csjl.serialNumber">交易流水号</th>
+                            <th style="width:10%" translate="PAGE.jydt.EPJY.csjl.type">类型</th>
+                            <th style="width:10%" translate="PAGE.jydt.EPJY.csjl.count">数额</th>
+                            <th style="width:5%" translate="PAGE.jydt.EPJY.csjl.price">价格</th>
+                            <th style="width:15%" translate="PAGE.jydt.EPJY.csjl.time">时间</th>
+                            <th style="width:15%" translate="PAGE.jydt.EPJY.csjl.status">状态</th>
+                            <th style="width:15%" translate="PAGE.jydt.EPJY.csjl.operate">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.serialNumber}}
+                            </td>
+                            <td>
+                                {{item.typeText}}
+                            </td>
+                            <td>
+                                {{item.total}}
+                            </td>
+                            <td>
+                                {{item.price}}
+                            </td>
+                            <td>
+                                {{item.createDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+                                <a href="#/app/transaction_jyjf_csjl_money" class="btn btn-primary" translate="PAGE.jydt.EPJY.csjl.checkTrade">查看交易</a>
+                                <button type="button" ng-click="Submit('transaction_jyjf_csjl_cx.html',item.serialNumber)" ng-show="item.isCancel" class="btn btn-primary jh" translate="PAGE.jydt.EPJY.csjl.back">撤销</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               <tablelistdatashow></tablelistdatashow>
+                  
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--撤销窗口-->
+<script type="text/ng-template" id="transaction_jyjf_csjl_cx.html">
+    <div class="panel-heading" translate="PAGE.jydt.EPJY.csjl.confirmBuy">
+        购买确认
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center" style="color: #b9b9b9;">
+        <p></p>
+        {{'PAGE.jydt.EPJY.csjl.confirmSell'|translate}}
+        <p></p>
+    </div>
+    <div class="panel-group customstyle" style="margin-bottom: 0px;">
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-info"
+                ng-click="Confirm()" translate="BUTTON.confirm">
+            确定
+        </button>
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-primary"
+                ng-click="closeThisDialog()" translate="BUTTON.cancel">
+            取消
+        </button>
+    </div>
+</script>

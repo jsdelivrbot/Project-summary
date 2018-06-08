@@ -1,0 +1,133 @@
+﻿<div class="wrapper-md" >
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.news.breadcrumb2">信息管理</a></li>
+        <li class="active" translate="PAGE.news.Mymessage.title">我的留言</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+        <tab heading="{{'PAGE.news.Mymessage.mymessage'|translate}}" my-language="true"  active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                <div class="panel-heading font-bold" translate="PAGE.news.Mymessage.title">
+                    <font>
+                        <font class="customTitle">    我的留言</font>
+                    </font>
+                    
+                </div>
+                <div class="panel-body"  ng-controller="MymessageCtrl">
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th style="width:8%" translate="ORDER">序号</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.MainTitle">主标题</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.SubTitle">副标题</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.isReadText">是否已读</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.createDate">留言时间</th>
+                                    <th style="width:20%" translate="PAGE.news.Mymessage.operation">操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in rows">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{item.mainTitle}}
+                                    </td>
+                                    <td>
+                                        {{item.subTitle}}
+                                    </td>
+                                    <td>
+                                        {{item.isReadText}}
+                                    </td>
+                                    <td>
+                                        {{item.createDate}}
+                                    </td>
+                                    <td>
+                                        <button type="button" ng-click="check(item,$index)" class="btn btn-primary" translate="BUTTON.check">查看</button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                       <tablelistdatashow></tablelistdatashow>
+                           
+                       
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-lg-12 text-center" ng-hide="noData">
+                                    <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                                </div>
+                            </div>
+                        </footer>
+
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="{{'PAGE.news.Mymessage.unreadmessage'|translate}}" my-language="true"  active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default" style="margin-top: 10px;">
+                <div class="panel-heading font-bold" translate="PAGE.news.Mymessage.unread">
+                    <font>
+                        <font class="customTitle">    未读留言</font>
+                    </font>
+                    
+                </div>
+                <div class="panel-body" ng-controller="UnReadmessageCtrl">
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th style="width:8%" translate="ORDER">序号</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.MainTitle">主标题</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.SubTitle">副标题</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.isReadText">是否已读</th>
+                                    <th style="width:15%" translate="PAGE.news.Mymessage.createDate">留言时间</th>
+                                    <th style="width:20%" translate="PAGE.news.Mymessage.operation">操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in rows">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{item.mainTitle}}
+                                    </td>
+                                    <td>
+                                        {{item.subTitle}}
+                                    </td>
+                                    <td>
+                                        {{item.isReadText}}
+                                    </td>
+                                    <td>
+                                        {{item.createDate}}
+                                    </td>
+                                    <td>
+                                        <button type="button" ng-click="check(item,$index)" class="btn btn-primary" translate="BUTTON.check">查看</button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                       <tablelistdatashow></tablelistdatashow>
+                           
+
+                       
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-lg-12 text-center" ng-hide="noData">
+                                    <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                                </div>
+                            </div>
+                        </footer>
+
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

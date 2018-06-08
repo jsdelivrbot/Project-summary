@@ -1,0 +1,161 @@
+﻿<style>
+    .tab-container .tab-content {
+        background-color: #f0f3f4 !important;
+        padding-left: 0px;
+    }
+</style>
+<div class="wrapper-md">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.finance.breadcrumb2">财务管理</a></li>
+        <li class="active" translate="PAGE.finance.exchange.title">货币兑换</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+        <tab heading="{{'PAGE.finance.exchange.title'|translate}}" active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="finance_exchangeSet">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.finance.exchange.title">货币兑换</font>
+                        </font>
+                    </h3>
+
+                </div>
+                <div class="panel-body">
+                    <form name="form" class="form-validation form-horizontal">
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.exchange.exType">货币类型<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select class="BankName form-control" ng-model="outCurrency" ng-change="HBLXchange(outCurrency)" required>
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option value="4" translate="PAGE.finance.exchange.exEp">EP账户</option>
+                                    <option value="1">购物积分</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.exchange.exTransferred">转入货币<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select class="BankName form-control" ng-model="intoCurrency" required>
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option value="3" translate="PAGE.finance.exchange.exRP">RP账户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.exchange.exRatio">比率<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10 control-label text-left">
+                                {{BLText}}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.exchange.exBalance">剩余金额</label>
+                            <div class="col-sm-10 control-label text-left">
+                                {{UserMoney}}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.exchange.exAccount">转账金额<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" onkeyup="value=value.replace(/[^\d.]/g,'')" id="CZmoney" ng-model="PayMoney" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-5 col-lg-5 col-sm-offset-4 col-md-offset-3 col-lg-offset-2">
+                                <button type="submit" ng-click="Submit(form.$valid)" class="btn btn-primary" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                                    <span class="text" translate="BUTTON.submit">提交</span><span class="text-active" translate="BUTTON.submitting">提交中...</span>
+                                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </tab>
+        <tab heading="{{'PAGE.finance.exchange.exRecords'|translate}}" active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="finance_exchangeList">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.finance.exchange.title" translate="PAGE.finance.exchange.exRecords">兑换记录</font>
+                        </font>
+                    </h3>
+                </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                        <tr>
+                            <th style="width:10%" translate="ORDER" translate="PAGE.finance.exchange.exSerial">序号</th>
+                            <th style="width:15%" translate="PAGE.finance.exchange.exOut">转出货币</th>
+                            <th style="width:15%" translate="PAGE.finance.exchange.exTransferred">转入货币</th>
+                            <th style="width:10%" translate="PAGE.finance.exchange.exOut">转出金额</th>
+                            <th style="width:10%" translate="PAGE.finance.exchange.exRatio">比率</th>
+                            <th style="width:10%" translate="PAGE.finance.exchange.exAccount">转入金额</th>
+                            <th style="width:30%" translate="PAGE.finance.exchange.exCreateDate">创建日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in rows">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.fromCurrencyText}}
+                            </td>
+                            <td>
+                                {{item.toCurrencyText}}
+                            </td>
+                            <td>
+                                {{item.amount}}
+                            </td>
+                            <td>
+                                {{item.bLText}}
+                            </td>
+                            <td>
+                                {{item.toAmount}}
+                            </td>
+                            <td>
+                                {{item.createDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <tablelistdatashow></tablelistdatashow>
+                    <tablelistfooter></tablelistfooter>
+                </div>
+            </div>
+                </div>
+        </tab>
+    </tabset>
+</div>
+
+<!--转账弹窗-->
+<!--<div ng-controller="Modal_transfer">
+    <script type="text/ng-template" id="myModal_transfer.html" />
+    <div class="modal-header">
+        转账操作
+    </div>
+    <div class="modal-body">
+        <ul>
+            <li ng-repeat="item in items">
+                <a ng-click="selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+    </script>
+    <button class="btn" ng-click="open()">Open me!</button>
+</div>-->
+  

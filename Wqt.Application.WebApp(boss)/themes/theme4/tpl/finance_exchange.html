@@ -1,0 +1,158 @@
+﻿
+<div class="wrapper-md">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="">财务管理</a></li>
+        <li class="active">货币兑换</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+        <tab heading="货币兑换" active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="finance_exchangeSet">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">货币兑换</font>
+                        </font>
+                    </h3>
+
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="get">
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">货币类型<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select class="BankName form-control" ng-model="outCurrency">
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option value="1">EP账户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">转入货币<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select class="BankName form-control" ng-model="intoCurrency">
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option value="1">RP账户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">比率<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10 control-label text-left">
+                                1:1
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">剩余金额</label>
+                            <div class="col-sm-10 control-label text-left">
+                                {{UserMoney}}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">转账金额<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" onkeyup="value=value.replace(/[^\d.]/g,'')" id="CZmoney" ng-model="PayMoney">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-5 col-lg-5 col-sm-offset-4 col-md-offset-3 col-lg-offset-2">
+                                <button type="button" ng-click="Submit()" class="btn btn-primary" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                                    <span class="text">提交</span><span class="text-active">提交中...</span>
+                                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-info" ng-click="refresh()">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </tab>
+        <tab heading="兑换记录" active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="finance_exchangeList">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">兑换记录</font>
+                        </font>
+                    </h3>
+
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th style="width:8%" translate="ORDER">序号</th>
+                                    <th style="width:15%">转出会员</th>
+                                    <th style="width:15%">转入会员</th>
+                                    <th style="width:15%">转账金额</th>
+                                    <th style="width:15%">手续费</th>
+                                    <th style="width:20%">合计</th>
+                                    <th style="width:20%">创建日期</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in rows">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{item.fromUserCode}}
+                                    </td>
+                                    <td>
+                                        {{item.toUserCode}}
+                                    </td>
+                                    <td>
+                                        {{item.amount}}
+                                    </td>
+                                    <td>
+                                        {{item.serviceFee}}
+                                    </td>
+                                    <td>
+                                        {{item.total}}
+                                    </td>
+                                    <td>
+                                        {{item.createDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <tablelistdatashow></tablelistdatashow>
+                        <tablelistfooter></tablelistfooter>
+                    </div>
+                </div>
+        </tab>
+    </tabset>
+</div>
+
+<!--转账弹窗-->
+<!--<div ng-controller="Modal_transfer">
+    <script type="text/ng-template" id="myModal_transfer.html" />
+    <div class="modal-header">
+        转账操作
+    </div>
+    <div class="modal-body">
+        <ul>
+            <li ng-repeat="item in items">
+                <a ng-click="selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+    </script>
+    <button class="btn" ng-click="open()">Open me!</button>
+</div>-->
+  

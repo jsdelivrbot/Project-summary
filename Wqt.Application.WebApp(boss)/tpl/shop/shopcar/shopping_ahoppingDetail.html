@@ -1,0 +1,110 @@
+﻿<div class="wrapper-md" ng-controller="ShoppingCarDetailCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+        <li><a href="" translate="PAGE.shop.breadcrumb2">在线购物</a></li>
+        <li class="active" translate="PAGE.shop.shopcar.shopCarDetail.title">购物车详情</li>
+    </ul>
+    <div class="shopCarDetail">
+        <form class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.shop.shopcar.shopCarDetail.Adress">收货地址</font>
+                        </font>
+                    </h3>
+
+
+                </div>
+                <div class="panel-body">
+
+                    <div style="margin: 10px 0;">
+
+                        <div class="radio" ng-repeat="item in AddressList">
+                            <label>
+                                <input type="radio" name="AddressId" ng-model="createOrder.DeliveryAddressId" value="{{item.id}}" ng-checked="item.isDefault">
+                                {{item.address}}&nbsp;&nbsp; {{item.mobile}}&nbsp;&nbsp; {{item.recipient}}&nbsp;&nbsp; {{item.zipCode}}
+                            </label>
+                        </div>
+
+                    </div>
+                    <a class="btn-sm btn-primary btn" ng-click="addAddress()" name=""><span class="glyphicon glyphicon-plus"></span> {{'PAGE.shop.shopcar.shopCarDetail.addAdress'|translate}}</a>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.shop.shopcar.shopCarDetail.descripte">描述</font>
+                        </font>
+                    </h3>
+                </div>
+
+                <div class="panel-body">
+                    <textarea class="form-control" ng-model="createOrder.description" cols="20" data-val="true" data-val-length="'备注' 字符长度应介于 1 and 500 ." data-val-length-max="500" data-val-length-min="1" id="Description" name="Description" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.shop.shopcar.shopCarDetail.orderDetail">订单详情</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th translate="PAGE.shop.shopcar.shopCarDetail.product">产品</th>
+                            <th translate="PAGE.shop.shopcar.shopCarDetail.price">价格</th>
+                            <th translate="PAGE.shop.shopcar.shopCarDetail.buyCount">购买数量</th>
+                            <th translate="PAGE.shop.shopcar.shopCarDetail.total">合计</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in productItems">
+                            <td>
+                                <img style="width: 80px; height: 80px;" src="/upload/product/2017081811240168045.png">
+                                {{item.productName}}
+                            </td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.count}}</td>
+                            <td>{{item.price*item.count}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'PAGE.shop.shopcar.shopCarDetail.total'|translate}}：</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{getTotalAmount()}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default" style="display: none">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.shop.shopcar.shopCarDetail.payWay">支付方式</font>
+                        </font>
+                    </h3>
+
+
+                </div>
+                <div class="panel-body" style="width: 150px; ">
+                    <select class="form-control valid" ng-model="createOrder.PayItemId">
+                        <option value="100" translate="PAGE.shop.shopcar.shopCarDetail.U">消费积分</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="text-center">
+                    <button class="btn btn-success" ng-click="placeOrder(AddressList,productItems)" translate="PAGE.shop.shopcar.shopCarDetail.sumbitOrder">提交订单</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

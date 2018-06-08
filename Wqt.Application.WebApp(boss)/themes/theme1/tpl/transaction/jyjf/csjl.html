@@ -1,0 +1,134 @@
+﻿<div class="wrapper-md" ng-controller="transaction_jyjf_csjl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/app/transaction_jyjfdt"><i class="fa fa-btc"></i> 交易积分交易大厅</a></li>
+        <li><a href="#/app/transaction_jyjf_csjl">出售记录</a></li>
+    </ul>
+    <div class="form-horizontal">
+        <div class="panel panel-default customPanel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <font>
+                        <font>查询</font>
+                    </font>
+                </h3>
+            </div>
+            <div class="panel-body clearfix  query-panel">
+                <div class="form-group col-sm-2">
+                    <input type="text" ng-model="SerialNumber" ng-enter="query()" class="form-control" placeholder="请输入查询流水">
+                </div>
+                <div class="form-group col-sm-4 clearfix">
+                    <label class="control-label col-xs-4" translate="QUERY.startTime">开始时间：</label>
+                    <div class="col-xs-8">
+                        <selectdatestart></selectdatestart>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4 clearfix">
+                    <label class="control-label col-xs-4" translate="QUERY.endTime">结束时间：</label>
+                    <div class="col-xs-8">
+                        <selectdateend></selectdateend>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 text-center">
+                    <button type="button" id="btnSearch" ng-click="query()" class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                        <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">   出售记录</font>
+                </font>
+            </h3>
+            
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:5%">序号</th>
+                            <th style="width:15%">交易流水号</th>
+                            <th style="width:10%">类型</th>
+                            <th style="width:10%">数额</th>
+                            <th style="width:5%">价格</th>
+                            <th style="width:15%">时间</th>
+                            <th style="width:15%">状态</th>
+                            <th style="width:15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.serialNumber}}
+                            </td>
+                            <td>
+                                {{item.typeText}}
+                            </td>
+                            <td>
+                                {{item.total}}
+                            </td>
+                            <td>
+                                {{item.price}}
+                            </td>
+                            <td>
+                                {{item.createDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+                                <a href="#/app/transaction_jyjf_csjl_money" class="btn btn-primary">查看交易</a>
+                                <button type="button" ng-click="Submit('transaction_jyjf_csjl_cx.html',item.serialNumber)" ng-show="item.isCancel" class="btn btn-primary jh">撤销</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               <tablelistdatashow></tablelistdatashow>
+                  
+               
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--撤销窗口-->
+<script type="text/ng-template" id="transaction_jyjf_csjl_cx.html">
+    <div class="panel-heading">
+        购买确认
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <p></p>
+        您确认撤销出售么？
+        <p></p>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-group customstyle" style="margin-top: 15px;margin-bottom: 0px;">
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-primary"
+                ng-click="Confirm()">
+            确定
+        </button>
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-primary"
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>

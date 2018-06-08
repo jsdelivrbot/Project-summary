@@ -1,0 +1,222 @@
+
+
+<div class="wrapper-md" ng-controller="finance_withdraw">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="">财务管理</a></li>
+        <li class="active">提现管理</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+        <tab heading="提现管理" active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">    提现管理</font>
+                        </font>
+                    </h3>
+                    
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" ng-controller="TXJEcontroller">
+                        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">银行账户 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-7">
+                                <select name="account" class="form-control m-b" id="testId" ng-model="BankSelectVal" ng-change="BankChange(BankSelectVal)" required>
+                                    <option ng-repeat="items in BankAccountList" value="{{items.id}}">{{items.bank + ' ' +items.cardCode}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary" ng-click="open()"><i class="fa fa-plus" style="font-size: 2px; color: white; background-color: transparent;"></i> 添加账户</button> 
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提现类型 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select name="account" class="form-control m-b" id="testId" ng-model="HBSelectVal" ng-change="SelectChang(HBSelectVal)" required>
+                                    <option ng-repeat="items in HBSelectIndex" value="{{$index+1}}">{{items.currentName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">账户余额&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="{{UserMoney}}" readonly class="form-control" style="border: none;">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提现金额 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="number" value="" class="form-control" ng-model="BuyMoney" ng-blur="BuyMoneyEvent()">
+                                <span>提前金额最少为500</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 汇 率 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="{{Parities}}" readonly class="form-control" style="border: none;">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">到账类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="人民币" readonly class="form-control" style="border: none;">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">换算金额&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="{{ CalcMoney | number:2}}" readonly class="form-control" style="border: none;">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手 续 费 &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="{{ServeMoney+'%'}}" readonly class="form-control" style="border: none;">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">到账金额&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="number" value="{{TrueRealMoney}}" readonly class="form-control" style="border: none;">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-5 col-lg-5 col-sm-offset-4 col-md-offset-3 col-lg-offset-2">
+                                <button type="button" ng-click="Submit()" class="btn btn-primary" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                                    <span class="text">提交</span><span class="text-active">提交中...</span>
+                                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-info" ng-click="refresh()">刷新</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </tab>
+        <tab heading="提现记录" active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">    提现记录</font>
+                        </font>
+                    </h3>
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">货币类型</th>
+                                    <th style="width:20%">货币</th>
+                                    <th style="width:15%">转换比例</th>
+                                    <th style="width:15%">服务费</th>
+                                    <th style="width:15%">真实货币</th>
+                                    <th style="width:20%">账户信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in rows">
+                                    <td>
+                                        {{item.realCurrencyId}}
+                                    </td>
+                                    <td>
+                                        {{item.realAmount}}
+                                    </td>
+                                    <td>
+                                        {{item.bLText}}
+                                    </td>
+                                    <td>
+                                        {{item.serviceFee}}
+                                    </td>
+                                    <td>
+                                        {{item.amount}}
+                                    </td>
+                                    <td>
+                                        {{item.userBankAccount}}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <pagination total-items="totalItems" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                                </div>
+                            </div>
+                        </footer>
+
+                    </div>
+                </div>
+            </div>
+        </tab>
+
+    </tabset>
+</div>
+
+<!--弹窗、添加银行卡-->
+
+    <script type="text/ng-template" id="TXAddBankList.html">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">添加银行卡</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal xhr-form" name="form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font>银行名称</font></font></label>
+                            <div class="col-sm-8 col-md-9 col-lg-10">
+                                <input type="text" class="form-control" ng-model="BankAccountName" placeholder="中国银行"  >
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font>银行卡号</font></font></label>
+                            <div class="col-sm-8 col-md-9 col-lg-10">
+                                <input type="text" class="form-control" ng-model="BankAccountCode" placeholder="" >
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 col-md-3 col-lg-3"><font><font>户主姓名</font></font></label>
+                            <div class="col-sm-8 col-md-9 col-lg-10">
+                                <input type="text" class="form-control" ng-model="BankUserName" placeholder="" >
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-xs-offset-8">
+                                <button type="submit" class="btn btn-primary"
+                                        ng-click="Confirm()">
+                                    确定
+                                </button>
+                                <button type="submit" class="btn btn-primary"
+                                        ng-click="closeThisDialog()">
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </script>

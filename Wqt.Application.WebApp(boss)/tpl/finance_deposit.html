@@ -1,0 +1,333 @@
+<link href="../css/finance_deposit.css" rel="stylesheet" />
+<style>
+    .tab-container .tab-content {
+        background-color: #f0f3f4 !important;
+        padding-left: 0px;
+    }
+</style>
+<div class="wrapper-md">
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.finance.breadcrumb2">财务管理</a></li>
+        <li class="active" translate="PAGE.finance.bonus.title">汇款充值</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false, step3:false, step4:false, step5:false, step6:false}">
+        <tab heading="充值设置" active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">充值设置</font>
+                        </font>
+                    </h3>
+                    
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="get">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">充值方式</label>
+                            <div class="col-sm-10">
+                                <div class="radio depositRadio col-sm-5 ">
+                                    <label class="i-checks">
+                                        <input type="radio" name="a" value="">
+                                        <i></i>
+                                        线上充值
+                                    </label>
+                                </div>
+                                <div class="radio depositRadio col-sm-5">
+                                    <label class="i-checks">
+                                        <input type="radio" name="a" value="">
+                                        <i></i>
+                                        线下银行汇款
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">充值账户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="现金账户">
+                                <span class="help-block m-b-none">请选择正确账户</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">收款账户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                <span class="help-block m-b-none">请选择正确账户</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">充值金额 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                <span class="help-block m-b-none">请选择正确账户</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">汇款银行 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                <span class="help-block m-b-none">请选择正确账户</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">汇款卡号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                <span class="help-block m-b-none">请选择正确账户</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <div ui-jq="wysiwyg" class="form-control" style="overflow:scroll;height:200px;max-height:200px">
+                                    Go ahead&hellip;
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </tab>
+        <tab heading="网上银行汇款充值" active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">网上银行汇款充值</font>
+                        </font>
+                    </h3>
+                    
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="get">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn m-b-xs btn-sm btn-info btn-addon"><i class="fa  fa-credit-card"></i>两步完成充值</button>
+                            </div>
+                            <div class="col-xs-6 col-sm-4">
+                                <button class="btn m-b-xs btn-sm btn-info btn-addon"> <i>1</i> 提交汇款单</button>
+                            </div>
+                            <div class="col-xs-6 col-sm-4">
+                                <button class="btn m-b-xs btn-sm btn-info btn-addon"> <i>2</i> 网银转账</button>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">汇款人姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="仅支持您本人银行卡">
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择银行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                <span class="help-block m-b-none">请选择正确账户</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">充值金额 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">汇款银行 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">汇款卡号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control">
+                                
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <div class="col-sm-10">
+                                <div ui-jq="wysiwyg" class="form-control" style="overflow:scroll;height:200px;max-height:200px">
+                                    Go ahead&hellip;
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </tab>
+        <tab heading="支付宝扫码充值" active="steps.step3" select="steps.percent=60">
+            <p class="m-b">Congraduations! You got the last step.</p>
+            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+            <p>Just one click to finish it.</p>
+            <div class="m-t m-b">
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100">Click me to Finish</button>
+            </div>
+        </tab>
+        <tab heading="BTC充值" active="steps.step4" select="steps.percent=60">
+            <p class="m-b">Congraduations! You got the last step.</p>
+            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+            <p>Just one click to finish it.</p>
+            <div class="m-t m-b">
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100">Click me to Finish</button>
+            </div>
+        </tab>
+        <tab heading="LTC充值" active="steps.step5" select="steps.percent=60">
+            <p class="m-b">Congraduations! You got the last step.</p>
+            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+            <p>Just one click to finish it.</p>
+            <div class="m-t m-b">
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100">Click me to Finish</button>
+            </div>
+        </tab>
+        <tab heading="ETH充值" active="steps.step6" select="steps.percent=60">
+            <p class="m-b">Congraduations! You got the last step.</p>
+            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+            <p>Just one click to finish it.</p>
+            <div class="m-t m-b">
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>
+                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100">Click me to Finish</button>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+
+<!--<div class="wrapper">
+    <div>
+        <ul class="nav nav-tabs">
+            <li class=" active">
+                <a href="javascript:;">
+                    <font>
+                        <font>充值</font>
+                    </font>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <font>
+                        <font>人民币充值</font>
+                    </font>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <font>
+                        <font>BTC充值</font>
+                    </font>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <font>
+                        <font>LTC充值</font>
+                    </font>
+                </a>
+            </li>
+            <li class="">
+                <a href="javascript:;">
+                    <font>
+                        <font>ETH充值</font>
+                    </font>
+                </a>
+            </li>
+        </ul>
+        <div class="panel panel-default" style="margin-top: 10px;">
+            <div class="panel-heading font-bold">
+                充值设置
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" method="get">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">充值方式</label>
+                        <div class="col-sm-10">
+                            <div class="radio col-sm-5">
+                                <label class="i-checks">
+                                    <input type="radio" name="a" value="">
+                                    <i></i>
+                                    线上充值
+                                </label>
+                            </div>
+                            <div class="radio col-sm-5">
+                                <label class="i-checks">
+                                    <input type="radio" name="a" value="">
+                                    <i></i>
+                                    线下银行汇款
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">充值账户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control rounded" placeholder="现金账户">
+                            <span class="help-block m-b-none">请选择正确账户</span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">收款账户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control">
+                            <span class="help-block m-b-none">请选择正确账户</span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">充值金额 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control">
+                            <span class="help-block m-b-none">请选择正确账户</span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">汇款银行 <i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control">
+                            <span class="help-block m-b-none">请选择正确账户</span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">汇款卡号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control">
+                            <span class="help-block m-b-none">请选择正确账户</span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <div class="col-sm-10">
+                            <div ui-jq="wysiwyg" class="form-control" style="overflow:scroll;height:200px;max-height:200px">
+                                Go ahead&hellip;
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>-->

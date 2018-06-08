@@ -1,0 +1,74 @@
+﻿<div class='wrapper-md' ng-controller='ShoppingCarDetailCtrl'>
+    <div>
+        <form  class='form-horizontal'>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>收货地址</div>
+                <div class='panel-body'>
+                  
+                    <div style='margin: 10px 0;' >
+                       
+                        <div class='radio' ng-repeat='item in AddressList'>
+                            <label>
+                                <input type='radio' name='AddressId' ng-model='createOrder.DeliveryAddressId' value='{{item.id}}' ng-checked='item.isDefault'>
+                                {{item.address}}&nbsp;&nbsp; {{item.mobile}}&nbsp;&nbsp; {{item.recipient}}&nbsp;&nbsp; {{item.zipCode}}
+                            </label>
+                        </div>
+                       
+                    </div>
+                    <a class='btn-sm btn-primary btn' ng-click='addAddress()' name=''><span class='glyphicon glyphicon-plus'></span> 添加新地址</a>
+                </div>
+            </div>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>描述</div>
+                <div class='panel-body'>
+                    <textarea class='form-control' ng-model='createOrder.description' cols='20' data-val='true' data-val-length=''备注' 字符长度应介于 1 and 500 .' data-val-length-max='500' data-val-length-min='1' id='Description' name='Description' rows='2'></textarea>
+                </div>
+            </div>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>订单详情</div>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>产品</th>
+                            <th>价格</th>
+                            <th>购买数量</th>
+                            <th>合计</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='item in productItems'>
+                            <td>
+                                <img style='width:80px;height:80px;' src='/upload/product/2017081811240168045.png'>
+                                {{item.productName}}
+                            </td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.count}}</td>
+                            <td>{{item.price*item.count}}</td>
+                        </tr>
+                        <tr>
+                            <td>合计：</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{getTotalAmount()}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>支付方式</div>
+                <div class='panel-body' style='width:150px;'>
+                    <select class='form-control valid' ng-model='createOrder.PayItemId'>
+                        <option value='100'>U板币支付</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class='pull-right'>
+                    <button class='btn btn-success' ng-click='placeOrder(AddressList,productItems)'>提交订单</button>
+                </div>
+            </div>
+           
+        </form>
+    </div>
+</div>

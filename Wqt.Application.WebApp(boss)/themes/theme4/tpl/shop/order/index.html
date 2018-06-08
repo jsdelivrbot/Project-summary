@@ -1,0 +1,66 @@
+﻿<div class="wrapper-md" ng-controller="ShoppingOrderCtrl">
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+        <li><a href="">在线购物</a></li>
+        <li class="active">我的订单</li>
+    </ul>
+    <div class="panel panel-default" style="margin-top: 10px;">
+        <div class="panel-heading">
+            订单列表
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:15%">订单号</th>
+                            <th style="width:15%">日期</th>
+                            <th style="width:15%">订单金额</th>
+                            <th style="width:15%">实际支付金额</th>
+                            <th style="width:15%">类型</th>
+                            <th style="width:15%">状态</th>
+                            <th style="width:15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in orderList">
+                            <td>
+                                {{item.serialNumber}}
+                            </td>
+
+                            <td>
+                                {{item.serialNumber}}
+                            </td>
+                            <td>
+                                {{item.amount}}
+                            </td>
+                            <td>
+                                {{item.total}}
+                            </td>
+                            <td>
+                                {{item.typeText}}
+                            </td>
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+
+                                <button type="button" class="btn btn-primary">详情</button>
+                                <button type="button" class="btn btn-warning" ng-click="cancel()">撤单</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="Grid.pager.currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+</div>

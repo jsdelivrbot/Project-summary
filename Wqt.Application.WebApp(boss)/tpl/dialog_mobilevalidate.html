@@ -1,0 +1,27 @@
+﻿ <div class="panel-heading" translate="PAGE.dialog.validate.validateCode">
+    验证码
+</div>
+<div class="panel-body text-center">
+    <div class="form-group clearfix">
+        <label class="control-label col-xs-3">{{'PAGE.dialog.validate.validateCode'|translate}}:</label>
+        
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="validateCode">
+            <span class="input-group-btn">
+                <button  ng-class="{'btn': true,'btn-info':true,'autoButton':true, 'disabled':hasgetCode}" id="validateButton" ng-click="reGetValidateCode()" type="submit" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">{{buttonText}}</button>
+            </span>
+        </div>
+
+    </div>
+</div>
+<div class="panel-group customstyle" style="margin-bottom: 0px;">
+    <button type="submit" class="btn btn-info" style=" font-size: 14px;" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}"
+            ng-click="Confirm()" translate="BUTTON.confirm">
+        确定
+        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+    </button>
+    <button type="submit" style=" font-size: 14px;" class="btn btn-primary"
+            ng-click="closeThisDialog()" translate="BUTTON.cancel">
+        取消
+    </button>
+</div>

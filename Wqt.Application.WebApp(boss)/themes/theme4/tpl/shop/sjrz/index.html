@@ -1,0 +1,241 @@
+<div ng-controller="shop_indexController">
+    <!--nav S-->
+    <div class="shop_nav ">
+        <div class="shop_nav_top shop_bx">
+            BOS国际商城
+        </div>
+        <div class="shop_nav_bottom">
+            <div class="shop_bx">
+                <ul class="clearfix">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">套餐专区</a></li>
+                    <li><a href="#">精品商城区</a></li>
+                    <li><a href="#">商品兑换区</a></li>
+                    <li><a href="#">积分兑换区</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="shop_carousel shop_bx">
+            <div ng-controller="CarouselDemoCtrl2" class="panel b-a" set-ng-animate="false">
+                <carousel interval="myInterval">
+                    <slide ng-repeat="slide in slides" active="slide.active" style="height: 180px;">
+                        <img ng-src="{{slide.image}}" class="img-full" style="height: 180px;">
+                    </slide>
+                </carousel>
+            </div>
+        </div>
+    </div>
+    <!--nav E-->
+
+    <!--shop_info S-->
+    <div class="shop_info shop_bx" >
+        <div class="bos_select">
+            <div class="bos_select_top">
+                套餐分类
+            </div>
+            <div class="bos_select_content">
+                <ul>
+                    <li class="active">BOS1套餐</li>
+                    <li>BOS2套餐</li>
+                    <li>BOS3套餐</li>
+                    <li>BOS4套餐</li>
+                    <li>BOS5套餐</li>
+                    <li>BOS6套餐</li>
+                </ul>
+            </div>
+            <div class="bos_select_bottom">
+                收起
+            </div>
+        </div>
+
+        <div class="bos_list">
+            <div class="bos_item active">
+                <div class="bos_item_top">
+                    BOS1套餐
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="./img/bos-img-1.jpg" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="bos_item">
+                <div class="bos_item_top">
+                    BOS2套餐
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="./img/bos-img-1.jpg" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bos_item">
+                <div class="bos_item_top">
+                    BOS3套餐
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="./img/bos-img-1.jpg" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bos_item">
+                <div class="bos_item_top">
+                    BOS4套餐
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="./img/bos-img-1.jpg" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bos_item">
+                <div class="bos_item_top">
+                    BOS5套餐
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="./img/bos-img-1.jpg" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bos_item">
+                <div class="bos_item_top">
+                    BOS6套餐
+                </div>
+                <div class="clearfix">
+                    <div class="bos_item_bottom" ng-repeat="item in productList">
+                        <a href="" ng-click="shoppingDetail(item.id)" class="col padder-v text-muted b-r b-light">
+                            <img src="./img/bos-img-1.jpg" alt="" class="bos_item_bottom_img">
+                        </a>
+                        <div class="bos_item_bottom_msg">
+                            <div class="bos_item_bottom_msg_1">
+                                产品名称：
+                                {{item.productName}}
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                产品代码：
+                                <span>{{item.productCode}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_1">
+                                规格：
+                                <span>{{item.guiGe}}</span>
+                            </div>
+                            <div class="bos_item_bottom_msg_2">
+                                价格：
+                                <span>￥{{item.price}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--shop_info E-->
+</div>

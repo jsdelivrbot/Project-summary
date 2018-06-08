@@ -1,0 +1,47 @@
+﻿<div class="panel panel-default" style="margin-top: 10px;" ng-controller="EditAddressCtrl">
+    <div class="panel-heading font-bold">
+        编辑收货地址
+    </div>
+    <div class="panel-body">
+        <form name="form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">地址:</label>
+                <div class="col-sm-10">
+                    
+                    <input type="text" class="form-control" placeholder="" ng-model="address.Address" >
+
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机号:</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" placeholder="" ng-model="address.Mobile" >
+
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">收件人:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="" ng-model="address.Recipient" >
+
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮编:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="" ng-model="address.ZipCode" >
+
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+          
+            <footer class="panel-footer text-right bg-light lter">
+                <button type="submit" class="btn btn-info" ng-click="confirm()">确认</button>
+                <button  class="btn btn-primary" ng-click="back()">返回</button>
+            </footer>
+        </form>
+    </div>
+</div>

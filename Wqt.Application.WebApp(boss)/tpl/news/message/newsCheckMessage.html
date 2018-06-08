@@ -1,0 +1,48 @@
+﻿<div class="" ng-controller="CheckMessageCtrl">
+        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.news.breadcrumb2">信息管理</a></li>
+        <li class="active" translate="PAGE.news.messageDetail.title">留言信息</li>
+    </ul>
+        <div class="row">
+            <div class="panel panel-default customPanel">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate="PAGE.news.messageDetail.title">
+                        <font>
+                            <font class="customTitle">    留言信息</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-repeat="item in Message.messageBodyList">
+                        <div>
+                            <a class="pull-left thumb-sm">
+                                <img src="img/a0.jpg" class="img-circle">
+                            </a>
+                            <div class="m-l-xxl m-b" >
+                                <div>
+                                    <a href><strong>{{item.sendName}}</strong></a>
+                                    <label class="label bg-info m-l-xs">{{item.memberType}}</label>
+                                    <span class="text-muted text-xs block m-t-xs">
+                                        {{item.createDate}}
+                                    </span>
+                                </div>
+                                <div class="m-t-sm">{{item.content}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="m-t-lg m-b" translate="PAGE.news.messageDetail.replay">回复留言</h4>
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="6" required placeholder="留言内容" ng-model="message.ReplyContent"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-info" ng-click="reply()" translate="BUTTON.SubmitReply">提交回复</button>
+                            <button type="button" class="btn btn-primary" ng-click="close()" translate="BUTTON.close">关闭</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+    </div>

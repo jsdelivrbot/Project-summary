@@ -1,0 +1,106 @@
+﻿<div class="wrapper-md" ng-controller="TjListCtrl">
+    <div id="loading-bar-container"></div>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.scgl.breadcrumb2">市场管理</a></li>
+        <li class="active" translate="PAGE.scgl.directpush.title">我的直推</li>
+    </ul>
+
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">查询</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body clearfix  query-panel">
+            <div class="form-group col-sm-2">
+                <input type="text" ng-model="queryObj.queryData.usercode" ng-enter="query()" class="form-control"  placeholder="{{'PLACEHOLDER.queryuser'|translate}}" />
+
+            </div>
+            <selectdate></selectdate>
+            <!--<div class="form-group col-sm-3 ">
+                <label class="control-label col-sm-4 datestyle"><font><font>开始时间：</font></font></label>
+                <div class="col-sm-8">
+                    <selectdatestart></selectdatestart>
+                </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <label class="control-label col-sm-4 datestyle"><font><font>结束时间：</font></font></label>
+                <div class="col-sm-8">
+                    <selectdateend></selectdateend>
+                </div>
+            </div>-->
+
+
+            <div class="form-group col-sm-2 text-center">
+                <button type="button" ng-click="query()"  class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                    <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                </button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="panel panel-default customPanel" style="margin-top: 10px;">
+            <div class="panel-heading" translate="PAGE.scgl.directpush.myTjmember">
+                我推荐的会员
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th style="width:8%" translate="ORDER">序号</th>
+                                <th style="width:15%" translate="PAGE.scgl.directpush.userCode">会员编号</th>
+                                <th style="width:15%" translate="PAGE.scgl.directpush.nickName">会员名称</th>
+                                <th style="width:15%" translate="PAGE.scgl.directpush.leveltext">会员级别</th>
+                                <th style="width:15%" translate="PAGE.scgl.directpush.mobile">手机号码</th>
+                                <th style="width:15%" translate="PAGE.scgl.directpush.registerDate">推荐时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Grid.rows">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    {{item.userCode}}
+                                </td>
+
+                                <td>
+                                    {{item.nickName}}
+                                </td>
+                                <td>
+                                    {{item.leveltext}}
+                                </td>
+                                <td>
+                                    {{item.mobile}}
+                                </td>
+                                <td>
+                                    {{item.registerDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                   <tablelistdatashow></tablelistdatashow>
+                       
+                    
+
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12 text-center" ng-hide="noData">
+                                <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                            </div>
+                        </div>
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+</div>

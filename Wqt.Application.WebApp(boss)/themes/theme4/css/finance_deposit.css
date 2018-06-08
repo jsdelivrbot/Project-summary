@@ -1,0 +1,14 @@
+﻿.form-group input {
+    width: 100% !important;
+}
+
+.form-group label {
+    width: inherit !important;
+}
+@media (max-width: 768px){
+    .nav-tabs > li {
+        float: none;
+    }
+}
+
+

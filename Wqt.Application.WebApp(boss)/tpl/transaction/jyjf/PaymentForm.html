@@ -1,0 +1,75 @@
+﻿<div class="wrapper-md">
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">确认付款</font>
+                </font>
+            </h3>
+
+        </div>
+        <div class="panel-body text-center">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-4">交易流水号:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" ng-model="Model.serialNumber" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">卖家编号:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" ng-model="Model.sellUserCode" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">信誉星级:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" ng-model="Model.buyXYJF" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">购买数额:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" ng-model="Model.serialNumber" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">购买总价:</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span>付款凭证：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                    <div class="col-sm-10">
+                        <div class="m-b">
+                            <input type="file" id="FontImg" accept="image/JPG,image/jpg" name="file" />
+                        </div>
+                        <div class="hbox hbox-auto-xs">
+                            <div class="col-md-5">
+                                <div class="inline bg-white wrapper-sm b-a " style="padding:80px;">
+                                    <div class="bg-light">
+                                        <img ng-src="{{Model.FontImg}}" class="img-responsive" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        </div>
+        <div class="panel-group col-xs-offset-6">
+            <button type="submit" class="btn btn-info"
+                    ng-click="Confirm()">
+                确定
+            </button>
+            <button type="submit" class="btn btn-primary"
+                    ng-click="Cancel()">
+                取消
+            </button>
+        </div>
+    </div>

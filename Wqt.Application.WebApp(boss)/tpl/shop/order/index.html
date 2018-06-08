@@ -1,0 +1,73 @@
+﻿<div class="wrapper-md" ng-controller="ShoppingOrderCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home" translate="APPNAME"></i> </a></li>
+        <li><a href="" translate="PAGE.shop.breadcrumb2">在线购物</a></li>
+        <li class="active" translate="PAGE.shop.order.title">我的订单</li>
+    </ul>
+    <div class="panel panel-default" style="margin-top: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.shop.order.table">订单列表</font>
+                </font>
+            </h3>
+        </div>
+
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+                        <th style="width: 15%" translate="PAGE.shop.order.orderNumber">订单号</th>
+                        <th style="width: 15%" translate="PAGE.shop.order.date">日期</th>
+                        <th style="width: 15%" translate="PAGE.shop.order.orderAmount">订单金额</th>
+                        <!--<th style="width: 15%" translate="PAGE.shop.order.payment">实际支付金额</th>-->
+                        <!--<th style="width: 15%" translate="PAGE.shop.order.type">类型</th>-->
+                        <th style="width: 15%" translate="PAGE.shop.order.status">状态</th>
+                        <!--<th style="width: 15%" translate="PAGE.shop.order.operate">操作</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in orderList">
+                        <td>
+                            {{item.serialNumber}}
+                        </td>
+
+                        <td>
+                            {{item.createDate | date:'yyyy-MM-dd hh:mm:ss'}}
+                        </td>
+                        <!--<td>
+                            {{item.amount}}
+                        </td>-->
+                        <td>
+                            {{item.amount}}
+                        </td>
+                        <!--<td>
+                            {{item.typeText}}
+                        </td>-->
+                        <td>
+                            {{item.statusText}}
+                        </td>
+                        <!--<td>
+
+                            <button type="button" class="btn btn-primary" translate="PAGE.shop.order.detail">详情</button>
+                            <button type="button" class="btn btn-warning" ng-click="cancel()" translate="PAGE.shop.order.withdraw">撤单</button>
+                        </td>-->
+                    </tr>
+
+                    </tbody>
+                </table>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="Grid.pager.currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+</div>

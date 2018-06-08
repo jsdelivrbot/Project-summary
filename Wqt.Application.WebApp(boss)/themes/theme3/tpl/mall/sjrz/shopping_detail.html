@@ -1,0 +1,85 @@
+﻿<div class="bg-light lter b-b wrapper-md hidden-print">
+    <a href class="btn btn-sm btn-info pull-right" onClick="window.print();">Print</a>
+    <h1 class="m-n font-thin h3">商品详情</h1>
+</div>
+<div class="wrapper-md"  ng-controller="ShoppingDetailCtrl">
+    <div>
+        <div class="well m-t bg-light lt">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>产品详情</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                   
+                    <img class="img-responsive" alt="代表图" src="img/2017081811255246496.png">
+                </div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="clo-md-10 col-md-offset-2">
+                                    <h3>{{productDetail.productName}}</h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <p class="text-right">价格：</p>
+                                </div>
+                                <div class="col-md-10">
+                                    <p>{{productDetail.price}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <p class="text-right">规格：</p>
+                                </div>
+                                <div class="col-md-10">
+                                    <p>{{productDetail.guiGe}}台</p>
+                                </div>
+                            </div>
+                            
+                                <div class="row">
+                                    <div class="col-md-2 text-right">
+                                        购买数量：
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <input class="form-control" value="1" type="number" ng-model="productDetail.count" ng-focus="hasInput=false" required>
+                                        <span class="field-validation-error" ng-show="hasInput"><span id="Count-error" class="">'购买数量' 是必填项.</span></span>
+
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <button class="btn btn-success" ng-click="addShoppingCar()">加入购物车</button>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px;font-size:18px;">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active"><a href="#">产品详情</a></li>
+                    </ul>
+                    <div>
+                        <p>
+                            {{productDetail.description}}
+                      </p>
+                        <p>
+                        <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>

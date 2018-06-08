@@ -1,0 +1,144 @@
+<style>
+    .tab-container .tab-content {
+        background-color: #f0f3f4 !important;
+        padding-left: 0;
+    }
+</style>
+<div class="wrapper-md">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.finance.breadcrumb2">财务管理</a></li>
+        <li class="active" translate="PAGE.finance.transfer.title">转账管理</li>
+    </ul>
+    <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false }">
+        <tab heading="{{'PAGE.finance.transfer.title'|translate}}" active="steps.step1" select="steps.percent=10">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="finance_transferSet">
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="panel-heading font-bold">
+                        <h3 class="panel-title">
+                            <font>
+                                <font class="customTitle" translate="PAGE.finance.transfer.title">转账管理</font>
+                            </font>
+                        </h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.transfer.MemberNumber">会员编号<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" id="HYUserVal" ng-model="HYUserVal" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.transfer.Type">货币类型<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select name="account" class="form-control" id="testId" ng-model="HBSelectVal" ng-change="SelectChang(HBSelectVal)" required>
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option ng-repeat="items in CurrencyType" value="{{items.value}}">{{items.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.transfer.Account">账户余额</label>
+                            <div class="col-sm-10 control-label text-left">
+                                {{UserMoney}}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.transfer.Transfer">转账金额<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="CZmoney" ng-model="PayMoney" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.transfer.money">到账金额</label>
+                            <div class="col-sm-10" style="height: 27px; line-height: 35px;">
+                                {{ PayMoney }}
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate="PAGE.finance.transfer.Transaction">交易密码<i class="glyphicon glyphicon-asterisk" style="font-size: 2px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="password" id="" ng-model="L2Pass" class="form-control" placeholder="请输入二级密码" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-5 col-lg-5 col-sm-offset-4 col-md-offset-3 col-lg-offset-2">
+                                <button type="submit" ng-click="Submit(form.$valid)" class="btn btn-primary" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                                    <span class="text" translate="BUTTON.submit">提交</span><span class="text-active" translate="BUTTON.submitting">提交中...</span>
+                                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </tab>
+        <tab heading="{{'PAGE.finance.transfer.records'|translate}}" active="steps.step2" select="steps.percent=30">
+            <div class="panel panel-default customPanel" style="margin-top: 10px;" ng-controller="finance_transferList">
+                <div class="panel-heading font-bold">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle" translate="PAGE.finance.transfer.records">转账记录</font>
+                        </font>
+                    </h3>
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th style="width:8%" translate="ORDER" translate="PAGE.finance.transfer.Serial">序号</th>
+                                    <th style="width:15%" translate="PAGE.finance.transfer.membership">转出会员</th>
+                                    <th style="width:15%" translate="PAGE.finance.transfer.Transferred">转入会员</th>
+                                    <th style="width:15%" translate="PAGE.finance.transfer.Transfer">转账金额</th>
+                                    <th style="width:15%" translate="PAGE.finance.transfer.fee">手续费</th>
+                                    <th style="width:20%" translate="PAGE.finance.transfer.total">合计</th>
+                                    <th style="width:20%" translate="PAGE.finance.transfer.createDate">创建日期</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in rows">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{item.fromUserCode}}
+                                    </td>
+                                    <td>
+                                        {{item.toUserCode}}
+                                    </td>
+                                    <td>
+                                        {{item.amount}}
+                                    </td>
+                                    <td>
+                                        {{item.serviceFee}}
+                                    </td>
+                                    <td>
+                                        {{item.total}}
+                                    </td>
+                                    <td>
+                                        {{item.createDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <tablelistdatashow></tablelistdatashow>
+                        <tablelistfooter></tablelistfooter>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

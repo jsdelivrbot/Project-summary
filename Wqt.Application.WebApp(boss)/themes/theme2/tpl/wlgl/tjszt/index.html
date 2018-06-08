@@ -1,0 +1,42 @@
+﻿
+<div class="wrapper" ng-controller="TjController">
+    <div id="loading-bar-container"></div>
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.wlgl.breadcrumb2">网络管理</a></li>
+        <li class="active" translate="PAGE.wlgl.tjszt.title">推荐树状图</li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.wlgl.tjszt.title">推荐树状图</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="col col-md-6">
+         <div class="wrapper-md">
+             <div class="b-a  r r-2x" style="background: #282737;">
+                 <span translate="PAGE.wlgl.tjszt.subData">点击获取下级数据</span>
+                 <abn-tree tree-data="my_data"
+                           tree-control="my_tree"
+                           expand-level="2"
+                           initial-selection=""
+                           icon-leaf="fa fa-user"
+                           icon-expand="fa fa-plus"
+                           icon-collapse="fa fa-minus">
+                 </abn-tree>
+             </div>
+         </div>
+     </div>
+     <div class="col col-md-6">
+         <div class="wrapper-md">
+             <div   class="alert alert-info" style="background: #282737; border: none; box-shadow: none; color: #8c92a2;" >{{output.definition1}}&nbsp;&nbsp;&nbsp;{{output.definition2}}&nbsp;&nbsp;&nbsp;{{output.definition3}}</div>
+         </div>
+     </div>
+
+        </div>
+    </div>
+</div>

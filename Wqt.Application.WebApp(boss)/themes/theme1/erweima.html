@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-ng-app="erweima">
+<head>
+    <meta charset="utf-8" />
+    <title>会员管理系统</title>
+    <meta name="description" content="app, web app, responsive, responsive layout, admin, admin panel, admin dashboard, flat, flat ui, ui kit, AngularJS, ui route, charts, widgets, components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="vendor/modules/angularjs-toaster/toaster.css" type="text/css" />
+    <link rel="stylesheet" href="vendor/angular/angular-loading/loading-bar.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/font.css" type="text/css" />
+    <link rel="stylesheet" href="css/app.css" type="text/css" />
+    <link href="vendor/modules/angular-dialog/ngDialog.css" rel="stylesheet" />
+    <link href="vendor/modules/angular-dialog/ngDialog-theme-default.css" rel="stylesheet" />
+    <link href="vendor/modules/angular-dialog/ngDialog-theme-plain.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper-md" ng-controller="erm.regCtrl">
+        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+        <div class="container">
+            <div class="row">
+                <form name="form" class="form-validation form-horizontal">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h3 class="panel-title pull-left">注册登录</h3><h4 class="panel-title pull-right">已有账户 &nbsp;&nbsp;&nbsp;立即<a ng-click="login()"><font color='red'>登陆</font></a></h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group clearfix">
+                                <label for="UserCode" class="col-sm-2 col-sm-offset-2 control-label">会员编号:</label>
+                                <div class="col-sm-6">
+                                    <!--<input type="text" class="form-control" ng-blur="checkUserCode()" id="UserCode" ng-model="UserCode" placeholder="" required>
+                                    <span ng-hide="isUsefulTd">该会员编号已注册，不可用</span>-->
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="UserCode" disabled ng-model="UserCode" placeholder="" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" ng-click="auto()">自动生成</button>
+                                        </span>
+                                    </div>
+                                    </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">姓名:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="请输入姓名" ng-model="NickName" required>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">身份证:</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" placeholder="请输入身份证号码" ng-pattern="/[0-9-()（）]{18}/" required>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">银行卡:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="请输入编号" ng-model="BankCode">
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">手机号:</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" placeholder="请输入手机号" ng-model="Mobile" ng-pattern="/[0-9-()（）]{7,18}/" required>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">邮箱:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="RealName" placeholder="请输入邮箱" ng-model="Email">
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">推荐人编号:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="RealName" placeholder="" ng-model="TJUserCode" readonly>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">安置人编号:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="RealName" placeholder="请输入编号" ng-model="JDUserCode" required ng-blur="checkTjCode()">
+                                    <span ng-hide="isTjfulTd">该安置人未注册或未激活，暂不可用</span>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">安置位置:</label>
+                                <div class="col-sm-6">
+                                    <!--<select class="TC-select form-control" id="AZWZ" ng-model="JDPosition" ng-blur="" required>
+                                        <option value="1">1 左区</option>
+                                        <option value="2">2 右区</option>
+                                    </select>-->
+                                    <select class="TC-select form-control" id="AZWZ" ng-model="JDPosition " ng-blur="checkTdPosition()" required>
+                                        <option value="1">左区</option>
+                                        <option value="2">右区</option>
+                                    </select>
+                                    <span ng-hide="isUsefulJDP">该安置位置已被占用，请选择其他安置位置</span>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="RealName" class="col-sm-2 col-sm-offset-2 control-label">报单中心:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="RealName" placeholder="请输入编号" ng-model="ReportCenterUserCode" required>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="L1Pwd" class="col-sm-2 col-sm-offset-2 control-label">密码:</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" name="confirm_password" id="L1Pwd" placeholder="" ng-model="L1Pwd" required>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <label for="reL1Pwd" class="col-sm-2 col-sm-offset-2 control-label">确认密码:</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" name="confirm_password" id="L1Pwd" placeholder="" ng-model="reL1Pwd" required ui-validate=" '$value==L1Pwd' " ui-validate-watch=" 'L1Pwd' ">
+                                    <span ng-show='form.confirm_password.$error.validator'>请确认两次输入一致</span>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group">
+                                <div class="checkbox text-center">
+                                    <label class="i-checks">
+                                        <input type="checkbox" ng-model="check" required>
+                                        <i></i>
+                                        我已阅读《 <a href="#">注册协议</a>》
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg"></div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-lg btn-success" ng-click="submit(form.$valid)" ng-class="{'active': btnSuccess, 'btn': true, 'btn-primary': true,'disabled':btnSuccess}">
+                                    <span class="text">注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</span><span class="text-active">注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中...</span>
+                                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                </button>
+                                <!--<button type="submit" class="btn btn-lg btn-success" ng-click="openlog">&nbsp;&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;&nbsp;</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+
+    <!-- Angular -->
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/modules/angular-dialog/ngDialog.js"></script>
+    <script src="vendor/angular/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular/angular-cookies/angular-cookies.js"></script>
+    <script src="vendor/angular/angular-resource/angular-resource.js"></script>
+    <script src="vendor/angular/angular-sanitize/angular-sanitize.js"></script>
+    <script src="vendor/modules/angular-locale/angular-locale_zh.js"></script>
+    <script src="vendor/angular/angular-touch/angular-touch.js"></script>
+    <script src="vendor/angular/angular-popup/angular-popups.js"></script>
+    <script src="lib/plugins/angular-base64.js"></script>
+    <script src="lib/plugins/angular-md5.min.js"></script>
+    <!-- Vendor -->
+    <script src="vendor/angular/angular-ui-router/angular-ui-router.js"></script>
+    <script src="vendor/angular/ngstorage/ngStorage.js"></script>
+    <script src="vendor/angular/angular-animate/angular-animate.js"></script>
+    <script src="vendor/modules/angularjs-toaster/toaster.js"></script>
+    <script src="vendor/angular/angular-loading/loading-bar.js"></script>
+    <!-- bootstrap -->
+    <script src="vendor/angular/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- lazyload -->
+    <script src="vendor/angular/oclazyload/ocLazyLoad.js"></script>
+    <!-- translate -->
+    <script src="vendor/angular/angular-translate/angular-translate.js"></script>
+    <script src="vendor/angular/angular-translate/loader-static-files.js"></script>
+    <script src="vendor/angular/angular-translate/storage-cookie.js"></script>
+    <script src="vendor/angular/angular-translate/storage-local.js"></script>
+    <script src="js/directives/ui-validate.js"></script>
+    <!--二维码-->
+    <!--<script src="vendor/angular/angular-qrcode/qrcode.js"></script>
+    <script src="vendor/angular/angular-qrcode/angular-qrcode.js"></script>-->
+    <!--<script src="vendor/angular/angular-qrcode/qrcode_UTF8.js"></script>-->
+    <script src="js/modules/wqt-modules.js"></script>
+    <script src="js/services/wqt-services.js"></script>
+    <script>
+        angular.module('erweima', ['ui.router', 'starter.services', 'stater.modules', 'base64', 'toaster', 'ui.validate','ngDialog'])
+            .controller('erm.regCtrl', ['$scope', '$state', '$location', '$http', 'ServiceApi', '$interval', 'UserInfo', '$wqtHttp', 'ngDialog', '$window','toaster', function ($scope, $state, $location, $http, ServiceApi, $interval, UserInfo, $wqtHttp, ngDialog, $window, toaster) {
+                $scope.isUsefulTd = true;
+                $scope.isTjfulTd = true;
+
+                //登陆
+                $scope.login = function () {
+                    var loginurl = window.location.host;
+                    window.location.href = 'http://' + loginurl + '/#/access/signin';
+                }
+
+                //自动生成
+                $scope.auto = function () {
+                    $wqtHttp.post(
+                        {
+                            url: ServiceApi.UserReg.auto,
+                            data: {},
+                            success: function (data) {
+                                if (data.status.code != 0) {
+                                    toaster.pop("error", "系统错误", data.status.desc);
+                                } else {
+                                    //console.log(data);
+                                    $scope.UserCode = data.result.userCode
+                                }
+                            },
+                            error: function () {
+                                $scope.logining = false;
+                            }
+                        });
+                }
+                $scope.auto();
+
+                //获取推荐人编号
+                var request = function (keyValue) {
+                    var search = location.search.slice(1);
+                    var arr = search.split("&");
+                    for (var i = 0; i < arr.length; i++) {
+                        var ar = arr[i].split("=");
+                        if (ar[0] == keyValue) {
+                            if (unescape(ar[1]) == 'undefined') {
+                                return "";
+                            } else {
+                                return unescape(ar[1]);
+                            }
+                        }
+                    }
+                    return "";
+                }
+                $scope.TJUserCode = request('usercode');
+
+                //注册发送对象
+                var erweimaData = {};
+                
+
+                //检查会员是否存在
+                $scope.checkUserCode = function () {
+                    $wqtHttp.post({
+                        url: ServiceApi.UserReg.checkUse,
+                        data: { usercode: $scope.UserCode },
+                        success: function (data) {
+                            $scope.isUsefulTd = false;
+                        },
+                        error: function () {
+                            $scope.isUsefulTd = true;
+                        }
+                    });
+                };
+
+                //检查安置人是否存在
+                $scope.checkTjCode = function () {
+                    $wqtHttp.post({
+                        url: ServiceApi.UserReg.checkUse,
+                        data: { usercode: $scope.JDUserCode },
+                        success: function (data) {
+                            console.log(data);
+                            if (data.status.code==='0'){
+                                $scope.isTjfulTd = true;
+                            } else {
+                                $scope.isTjfulTd = false;
+                            }
+                        },
+                        error: function () {
+                            $scope.isTjfulTd = false;
+                        }
+                    });
+                };
+                //安置位置是否可用
+                $scope.isUsefulJDP = true;
+                $scope.checkTdPosition = function () {
+                    console.log($scope.JDUserCode);
+                    console.log($scope.JDPosition);
+
+                    $wqtHttp.post({
+                        url: ServiceApi.UserReg.placementJudge,
+                        data: { jduercode: $scope.JDUserCode, position: $scope.JDPosition },
+                        success: function (data) {
+                            $scope.isUsefulJDP = true;
+                        },
+                        error: function () {
+                            $scope.isUsefulJDP = false;
+                        }
+                    })
+                }
+                //提交
+                $scope.submit = function (a) {
+                    console.log(a);
+                    erweimaData.UserCode = $scope.UserCode;
+                    erweimaData.NickName = $scope.NickName;
+                    erweimaData.Mobile = $scope.Mobile;
+                    erweimaData.TJUserCode = $scope.TJUserCode;
+                    erweimaData.JDUserCode = $scope.JDUserCode;
+                    erweimaData.JDPosition = $scope.JDPosition;
+                    erweimaData.ReportCenterUserCode = $scope.ReportCenterUserCode;
+                    erweimaData.L1Pwd = $scope.L1Pwd;
+                    erweimaData.BankCode = $scope.BankCode;
+                    erweimaData.Email = $scope.Email;
+
+                    if (!a) { return; }
+                    $scope.btnSuccess = true;
+                    $http({
+                        method: 'post',
+                        url: ServiceApi.UserReg.erweima,
+                        data: erweimaData,
+                    }).success(function (data) {
+                        console.log(data);
+                        if (data.status.code === '0'){
+                            $scope.btnSuccess = false;
+                            ngDialog.open({
+                                template: 'templateId.html',
+                                className: 'ngdialog-theme-default ngdialog-theme-dadao',
+                                controller: function ($scope) {
+                                    $scope.show = function () {
+                                        $scope.closeThisDialog(); //关闭弹窗
+                                        //登陆
+                                        $scope.login = function () {
+                                            var loginurl = window.location.host;
+                                            window.location.href = 'http://' + loginurl + '/#/access/signin';
+                                        }
+                                        $scope.login();
+                                        //$window.location.reload();
+                                    }
+                                }
+                            });
+                        } else {
+                            toaster.pop('warning', '注册失败', data.status.desc);
+                            $scope.btnSuccess = false;
+                        }
+                        }).error(function () {
+                            alert('注册失败');
+                    })
+                }
+            }]);
+    </script>
+    <script type="text/ng-template" id="templateId.html">
+        <div class="ui-dialog-title text-center">
+            <p></p>
+            注册成功
+            <p></p>
+        </div>
+        <div class="ui-dialog-content">
+            <button type="submit" class="btn btn-primary"
+                    ng-click="show()">
+                确定
+            </button>
+        </div>
+    </script>
+</body>
+</html>

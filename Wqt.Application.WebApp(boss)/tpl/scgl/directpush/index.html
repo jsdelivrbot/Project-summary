@@ -1,0 +1,165 @@
+﻿<div class="wrapper-md" ng-controller="TjListCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <div id="loading-bar-container"></div>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.scgl.breadcrumb2">市场管理</a></li>
+        <li class="active" translate="PAGE.scgl.directpush.title">我的直推</li>
+    </ul>
+
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">查询</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body clearfix  query-panel">
+            <div class="form-group col-sm-2">
+                <input type="text" ng-model="queryObj.queryData.usercode" ng-enter="query()" class="form-control"  placeholder="{{'PLACEHOLDER.queryuser'|translate}}" />
+            </div>
+            <selectdate></selectdate>
+            <search></search>
+        </div>
+        <div class="panel-body clearfix  query-panel text-center">
+            <button class="btn btn-primary" ng-click="redeliveryChildren()" translate="BUTTON.futou">追加子账户</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary" ng-click="redelivery()">复投</button>
+        </div>
+    </div>
+    <div class="panel panel-default customPanel" style="margin-top: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle" translate="PAGE.scgl.directpush.myTjmember">我推荐的会员</font>
+                </font>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+                        <th style="width:8%" translate="ORDER">序号</th>
+                        <th style="width:15%" translate="PAGE.scgl.directpush.userCode">会员编号</th>
+                        <th style="width:15%" translate="PAGE.scgl.directpush.nickName">会员名称</th>
+                        <th style="width:15%" translate="PAGE.scgl.directpush.leveltext">会员级别</th>
+                        <th style="width:15%" translate="PAGE.scgl.directpush.mobile">手机号码</th>
+                        <th style="width:15%" translate="PAGE.scgl.directpush.registerDate">推荐时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in Grid.rows">
+                        <td>
+                            {{$index+1}}
+                        </td>
+                        <td>
+                            {{item.userCode}}
+                        </td>
+
+                        <td>
+                            {{item.nickName}}
+                        </td>
+                        <td>
+                            {{item.leveltext}}
+                        </td>
+                        <td>
+                            {{item.mobile}}
+                        </td>
+                        <td>
+                            {{item.registerDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <tablelistdatashow></tablelistdatashow>
+               <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="Grid.pager.totalItems" max-size="maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+                            </div>
+                        </div>
+                    </footer>
+            </div>
+        </div>
+    </div>
+</div>
+<!--追加子账户-->
+<script type="text/ng-template" id="TjListCtrl_ngDialog.html">
+    <form name="form" class="form-validation form-horizontal">
+        <div class="panel-heading">
+            追加子账户
+        </div>
+        <div class="panel-body text-center" style="color: #b9b9b9;">
+            <div class="clearfix" style="height: 60px;">
+                <label for="UserCode" class="col-sm-5 control-label">&nbsp;&nbsp;&nbsp;&nbsp;<span translate="PAGE.scgl.register.UserCode">&nbsp;&nbsp;会员编号：</span></label>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="UserCode" disabled ng-model="regData.UserCode" placeholder="" required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-info autoButton" type="button" ng-click="Help.GenerateUserCode()" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;" translate="PAGE.scgl.register.auto">自动生成</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix" style="height: 60px;">
+                <label for="TJUserCode" class="col-sm-5 control-label"><span translate="PAGE.scgl.register.TJUserCode">推荐人编号：</span></label>
+                <div class="col-sm-7 control-label text-left" style="color:#58666e;">
+                    {{CommonData.TJUserCode}}
+                </div>
+            </div>
+            <div class="clearfix" style="height: 60px;">
+                <label for="JDUserCode" class="col-sm-5 control-label"><span translate="PAGE.scgl.register.JDUserCode">安置人编号：</span></label>
+                <div class="col-sm-7">
+                    <ui-select ng-model="regData.JDUserCode" theme="bootstrap" ng-disabled="disabled" reset-search-input="false" on-select="JdPostion.OnSelect($item, $model)" required>
+                        <ui-select-match>{{$select.selected.userCode}}</ui-select-match>
+                        <ui-select-choices repeat="item in userList track by $index" refresh="Help.QueryUser($select.search)" refresh-delay="60">
+                            <div ng-bind-html="item.userCode | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="clearfix" style="height: 80px;">
+                <label class="col-sm-5 control-label">&nbsp;&nbsp;&nbsp;&nbsp;<span translate="PAGE.scgl.register.JDPosition">安置位置：</span><i class="void"></i></label>
+                <div class="col-sm-7">
+                    <select class="TC-select form-control" id="AZWZ" ng-model="regData.JDPosition" required>
+                        <option value="" translate="OPPTION">==请选择==</option>
+                        <option value="{{item.value}}" ng-repeat="item in JdPostion.List">{{item.text}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="clearfix" style="height: 80px;">
+                <label class="col-sm-5 control-label">&nbsp;&nbsp;&nbsp;&nbsp;<span>注册等级：</span><i class="void"></i></label>
+                <div class="col-sm-7">
+                    <select class="TC-select form-control levelFont" id="AZWZ" ng-model="regData.tcId" ng-change="Help.RegLevel.CheckUserLevel(regData.tcId)" required>
+                        <option value translate="OPPTION2">==BOS级别==</option>
+                        <option value="{{item.id}}" ng-selected="regData.tcId==item.id" ng-repeat="item in CommonData.TaoCanList">{{item.name}}</option>
+                    </select>
+                    <span ng-hide="Help.RegLevel.ShowMsg">{{Help.RegLevel.Msg}}</span>
+                </div>
+
+            </div>
+
+            <div class="clearfix" style="height: 60px;">
+                <label for="L2Pwd" class="col-sm-5 control-label">&nbsp;&nbsp;&nbsp;&nbsp;<span translate="PAGE.scgl.register.L2Pwd">二级密码：</span></label>
+                <div class="col-sm-7">
+                    <input type="password" id="L2Pwd" class="form-control" ng-model="regData.L2Pwd" required>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group customstyle" style="margin-bottom: 0px;">
+            <button type="submit" class="btn btn-info" style=" font-size: 14px;" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}"
+                    ng-click="Help.Sumbit(form.$valid)" translate="BUTTON.confirm">
+                确定
+                <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+            </button>
+            <button type="submit" style=" font-size: 14px;" class="btn btn-primary"
+                    ng-click="closeThisDialog()" translate="BUTTON.cancel">
+                取消
+            </button>
+        </div>
+    </form>
+</script>

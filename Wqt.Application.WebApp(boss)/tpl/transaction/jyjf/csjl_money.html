@@ -1,0 +1,209 @@
+﻿<div class="wrapper-md" ng-controller="transaction_jyjf_csjl_money">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/app/transaction_jyjfdt"><i class="fa fa-btc"></i> EP交易市场</a></li>
+        <li><a href="#/app/transaction_jyjf_csjl">出售记录</a></li>
+        <li><a href="#/app/transaction_jyjf_csjl_money">交易详情</a></li>
+    </ul>
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">   交易详情列表</font>
+                </font>
+            </h3>
+            
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <th style="width:5%">序号</th>
+                            <th style="width:15%">交易流水号</th>
+                            <th style="width:10%">打款金额</th>
+                            <th style="width:20%">打款凭证</th>
+                            <th style="width:15%">时间</th>
+                            <th style="width:10%">状态</th>
+                            <th style="width:15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.serialNumber}}
+                            </td>
+                            <td>
+                                {{item.price}}
+                            </td>
+                            <td>
+                                <img enlarge-pic src="{{item.imgPath}}" ng-show='item.imgPath'  style="width: 100px;"/><span ng-show="!item.imgPath">无</span>
+                            </td>
+                            <td>
+                                {{item.createDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+                                <button type="button" ng-click="ConfirmBuy('transaction_jyjf_csjl_ConfirmBuy.html',item.id)" ng-show="item.status==300" class="btn btn-primary jh">确认收款</button>
+                                <button type="button" ng-click="Complain(item.id)" ng-show="item.status==300" class="btn btn-primary jh">申诉</button>
+                                <button type="button" ng-click="Check('transaction_jyjf_csjl_get.html',item.serialNumber, item)" class="btn btn-primary jh">查看</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+               <tablelistdatashow></tablelistdatashow>
+                   
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center" ng-hide="noData">
+                            <pagination total-items="totalItems" previous-text="<" next-text=">" max-size="maxSize" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></pagination>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--图片点击放大遮罩层-->
+<div class="mask" close-Pic>
+    <div class="mask-box"></div>
+    <div class="big-pic-wrap">
+        <img src="" alt="" class="bigPic" />
+        <span class="close-pic"><i class="fa fa-close"></i></span>
+    </div>
+</div>  
+
+<!--查看窗口-->
+<script type="text/ng-template" id="transaction_jyjf_csjl_get.html">
+    <div class="panel-heading">
+        详情查看
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <form action="" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-xs-5">交易流水号:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{serialNumber}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">打款人:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BuyUserCode}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">打款金额:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{Total}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">打款人联系方式:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BuyMobile}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">收款人:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{sellUserCode}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">收款人联系方式:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{SellMobile}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">银行名称:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BankName}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">银行支行:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BankAddress}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">银行账号:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{BankCode}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5">支付方式:</label>
+                <div class="col-xs-6 control-label text-left">
+                    {{AlipayType}}
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+<!--申诉窗口-->
+<script type="text/ng-template" id="transaction_jyjf_csjl_money_ts.html">
+    <div class="panel-heading">
+        申诉
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <form action="" class="form-horizontal">
+            <div class="form-group text-left" style="padding-left: 40px;">
+                <label class="control-label">申诉内容:</label>
+            </div>
+            <div class="form-group">
+                <textarea ng-model="ComplainState" style="width: 80%;height: 200px; color: #000;">
+                        {{ComplainState}}
+                </textarea>
+            </div>
+        </form>
+    </div>
+    <div class="panel-group customstyle" style="margin-bottom: 0px;">
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-info"
+                ng-click="Confirm()">
+            确定
+        </button>
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-primary"
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>
+
+
+<!--确认收款-->
+<script type="text/ng-template" id="transaction_jyjf_csjl_ConfirmBuy.html">
+    <div class="panel-heading">
+        确认收款
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center" style="color: #b9b9b9;">
+        <p></p>
+        您确认收款吗？
+        <p></p>
+    </div>
+    <div class="panel-group customstyle" style="margin-bottom: 0px;">
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-info"
+                ng-click="Confirm()">
+            确定
+        </button>
+        <button type="submit" style="margin-top: 15px;margin-bottom: 0px;" class="btn btn-primary"
+                ng-click="closeThisDialog()">
+            取消
+        </button>
+    </div>
+</script>
+

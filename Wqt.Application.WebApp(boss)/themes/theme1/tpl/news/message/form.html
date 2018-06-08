@@ -1,0 +1,79 @@
+﻿<div class="wrapper-md">
+    <div ng-controller="CreatemessageCtrl">
+        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+        <ul class="breadcrumb bg-white b-a">
+            <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+            <li><a href="" translate="PAGE.news.breadcrumb2">信息管理</a></li>
+            <li class="active" translate="PAGE.news.message.title">我要留言</li>
+        </ul>
+        <div class="row">
+            <div class="panel panel-default customPanel">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate="PAGE.news.message.title">
+                        <font>
+                            <font class="customTitle">    我要留言</font>
+                        </font>
+                    
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form name="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.news.message.MainTitle">主标题：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="" ng-model="Message.MainTitle" required>
+
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.news.message.SubTitle">副标题：</span><i class="void"></i></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="" ng-model="Message.SubTitle" required>
+
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.news.message.MessageType">留言类型：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <select class="form-control"  ng-model="Message.MessageType" ng-change="ValueChange()" required>
+                                    <option value translate="OPPTION">==请选择==</option>
+                                    <option value="1" translate="PAGE.news.message.value1">管理员</option>
+                                    <option value="0" translate="PAGE.news.message.value2">会员</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in" ng-hide="!isVip"></div>
+                       
+                        <div class="form-group" ng-if="isVip">
+                            <label class="col-sm-2 control-label"> <span translate="PAGE.news.message.UserCode">收件人编号：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10"  ng-controller="ReceiveCtrl" >
+                                <input type="text" class="form-control" ng-blur="checkRecieverCode()" typeahead="state for state in states | filter:$viewValue | limitTo:8" typeahead-min-length="3" placeholder="" ng-model="Message.UserCode" required>
+                                <span ng-hide="isUseful" translate="PAGE.news.message.isUseful">该会员不存在</span>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span translate="PAGE.news.message.Content">留言内容：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" placeholder="" ng-model="Message.Content"></textarea>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                           
+                            <button type="submit" ng-click="message(form.$valid)" ng-class="{'active': btnSuccess, 'btn': true, 'btn-info': true,'disabled':btnSuccess}">
+                                <span class="text" translate="BUTTON.submit">提交</span>
+                                <span class="text-active" translate="BUTTON.submitting">提交中...</span>
+                                <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                            </button>
+                            <button type="submit" class="btn btn-default" ng-click="clean()" translate="BUTTON.clear">清空</button>
+                        </footer>
+                        </form>
+                </div>
+            </div>
+
+          
+        </div>
+    </div>
+</div>

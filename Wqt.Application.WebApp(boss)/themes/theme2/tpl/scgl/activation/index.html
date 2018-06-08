@@ -1,0 +1,125 @@
+﻿<div class="wrapper-md" ng-controller="sc_jihuolist">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="" translate="PAGE.scgl.breadcrumb2">市场管理</a></li>
+        <li class="active"  translate="PAGE.scgl.activation.title">待激活列表</li>
+    </ul>
+   
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">查询</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body clearfix query-panel">
+            <div class="form-group col-sm-2">
+                <input type="text" ng-model="queryObj.queryData.usercode" ng-enter="query()" class="form-control"  placeholder="{{'PLACEHOLDER.queryuser'|translate}}" />
+
+            </div>
+            <selectdate></selectdate>
+
+            <!--<div class="form-group col-sm-3 ">
+                <label class="control-label col-sm-4 datestyle"><font><font>开始时间：</font></font></label>
+                <div class="col-sm-8">
+                    <selectdatestart></selectdatestart>
+                </div>
+            </div>
+            <div class="form-group col-sm-3 ">
+                <label class="control-label col-sm-4 datestyle"><font><font>结束时间：</font></font></label>
+                <div class="col-sm-8">
+                    <selectdateend></selectdateend>
+                </div>
+            </div>-->
+
+
+            <div class="form-group col-sm-2 text-center">
+                <button type="button" ng-click="query()" ng-enter="query()" class="btn btn-primary btn-query" ng-class="{'active': btnSuccess, 'disabled':btnSuccess}">
+                    <span class="text"><i class="fa fa-search"></i>&nbsp;查询</span><span class="text-active"><i class="fa fa-search"></i>&nbsp;查询中...</span>
+                    <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                </button>
+            </div>
+
+
+        </div>
+  
+    </div>
+
+    <div class="panel panel-default customPanel" style="margin-top: 10px;">
+            <div class="panel-heading" translate="PAGE.scgl.activation.unActived">
+                <h3 class="panel-title">
+                    <font>
+                        <font class="customTitle">待激活的会员</font>
+                    </font>
+                </h3>
+                
+            </div>
+             <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th style="width:8%" translate="ORDER">序号</th>
+                                <th style="width:15%" translate="PAGE.scgl.activation.userCode">会员编号</th>
+                                <th style="width:15%" translate="PAGE.scgl.activation.nickName">会员名称</th>
+                                <th style="width:15%" translate="PAGE.scgl.activation.leveltext">会员级别</th>
+                                <th style="width:15%" translate="PAGE.scgl.activation.mobile">手机号码</th>
+                                <th style="width:15%" translate="PAGE.scgl.activation.registerDate">推荐时间</th>
+                                <th style="width:15%" translate="PAGE.scgl.activation.active">激活</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Grid.rows | orderBy:sort:desc">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    {{item.userCode}}
+                                </td>
+
+                                <td>
+                                    {{item.nickName}}
+                                </td>
+                                <td>
+                                    {{item.leveltext}}
+                                </td>
+                                <td>
+                                    {{item.mobile}}
+                                </td>
+                                <td>
+                                    {{item.registerDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                                <td>
+                                    <!--<button type="button" id="jhwc" ng-click="dialog(item)" class="btn btn-primary" ng-class="{'active': btnSuccess && ss, 'disabled':btnSuccess}">
+                                        <span class="text">激活</span><span class="text-active">激活中...</span><span class="text-active">激活中...</span>
+                                        <i ng-class="{'fa': true,'fa-spin': true, 'fa-spinner': true, 'hide': true, 'show': btnSuccess, 'inline': btnSuccess}" id="spin"></i>
+                                    </button>-->
+                                    <button type="button"   ng-click="dialogOpen(item,$index)" class="btn  activeButton jh tableButton" translate="BUTTON.active">激活</button>
+                                    <button type="button"  class="btn btn-warning jhing hide tableButton" disabled translate="BUTTON.active">激活中</button>
+                                    <button type="button"  class="btn btn-success jhComplete hide tableButton" disabled translate="BUTTON.active">已激活</button>
+                                </td>
+                           
+                            </tr>
+                        </tbody>
+                    </table>
+                   <tablelistdatashow></tablelistdatashow>
+                       
+
+                    
+
+
+                </div>
+            </div>
+    </div>
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-lg-12 text-center" ng-hide="noData">
+                <pagination total-items="Grid.pager.totalItems" max-size="Grid.pager.maxSize" previous-text="<" next-text=">" ng-model="currentPage" ng-change="Grid.pager.pageChanged()" class="m-t-none m-b"></pagination>
+            </div>
+        </div>
+
+    </footer>
+
+</div>

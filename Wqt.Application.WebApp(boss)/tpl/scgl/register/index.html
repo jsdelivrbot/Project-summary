@@ -1,0 +1,372 @@
+<style>
+    .ui-select-bootstrap > .ui-select-match > .caret {
+        right: 7px;
+        color: #999999;
+    }
+
+</style>
+<div class="wrapper-md">
+    <div ng-controller="registerController">
+        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+        <ul class="breadcrumb bg-white b-a">
+            <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+            <li><a href="" translate="PAGE.scgl.breadcrumb2">市场管理</a></li>
+            <li class="active" translate="PAGE.scgl.register.title">注册会员</li>
+        </ul>
+        <form name="form" class="form-validation form-horizontal">
+            <div class="panel panel-default customPanel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">用户信息</font>
+                        </font>
+
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label for="UserCode" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.UserCode">用户编号：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="UserCode"  ng-model="regData.UserCode" placeholder="" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info autoButton" type="button" ng-click="Help.GenerateUserCode()" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;" translate="PAGE.scgl.register.auto">自动生成</button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <label for="TJUserCode" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.TJUserCode">推荐人编号：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <!--<input type="text" ng-model="regData.TJUserCode" typeahead="state for state in states | filter:$viewValue | limitTo:8" typeahead-min-length="5" class="form-control">-->
+                                    <ui-select ng-model="select.TJUser" theme="bootstrap" ng-disabled="disabled" reset-search-input="false" on-select="someFunction($item, $model)" >
+                                        <ui-select-match>{{$select.selected.userCode}}</ui-select-match>
+                                        <ui-select-choices repeat="item in userList track by $index" refresh="Help.QueryUser($select.search)" refresh-delay="60">
+                                            <div ng-bind-html="item.userCode | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <div class="col col-sm-6">
+                                    <label for="JDUserCode" class="col-sm-3 control-label"> <span translate="PAGE.scgl.register.JDUserCode">安置人编号：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+
+                                    <div class="col-sm-7">
+                                        <ui-select ng-model="select.JDUser" theme="bootstrap" ng-disabled="disabled" reset-search-input="false" on-select="JdPostion.OnSelect($item, $model)" required>
+                                            <ui-select-match>{{$select.selected.userCode}}</ui-select-match>
+                                            <ui-select-choices repeat="item in userList track by $index" refresh="Help.QueryUser($select.search)" refresh-delay="60">
+                                                <div ng-bind-html="item.userCode | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+
+                                </div>
+                                <div class="col col-sm-6">
+                                    <label class="col-sm-3 control-label"><span translate="PAGE.scgl.register.JDPosition">安置位置：</span><i class="void"></i></label>
+                                    <div class="col-sm-7">
+                                        <select class="TC-select form-control" id="AZWZ" ng-model="regData.JDPosition"  required>
+                                            <option  value="" translate="OPPTION">==请选择==</option>
+                                            <option value="{{item.value}}" ng-repeat="item in JdPostion.List">{{item.text}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <div class="col col-sm-6">
+                                    <label for="BDcenter" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.ReportCenterUserCode">银商：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                    <!--<div class="col-sm-7">
+                                        <input type="text" id="BDcenter" class="form-control" ng-model="regData.ReportCenterUserCode " required>
+                                    </div>-->
+                                    <div class="col-sm-7">
+                                        <ui-select ng-model="select.ReportCenter" theme="bootstrap" ng-disabled="disabled" reset-search-input="true"   required>
+                                            <ui-select-match>{{$select.selected.userCode}}</ui-select-match>
+                                            <ui-select-choices repeat="item in userysList track by $index" refresh="Help.QueryYSUser($select.search)" refresh-delay="60">
+                                                <div ng-bind-html="item.userCode | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+
+                                </div>
+                                <div class="col col-sm-6">
+                                    <label for="RealName" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.NickName">真实姓名：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="RealName" placeholder="" ng-model="regData.NickName" required>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <div class="col col-sm-6">
+                                    <label class="col-sm-3 control-label"><span translate="PAGE.scgl.register.CardType">证件类型：</span><i class="void"></i></label>
+                                    <div class="col-sm-7">
+                                        <select class="CardType form-control" id="CardType" ng-model="regData.CardType" required>
+                                            <option value translate="OPPTION">==请选择==</option>
+                                            <option value="sfz" translate="PAGE.scgl.register.IdCard">身份证</option>
+                                            <option value="hz" translate="PAGE.scgl.register.passport">护照</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                                <div class="col col-sm-6">
+                                    <label for="CardNo" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.IdNumber">证件号码：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="CardNo" placeholder="" ng-model="regData.ID_Number" required ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label for="MobilePhone" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.Mobile">手机号码：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="MobilePhone"  ng-model="regData.Mobile" placeholder="" ng-pattern="/[0-9-()（）]{7,18}/" required>
+                                        <span class="input-group-btn">
+                                            <button ng-class="{'disabled':hasgetCode ,'btn':true,'btn-info':true,'autoButton':true,}" type="button" ng-click="Help.GetMobileValidation()" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;" >{{buttonText}}</button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <label for="Email" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.Email">邮箱：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="email" id="Email" class="form-control" ng-model="regData.Email" required>
+                                    
+                                </div>
+
+                            </div>
+
+                            <!--<div class="col col-sm-6">
+                                <label for="validation" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.validation">验证码：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="validation" placeholder="" ng-model="regData.validation" required >
+
+                                </div>
+
+                            </div>-->
+
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="row"> 
+                                <div class="col col-sm-6">
+                                    <label for="level" class="col-sm-3 control-label"><span>注册等级：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                    <div class="col-sm-7">
+                                        <select class="TC-select form-control levelFont" id="AZWZ" ng-model="regData.tcId" ng-change="Help.RegLevel.CheckUserLevel(regData.tcId)" required>
+                                            <option value translate="OPPTION2">==BOS级别==</option>
+                                            <option value="{{item.id}}" ng-selected="regData.tcId==item.id" ng-repeat="item in CommonData.TaoCanList">{{item.name}}</option>
+                                        </select>
+                                        <span ng-hide="Help.RegLevel.ShowMsg">{{Help.RegLevel.Msg}}</span>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-default customPanel">
+                <div class="panel-heading">
+
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">用户信息</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label class="col-sm-3 control-label"><span translate="PAGE.scgl.register.SecretSecurityId">密保问题：</span><i class="void"></i></label>
+                                <div class="col-sm-7">
+                                    <select class="userLevel form-control" id="userLevel" ng-model="regData.SecretSecurityId    ">
+                                        <option value translate="OPPTION">==请选择==</option>
+                                        <option value="{{item.value}}" ng-repeat="item in CommonData.SecretSecurityList">{{item.text}}</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="col col-sm-6">
+                                <label for="MobilePhone" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.SecretSecurityMatchText">密保答案：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="MobilePhone" class="form-control" ng-model="regData.SecretSecurityMatchText" />
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label for="L1Pwd" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.L1Pwd">一级密码：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="password" ng-focus="Help.Pwd.Psd(1)" class="form-control" id="L1Pwd" placeholder="{{'PLACEHOLDER.password'|translate}}" name="password" ng-model="regData.L1Pwd" ng-keyup="Help.CheckPwdStrong.strengthL1()">
+                                    <div class="pass-wrap" ng-show="Help.Pwd.StrengthShowL1">
+                                        <em translate="PAGE.scgl.register.strength">密码强度：</em>
+                                        <em id="strength1">{{Help.CheckPwdStrong.strengthL1()}}</em>
+                                        <div id="strengthLevel" class="strengthLv0"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <label for="reL1Pwd" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.confirmL1Pwd">确认一级密码：</span><i class="void"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="password" class="form-control" name="confirm_password" id="reL1Pwd"  ng-model="regData.reL1Pwd" required ui-validate=" '$value==regData.L1Pwd' " ui-validate-watch=" 'regData.L1Pwd' ">
+                                    <span ng-show='form.confirm_password.$error.validator' translate="PAGE.scgl.register.validator">密码不匹配，请重新确认密码！</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label for="L2Pwd" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.L2Pwd">二级密码：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="password" id="L2Pwd" ng-focus="Help.Pwd.Psd(2)" placeholder="{{'PLACEHOLDER.password'|translate}}" class="form-control" ng-model="regData.L2Pwd" ng-keyup="Help.CheckPwdStrong.strengthL2()" name="password2">
+                                    <div class="pass-wrap" ng-show="Help.Pwd.StrengthShowL2">
+                                        <em translate="PAGE.scgl.register.strength">密码强度：</em>
+                                        <em id="strength2">{{Help.CheckPwdStrong.strengthL2()}}</em>
+
+                                        <div id="strengthLeve2" class="strengthLv0"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col col-sm-6">
+                                <label for="reL2Pwd" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.confirmL2Pwd">确认二级密码：</span><i class="void"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="password" id="reL2Pwd" class="form-control" name="confirm_password2" ng-model="regData.reL2Pwd" required ui-validate=" '$value==regData.L2Pwd' " ui-validate-watch=" 'regData.L2Pwd' ">
+                                    <span ng-show='form.confirm_password2.$error.validator'>密码不匹配，请重新确认密码！</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-default customPanel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <font>
+                            <font class="customTitle">银行信息</font>
+                        </font>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label for="BankAccount" class="col-sm-3 control-label"><span translate="PAGE.scgl.register.BankUserName">开户人：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="BankAccount" placeholder="" ng-model="regData.BankUserName  " required>
+
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <label class="col-sm-3 control-label"><span translate="PAGE.scgl.register.BankName">银行名称：</span><i class="void"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="BankName" placeholder="" ng-model="regData.BankName " required>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label class="col-sm-3 control-label" for="BankAddress"><span translate="PAGE.scgl.register.BankAddress">所属支行：</span><i class="void"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="BankAddress" class="form-control" ng-model="regData.BankAddress" required>
+
+                                </div>
+
+                            </div>
+                            <div class="col col-sm-6">
+                                <label class="col-sm-3 control-label" for="Bankcode"><span translate="PAGE.scgl.register.BankCode">账号：</span><i class="glyphicon glyphicon-asterisk" style="font-size: 20px; color: red;"></i></label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="Bankcode" class="form-control" ng-model="regData.BankCode" required>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 40px;">
+                        <div class="row">
+                            <div class="col col-sm-12">
+                                <div class="checkbox text-center">
+                                    <label class="i-checks">
+                                        <input type="checkbox" ng-model="check" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required">
+                                        <i></i>
+                                        {{'PAGE.scgl.register.i'|translate}}<a href="">{{'PAGE.scgl.register.hasRead'|translate}}</a>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="col col-sm-12">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-lg btn-primary " style="margin-top: 20px;" ng-click="Help.Sumbit(form.$valid)" translate="BUTTON.register">注册</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>

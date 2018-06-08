@@ -1,0 +1,133 @@
+﻿
+<div class="wrapper-md" ng-controller="gmxqCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-center-full-center', 'close-button':true}"></toaster-container>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a href="#/"><i class="fa fa-home"></i> <span translate="APPNAME">会员管理系统</span></a></li>
+        <li><a href="">交易市场</a></li>
+        <li><a href="#/app/transaction_jydt">BOS交易</a></li>
+        <li class="active">购买详情</li>
+    </ul>
+
+    <div class="panel panel-default customPanel">
+        <div class="panel-heading ">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">查询</font>
+                </font>
+            </h3>
+        </div>
+        <div class="panel-body  query-panel">
+            <form action="" class="form-horizontal" id="deposit-form">
+                <div class="form-group">
+                    <label class="control-label col-sm-2 datestyle"><font><font>交易时间：</font></font></label>
+                    <div class="col-sm-4">
+                        <selectdatestart></selectdatestart>
+                    </div>
+                    <search></search>
+                </div>
+               
+              
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default customPanel" >
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <font>
+                    <font class="customTitle">购买详情</font>
+                </font>
+            </h3>
+            
+        </div>
+        <div class="panel-heading clearfix" style="background:#ffffff">
+            <button class="btn btn-success pull-right jifenButton" style="font-size:14px" ng-click="waitcomplete()">待完成</button>
+            <button class="btn btn-warning pull-right jifenButton" ng-click="end()">已终止</button>
+            <button class="btn btn-success pull-right jifenButton" ng-click="conmpleted()">已完成</button>
+            
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                        <tr>
+                            <!--<th style="width:40%">用户编号</th>-->
+                            <th style="width:8%" translate="ORDER">序号</th>
+                            <th style="width:15%">交易流水号</th>
+                            <th style="width:15%">时间</th>
+                            <th style="width:10%">认购金额</th>
+                            <th style="width:10%">已完成金额</th>
+                            <th style="width:10%">剩余金额</th>
+                            <th style="width:10%">状态</th>
+                            <th style="width:15%">操作</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rows" ng-init="ngRepeatFinished()">
+                            <td>
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                {{item.createDate | date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>
+                            <td>
+                                {{item.count}}
+                            </td>
+                            <td>
+                                {{item.rest}}
+                            </td>
+                            <td>
+                               {{(item.count*1000-item.rest*1000)/1000}}
+                            </td>
+                            <td>
+                                {{item.statusText}}
+                            </td>
+                            <td>
+                                <button  type="button" ng-click="sumbit(item,$index)" class="btn btn-primary endButton tableButton">终止</button>
+
+                                <button type="button" ng-click="buyRecord(item.id)" class="btn btn-primary tableButton">购买记录</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+               <tablelistdatashow></tablelistdatashow>
+                  
+                <tablelistfooter></tablelistfooter>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--终止购买窗口-->
+<script type="text/ng-template" id="transaction_jfg_jydt.html">
+    <div class="panel-heading">
+        终止购买提醒
+
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-body text-center">
+        <p></p>
+        您确认立即终止积分服购买操作吗？
+        <p></p>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in" style="margin: 0;"></div>
+    <div class="panel-group col-xs-offset-8">
+        <button type="submit" class="btn btn-info"
+                ng-click="Confirm()">
+            终止
+        </button>
+        <button type="submit" class="btn btn-primary"
+                ng-click="Cancel()">
+            取消
+        </button>
+    </div>
+</script>
+
+
+
+

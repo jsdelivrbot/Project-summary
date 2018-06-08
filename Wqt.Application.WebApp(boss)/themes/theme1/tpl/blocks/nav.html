@@ -1,0 +1,43 @@
+<!-- list -->
+<ul class="nav">
+    <li ng-repeat="v in moduleDataChild">
+        <a ng-if="v.children.length == 0 && v.name != '退出'" href="{{ '#' + v.url }}">
+            <i class="{{v.icon}}"></i>
+            <span  ng-bind="v.name"></span>
+        </a>
+        <a ng-if="v.name == '退出'" ng-click="loginout()">
+            <i class="{{v.icon}}"></i>
+            <span ng-bind="v.name"></span>
+        </a>
+        <a ng-if="v.children.length > 0" href class="auto">
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="{{v.icon}}"></i>
+            <span ng-bind="v.name"></span>
+        </a>
+        <ul ng-if="v.children.length > 0" class="nav nav-sub dk">
+            <li ng-repeat="vv in v.children">
+                <a ng-if="vv.children.length == 0" href="{{ '#' + vv.url }}">
+                    <span ng-bind="vv.name"></span>
+                </a>
+                <a ng-if="vv.children.length > 0" class="auto">
+                    <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                    </span>
+                    <span ng-bind="vv.name"></span>
+                </a>
+                <ul ng-if="vv.children.length > 0" class="nav nav-sub dk">
+                    <li ng-repeat="vvv in vv.children">
+                        <a href="{{ '#' + vvv.url }}">
+                            <span ng-bind="vvv.name"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<!-- / list -->
