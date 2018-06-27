@@ -1,0 +1,61 @@
+<template>
+  <div class="footNav">
+       <!-- 商城 -->
+      <router-link tag="div" to="/shop/goods" class="foot_Nav_item_1 foot_Nav_item">
+          <img class="item_img1" src="static/imgs/footImg_03.png">
+          <div class="footNav_text">
+              <img src="static/imgs/footText1.png">
+          </div>
+      </router-link>
+      <!-- 商城 -->
+      <!-- 团队管理 -->
+       <router-link tag="div" to="/teamManage/myTeam" class="foot_Nav_item_2 foot_Nav_item">
+          <img class="item_img2" src="static/imgs/footImg_06.png">
+          <div class="footNav_text">
+              <img src="static/imgs/footText2.png">
+          </div>
+       </router-link>
+       <!-- 团队管理 -->
+      <!-- 交易大厅 -->
+       <router-link tag="div" to="/TradingHall/tradeMarket" class="foot_Nav_item_3 foot_Nav_item">
+          <img class="item_img3" src="static/imgs/footImg_08.png">
+          <div class="footNav_text">
+              <img src="static/imgs/footText3.png">
+          </div>
+       </router-link>
+      <!-- 交易大厅 -->
+       <router-link tag="div" to="/wallet/index" class="foot_Nav_item_4 foot_Nav_item" >
+          <img class="item_img4" src="static/imgs/footImg_05.png">
+          <div class="footNav_text">
+              <img src="static/imgs/footText5.png">
+          </div>
+       </router-link>
+       <div class="foot_Nav_item_5 foot_Nav_item" @click="btnAllShouQu">
+          <img class="item_img5" src="static/imgs/footImg_07.png">
+          <div class="footNav_text">
+              <img src="static/imgs/footText4.png">
+          </div>
+       </div>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    btnAllShouQu() {
+      ajax.post("/api/pond/AllShouQu", {}).then(response => {
+        this.success(response.Message);
+        this.$emit("update:isNeedReBind", true);
+      });
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

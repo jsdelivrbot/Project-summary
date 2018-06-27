@@ -1,0 +1,44 @@
+<template>
+    <div class="routerBox">
+        <div class="common_bg setting">
+            <close class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/setting.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                </div>
+                <div class="btnBox text_center">
+                    <button class="btn_yellowBg" @click="logout">
+                        <img src="static/imgs/logout.png">
+                      </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</template>
+
+<script>
+    import close from '@/components/close'
+    export default {
+        data() {
+            return {
+            }
+        },
+        methods: {
+            logout() {
+                this.$store.dispatch("FedLogOut").then(() => {
+                    location.reload(); // 为了重新实例化vue-router对象 避免bug
+                });
+            },
+        },
+        components:{
+            close
+        }
+    }
+</script>
+
+<style>
+
+</style>

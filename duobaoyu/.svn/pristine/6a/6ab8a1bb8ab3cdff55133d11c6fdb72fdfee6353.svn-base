@@ -1,0 +1,65 @@
+<template>
+    <div class="model_Box_wrapper checkInfo_model">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/model_title1.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content content_left inline inline_4_5">
+                <div class="info_item">
+                    <label>会员编号：</label>
+                    <span>{{infoData.BuyUserCode}}</span>
+                </div>
+                <div class="info_item">
+                    <label>昵称：</label>
+                    <span>{{infoData.BuyNickName}}</span>
+                </div>
+                <div class="info_item">
+                    <label>手机号：</label>
+                    <span>{{infoData.BuyMobile}}</span>
+                </div>
+            </div>
+             <div class="content content_right inline inline_4_5">
+                <div class="info_item">
+                    <label>打款凭证：</label>
+                    <img :src="infoData.ImgPath |getImgUrlFilter">
+                </div>
+            </div>
+            <div class="">
+                <button class="btn btn_yellowBg">
+                    <img src="static/imgs/confirm.png">
+                  </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                isOpen: false,
+                infoData:false,
+            }
+        },
+        created(){
+            this.bind()
+        },
+
+        methods: {
+            bind(){
+                this.infoData=this.$route.query;
+                console.log(this.infoData);
+            },
+            close() {
+                this.$router.go(-1);
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

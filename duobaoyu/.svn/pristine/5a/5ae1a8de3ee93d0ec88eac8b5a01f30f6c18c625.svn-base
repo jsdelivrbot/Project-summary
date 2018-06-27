@@ -1,0 +1,72 @@
+<template>
+    <div class="routerBox">
+        <div class="TradeingHall Wallet common_bg">
+            <close :Router="true" class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/wallet_title.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="tab_title">
+                        <div class="title_item title_item_1 clear_fix" :class="{'title_item_active':tab.isOpenCount}" @click="OpenCount">
+                            <img src="static/imgs/wallet_1.png">
+                        </div>
+                        <div class="title_item title_item_2" :class="{'title_item_active':tab.isOpenDetail}" @click="OpenDetail">
+                            <img src="static/imgs/wallet_2.png">
+                        </div>
+                    </div>
+                    <router-view></router-view>
+             
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import close from "@/components/close";
+import walletReport from "@/views/wallet/report";
+import walletDetail from "@/views/wallet/detail";
+export default {
+  data() {
+    return {
+      isactiveTab: true,
+      tableData: [1, 2, 3, 4, 5, 6],
+      tab: {
+        isOpenCount: true,
+        isOpenDetail: false
+      }
+    };
+  },
+  created: function() {
+    this.$router.push({ path: "/wallet/report" });
+  },
+  methods: {
+    tabchange() {
+      for (var x in this.tab) {
+        this.tab[x] = false;
+        console.log(x, this.tab[x]);
+      }
+    },
+    OpenCount() {
+      this.tabchange();
+      this.tab.isOpenCount = true;
+      this.$router.push({ path: "/wallet/report" });
+    },
+    OpenDetail() {
+      this.tabchange();
+      this.tab.isOpenDetail = true;
+            this.$router.push({ path: "/wallet/detail" });
+    }
+  },
+  components: {
+    close,
+    walletReport,
+    walletDetail
+  }
+};
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,59 @@
+<template>
+    <div class="model_Box_wrapper checkInfo_model confirmReceiveModel ">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/model_title2.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content">
+                <div class="info_item clear_fix">
+                    <div class="item_left input_group_inline_clearfix input_group_inline">
+                        <div class="vue-file-upload vue-file-upload-preview">
+                            <img v-if="hasImg" :src="img" />
+                            <img v-if="!hasImg" class="imgpreview" src="static/imgs/imgpreview.png">
+                        </div>
+                    </div>
+                    <div class="item_right ">
+                        <div class="upLoad_timeKey">上传时间</div>
+                        <div class="upLoad_timeValue">2017/11/22</div>
+                        <button class="btn_yellowBg saveMobile">
+                            <img src="static/imgs/saveMobile.png">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="btnBox text_center">
+                <button class="btn_yellowBg">
+                        <img src="static/imgs/confirm.png">
+                    </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import VueFileUpload from 'vue-file-upload';
+    export default {
+        data() {
+            return {
+                isOpen: false,
+                images: [],
+                img: '',
+                hasImg: false,
+            }
+        },
+        mounted() {},
+        methods: {
+            close() {
+                this.$emit('close-confirmReceive', this.isOpen)
+            }
+        },
+        components: {}
+    }
+</script>
+
+<style>
+
+</style>

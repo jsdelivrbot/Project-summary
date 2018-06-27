@@ -1,0 +1,71 @@
+<template>
+  <div class="shop_Car My_order">
+    <div class="tab_content">
+      <div class="table_head">
+        <div class="head_item">产品</div>
+        <div class="head_item" >单价</div>
+        <div class="head_item head_item_3" style="width:15%;">数量</div>
+        <div class="head_item">合计</div>
+      </div>
+      <div class="table_body">
+        <div class="body_items" v-for="item in tableData" :key="item.id">
+          <div class="body_item body_item1">
+            <div class="item1_box">
+               <img src="static/imgs/shop_10.png"> 红酒
+            </div>
+          </div>
+          <div class="body_item body_item2">
+            <div class="good_price">
+              <div class="buy_duobaoyu">
+                <img src="static/imgs/shoppfish_03.png"> X456
+              </div>
+              <div class="buy_coin">
+                <img src="static/imgs/renmingbi.png"> X386
+              </div>
+            </div>
+          </div>
+          <div class="body_item body_item3">
+            <div class="amount">{{item.count}}</div>
+          </div>
+            <div class="body_item body_item4">
+             <div class="good_price">
+              <div class="buy_duobaoyu">
+                <img src="static/imgs/shoppfish_03.png"> X456
+              </div>
+              <div class="buy_coin">
+                <img src="static/imgs/renmingbi.png"> X386
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+         <div class="shopfoot">
+              <pagination></pagination>
+            </div>
+  </div>
+</template>
+
+<script>
+import pagination from '@/components/pagination'
+  export default {
+    data(){
+      return{
+        tableData:[{
+          id:1,
+          count:20
+        },{
+          id:2,
+          count:40
+        }]
+      }
+    },
+    components:{
+      pagination
+    }
+  }
+</script>
+
+<style>
+
+</style>

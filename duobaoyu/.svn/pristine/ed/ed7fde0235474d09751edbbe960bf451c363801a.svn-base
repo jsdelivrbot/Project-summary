@@ -1,0 +1,43 @@
+import * as ajax from "@/api/common";
+const cacheKey = "common.clientData";
+const clientData = {
+    state: {
+        enumData: localStorage[cacheKey] ? JSON.parse(localStorage[cacheKey]) : {},
+    },
+    mutations: {
+        SET_ClientData: (state, data) => {
+            localStorage[cacheKey] = JSON.stringify(data);
+            state.enumData = data;
+            console.log(state);
+        }
+    },
+    actions: {
+        Init({ commit }) {
+            return new Promise((resolve, reject) => {
+                if (false && localStorage[cacheKey]) {
+                    resolve()
+                } else {
+
+                    ajax.post("/api/User/GetSecretSecurity", {}).then(response => {
+                        var dic = new Object();
+                        dic['SecretSecurity'] = new Object();
+
+                        response.Data.forEach(item => {
+                            dic['SecretSecurity'][item.Value] = item.Text;
+
+                        });
+
+                        console.log('SET_ClientData', dic);
+                        commit('SET_ClientData', dic);
+                        resolve()
+                    }).catch(error => {
+                        reject(error)
+                    });
+                }
+
+            });
+        }
+    }
+}
+
+export default clientData

@@ -1,0 +1,46 @@
+<template>
+   <div class="model_Box_wrapper buy_successModel">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/pay_success.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="model_content">
+               <div class="buy_successText">恭喜，XX购买成功</div>
+               <div class="Surplus_amount">剩余现金￥386 </div>
+               <div class="tips">款项请在现金结算处支付，并通告客服！</div>
+            </div>
+            <div class="model_foot">
+                <button class="btn btn_active" @click="confirm">
+                    <img src="static/imgs/confirm.png">
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        isOpen:false,
+        
+      }
+    },
+   methods:{
+     close(){
+       this.$emit('close-BuySuccessModel',this.isOpen)
+     },
+     confirm(){
+        this.$emit('close-BuySuccessModel',this.isOpen);
+        this.$router.push({path:'/shop/Cash'})
+     }
+   }
+  }
+</script>
+
+<style>
+
+</style>

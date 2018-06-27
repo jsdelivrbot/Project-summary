@@ -1,0 +1,80 @@
+<template>
+    <div class="model_Box_wrapper checkInfo_model">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/model_title1.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content">
+                <div class="info_item">
+                    <label>昵称:</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="info_item">
+                    <label>昵称：</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="info_item">
+                    <label>账号：</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="info_item">
+                    <label>手机：</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="info_item">
+                    <label>推荐人手机：</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="info_item">
+                    <label>支付宝：</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="info_item">
+                    <label>支付宝姓名：</label>
+                    <span>古拉拉</span>
+                </div>
+                <div class="clear_box">
+                    <div class="info_item input_group_inline_clearfix input_group_inline">
+                        <label>开户银行：</label>
+                        <span>古拉拉</span>
+                    </div>
+                    <div class="info_item input_group_inline">
+                        <label>开户人：</label>
+                        <span>古拉拉</span>
+                    </div>
+                </div>
+                <div class="info_item">
+                    <label>银行账号：</label>
+                    <span>古拉拉</span>
+                </div>
+            </div>
+            <div class="btnBox text_center">
+                <button class="btn_yellowBg">
+                <img src="static/imgs/confirm.png">
+              </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                isOpen: false
+            }
+        },
+        methods: {
+            close() {
+                this.$emit('close-checkInfo', this.isOpen)
+            },
+        }
+    }
+</script>
+
+<style>
+
+</style>

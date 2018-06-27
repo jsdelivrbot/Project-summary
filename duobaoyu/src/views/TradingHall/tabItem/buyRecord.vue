@@ -1,0 +1,163 @@
+<template>
+  <div class="matchpendOrder BuyRecord">
+    <div class="tab_content">
+      <div class="table_head">
+        <div class="head_item head_item1">订单号/创建时间</div>
+        <div class="head_item head_item2">实际成交金额</div>
+        <div class="head_item head_item3">对方信息</div>
+        <div class="head_item head_item4" >操作</div>
+      </div>
+      <div class="table_body">
+        <div class="body_items" v-for="(item,index) in tableData.Data" :key="index">
+          <div class="body_item body_item1">
+            <span class="orderNo">{{item.SerialNumber}}</span>
+            <span class="date">{{item.CreateDate}}</span>
+          </div>
+          <div class="body_item body_item2">
+            <div class="amount">￥{{item.Total}}</div>
+          </div>
+          <div class="body_item body_item3">
+            <div class="info">{{item.SellNickName}}</div>
+            <div class="checkInfo btn btn_default" @click="openCheckInfo(item)">
+              <img src="static/imgs/checkInfo.png">
+            </div>
+          </div>
+          <div class="body_item body_item4">
+            <div class="operateBtn_group" v-if="item.Status==200">
+              <div @click="btnUpLoad(item)" class="operate_2 operate btn btn_active btn_round">
+                <img src="static/imgs/uploadText.png">
+              </div>
+            </div>
+            <div v-else class="statusText" :class="{'statusOnly':isHasOperate}">{{item.Status |orderStatusFilter('b') }}</div>
+          </div>
+        </div>
+        <div v-if="!hasData" class="body_items no_data">
+          没有数据！
+        </div>
+      </div>
+      <div class="table_foot" >
+        <router-link tag="div" to="/TradingHall/DirectionalTrade" class="DirectionalTrade btn btn_default">
+          定向交易
+          <!-- <img src="static/imgs/dingxiangjiaoyi.png"> -->
+        </router-link>
+        <pagination :page="page"  v-if="hasData" v-on:first-page="firstPage" v-on:last-page="lastPage" v-on:pre-page="prePage" v-on:next-page="nextPage"></pagination>
+        <router-link tag="div" class="wanttoSell btn btn_active" to="/TradingHall/sell">
+          我要挂卖
+          <!-- <img src="static/imgs/woyaoguamai.png"> -->
+        </router-link>
+      </div>
+    </div>
+     <template>
+      <router-view></router-view>
+    </template>
+    <!-- 操作弹出框 -->
+    <buyer-complaint v-if="Model.isBuyerComplaint" :model="Model" v-on:close-buyerComplaint="closeBuyerComplaint"></buyer-complaint>
+    <upload v-if="Model.isUpload" :bindFun="bind" :model="Model" v-on:close-upLoad="closeUpload"></upload>
+    <!-- 操作弹出框 -->
+  </div>
+</template>
+
+<script>
+  import * as ajax from "@/api/common";
+  import pagination from '@/components/pagination'
+  import {
+    BuyerComplaint,
+    checkInfo,
+    upload
+  } from "@/views/TradingHall/tradeModel";
+  import tableFoot from "@/components/tableFood";
+  export default {
+    data() {
+      return {
+        hasData: true,
+        isHasOperate: true,
+        tableData: false,
+        page: {
+          defaultPage: '1',
+          currentPage: '',
+          totalPage: '',
+        },
+        Model: {
+          isCheckInfo: false,
+          isBuyerComplaint: false,
+          isSellerComplaint: false,
+          isUpload: false,
+          formData: false
+        },
+        selectItem: false
+      };
+    },
+    created: function() {
+      this.bind();
+    },
+    methods: {
+      btnUpLoad(item) {
+        this.Model.isUpload = true;
+        this.Model.formData = item;
+      },
+      bind() {
+        ajax.post("/api/help/BuyList", {pageNum: this.page.defaultPage}).then(response => {
+          if (response.Data.Data.length == 0) {
+            this.hasData = false
+          }
+          this.page.totalPage = response.Data.PageCount;
+          this.page.currentPage = response.Data.PageNum;
+          this.tableData = response.Data;
+          console.log("  this.tableData", this.tableData);
+        });
+      },
+      firstPage(firstPage) {
+        this.page.defaultPage = firstPage;
+        console.log('f', this.page.defaultPage)
+        this.bind()
+      },
+      lastPage(lastPage) {
+        this.page.defaultPage = lastPage;
+        console.log('l', this.page.defaultPage)
+        this.bind()
+      },
+      prePage(prePage) {
+        this.page.defaultPage = prePage;
+        console.log('n', this.page.defaultPage)
+        this.bind()
+      },
+      nextPage(nextPage) {
+        this.page.defaultPage = nextPage;
+        console.log('p', this.page.defaultPage)
+        this.bind()
+      },
+       openCheckInfo(item) {
+        //alert(1);
+        //this.Model.isCheckInfo = true;
+        console.log(item);
+        this.$router.push({
+          path:'/TradingHall/buyRecord/chekInfo'+item.HdId,
+          query:item
+        })
+      },
+      closeBuyerComplaint(isOpen) {
+        this.Model.isBuyerComplaint = isOpen;
+      },
+      openBuyerComplaint() {
+        this.Model.isBuyerComplaint = true;
+      },
+      OpenUpload() {
+        this.Model.isUpload = true;
+      },
+      closeUpload(isOpen) {
+        this.Model.isUpload = isOpen;
+      }
+    },
+    components: {
+      tableFoot,
+      BuyerComplaint,
+      checkInfo,
+      upload,
+      pagination
+    }
+  };
+</script>
+
+<style>
+
+</style>

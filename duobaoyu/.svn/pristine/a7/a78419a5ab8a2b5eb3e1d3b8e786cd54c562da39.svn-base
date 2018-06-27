@@ -1,0 +1,72 @@
+<template>
+  <div :class="divClass" @click="btnClick(item)">
+    <img :class="imgClass" :src="img">
+  </div>
+</template>
+
+<script>
+  import {
+    Message,
+    MessageBox
+  } from "element-ui";
+  import * as ajax from "@/api/common";
+  export default {
+    props: ["item", "PondForm"],
+    data() {
+      return {
+        divClass: {
+          img1_box: false,
+          img2_box: false,
+          img3_box: false,
+          img4_box: false
+        },
+        imgClass: {
+          pond_img_1: false,
+          pond_img_2: false,
+          pond_img_3: false,
+          pond_img_4: false
+        },
+        img: false,
+        type: false
+      };
+    },
+    created(){
+      this.changePond()
+    },
+    methods: {
+      btnClick(item) {
+        console.log("this.pond.item", item);
+        if (item.IsValid == false) {
+          this.PondForm.data = item;
+          this.PondForm.show = true;
+          this.$emit("update:PondForm", this.PondForm);
+        } else {
+          this.$router.push({
+            path: "/wallet/recharge",
+            query: {
+              PondId: item.Id
+            }
+          });
+        }
+      },
+      changePond() {
+        var idx = this.item.Type + 1;
+        this.divClass["img" + idx + "_box"] = true;
+        this.imgClass["pond_img_" + idx] = true;
+        if (this.item.IsValid == true) {
+          this.img = "static/imgs/chitang_" + idx + ".gif";
+        } else {
+          this.img = "static/imgs/chitang" + idx + ".png";
+        }
+        this.type = this.item.Type;
+      }
+    },
+    watch: {
+      item:'changePond'
+    }
+  };
+</script>
+
+<style>
+
+</style>

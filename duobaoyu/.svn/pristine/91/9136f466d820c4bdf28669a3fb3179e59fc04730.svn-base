@@ -1,0 +1,59 @@
+<template>
+  <div class="openPond" v-if="form.show && form.data">
+      <div class="openBox">
+          <img @click="closeOpenPondModel" class="closeBtn" src="static/imgs/close.png">
+          <div class="title">
+              <img src="static/imgs/openTitle.png">
+
+          </div>
+          <div class="content">
+              <img class="pond_img" src="static/imgs/openpoor_1.png">
+              <img class="pond_fish" src="static/imgs/openFish.png">
+              <div class="text">是否消耗<span class="dby_count">{{form.data.Price}}</span>多宝鱼开启<span class="pond_count">此片</span>鱼塘？</div>
+          </div>
+          <div class="foot">
+              <button class="confirmBtn" @click="confirm">
+                   <img src="static/imgs/confirm.png">
+              </button>
+              <button class="cancelBtn"  @click="cancel()">
+                   <img src="static/imgs/cancel.png">
+              </button>
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+export default {
+  name: "openPond",
+  props: ["form"],
+  // data(){
+
+  // },
+  methods: {
+    confirm() {
+      var item = this.form.data;
+      if (item.IsValid == false) {
+        this.errorMsg("此鱼塘已经开启");
+        return;
+      }
+      ajax.post("/api/Pond/AddPond", { PondId: item.Id }).then(response => {
+        this.success(response.Message);
+        this.$emit("update:isNeedReBind", true);
+        this.form.show = false;
+      });
+    },
+    closeOpenPondModel() {
+      this.form.show = false;
+    },
+    cancel() {
+      this.form.show = false;
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

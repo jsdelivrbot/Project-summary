@@ -1,0 +1,226 @@
+<template>
+    <div class="left_box_1">
+        <div class="chooseType">
+            <div class="label_title">请选择推荐开户类型</div>
+            <div class="label_items">
+                <div class="label_item" v-for="(item,index) in selectList" :key="index">
+                    <is-select :item="item" :list="selectList" :the_selectValue.sync="the_selectValue"></is-select>
+                </div>
+            </div>
+        </div>
+        <div class="choose_input" v-show="false">
+            <div class="input_group input_group_inline ">
+                <label class="label">我的普通多宝鱼：</label>
+                <input type="text" class="input_common input_dark">
+            </div>
+            <div class="input_group input_group_inline ">
+                <label class="label">开户消耗数量：</label>
+                <input type="text" class="input_common input_dark">
+            </div>
+        </div>
+        <form ref="form1">
+            <div class="fill_form">
+                <div class="inline clear_fix inline_4_5">
+                    <div class="form_group1  userInfo_item userInfo_item1">
+                        <div class="inline_12 input_group input_group_inline input_group_inline_clearfix">
+                            <label class="label">账号</label>
+                            <input type="text" v-verify="formData.UserCode" v-model="formData.UserCode" class="input_common">
+                            <span class="formValidateText" v-remind="formData.UserCode"></span>
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">昵称</label>
+                            <input type="text" v-model="formData.NickName" class="input_common">
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">登录密码</label>
+                            <input type="password" v-verify="formData.L1Pwd"  v-model="formData.L1Pwd" class="input_common">
+                            <!-- <input type="hidden" v-model="formData.ConfirmL1Pwd"> -->
+                            <span class="formValidateText" v-remind="formData.L1Pwd"></span>
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">密保问题</label>
+                            <select v-verify="formData.SecretSecurityId" class="input_common select_common" style="width:120%" v-model="formData.SecretSecurityId">
+                                <option   :value="key" :selected="key==formData.SecretSecurityId" v-if="SecretSecurityData" v-for="(item,key,index) in SecretSecurityData" :key="index" >{{item}}</option>
+                                <span class="formValidateText" v-remind="formData.SecretSecurityId"></span>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">密保答案</label>
+                            <input type="password" v-verify="formData.SecretSecurityMatchText" v-model="formData.SecretSecurityMatchText" class="input_common">
+                            <span class="formValidateText" v-remind="formData.SecretSecurityMatchText"></span>
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">直推人账号</label>
+                            <input type="text" v-model="formData.TJUserCode" class="input_common">
+                        </div>
+                    </div>
+                </div>
+                <div class="inline inline_4_5 margin_inline">
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">性别</label>
+                            <div v-for="(item,index) in slectSexData" :key="index" class="chooseSex">
+                                <is-select :item="item" :list="slectSexData" :this_selectSex.sync="this_selectSex"></is-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">手机</label>
+                            <input type="text" v-model="formData.Mobile" class="input_common">
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">交易密码</label>
+                            <input type="password" v-verify="formData.L2Pwd"  v-model="formData.L2Pwd" class="input_common">
+                            <span class="formValidateText" v-remind="formData.L2Pwd"></span>
+                            <!-- <input type="hidden" v-model="formData.ConfirmL2Pwd"> -->
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <button class="btn btn_active" @click="btnSubmit">
+                                           <img src="static/imgs/team_4.png">
+                                       </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import isSelect from "@/components/select";
+    export default {
+        data() {
+            return {
+                userInfoData: false,
+                isSelected: false,
+                the_selectValue: "",
+                this_selectSex: 0,
+                selectList: [],
+                SecretSecurityData: false,
+                slectSexData: [{
+                        value: "0",
+                        text: "男",
+                        isSelect: false
+                    },
+                    {
+                        value: "1",
+                        text: "女",
+                        isSelect: false
+                    }
+                ],
+                formData: {
+                    UserCode: "",
+                    TJUserCode: "",
+                    NickName: "",
+                    Mobile: "",
+                    Sex: 0,
+                    L1Pwd: "",
+                    L2Pwd: "",
+                    SecretSecurityId: '',
+                    SecretSecurityMatchText: ''
+                },
+                userInfoData: false
+            };
+        },
+        verify: {
+            formData: {
+                UserCode: [
+                    "required",
+                ],
+                L1Pwd: [
+                    "required",
+                ],
+                L2Pwd: [
+                    "required",
+                    {
+                        minLength: 6,
+                        message: "交易密码需大于6个字符"
+                    }
+                ],
+                SecretSecurityId: [
+                    "required"
+                ],
+                SecretSecurityMatchText: [
+                    "required",
+                     {
+                        minLength: 3,
+                        message: "交易密码需大于3个字符"
+                    }
+                ]
+            }
+        },
+        created: function() {
+            this.bind();
+            this.SecretSecurityData = this.$store.getters.clientData.enumData.SecretSecurity;
+        
+            console.log('SecretSecurityData',this.SecretSecurityData);
+        },
+        methods: {
+            bind() {
+                this.bindUserInfo();
+                this.bindSelectData();
+            },
+            bindUserInfo() {
+                ajax.post("/api/user/getuserinfo", {}).then(response => {
+                    this.userInfoData = response.Data;
+                    this.formData.TJUserCode = this.userInfoData.UserCode;
+                });
+            },
+            bindSelectData() {
+                ajax.post("/api/User/getRegisterType", {}).then(response => {
+                    this.selectList = [];
+                    response.Data.forEach(item => {
+                        this.selectList.push({
+                            value: item.Id,
+                            text: item.Name,
+                            isSelect: false
+                        });
+                    });
+                    if (this.selectList.length > 0) {
+                        this.selectList[0].isSelect = true;
+                        this.the_selectValue = this.selectList[0].value;
+                    }
+                });
+            },
+            btnSubmit() {
+                console.log();
+                if (this.$verify.check()) {
+                    this.formData.Sex = this.this_selectSex;
+                    this.formData.UserType = this.the_selectValue;
+                    ajax.post("/api/user/UserRegister", this.formData).then(response => {
+                        this.configData = response.Data;
+                        this.success(response.Message);
+                        for (var i in this.formData) {
+                            this.formData[i] = "";
+                        }
+                        this.bind();
+                    });
+                }
+            }
+        },
+        components: {
+            isSelect
+        }
+    };
+</script>
+
+<style>
+
+</style>
+

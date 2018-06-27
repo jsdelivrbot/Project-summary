@@ -1,0 +1,51 @@
+<template>
+    <div class="pendOrder">
+        <div class="tab_content">
+            <div class="table_head">
+                <div class="head_item head_item1">订单号</div>
+                <div class="head_item head_item2">出售时间</div>
+                <div class="head_item head_item3">剩余/总量</div>
+            </div>
+            <div class="table_body">
+                <div class="body_items" v-for="item in tableData">
+                    <div class="body_item body_item1">
+                        <div class="orderNo">15187584512</div>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="date">2017/11/28  14:50:21</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="duobaoyuBox">
+                             <img src="static/imgs/duobaoyu.png">
+                             <div class="duobaoyuText">
+                                 <img src="static/imgs/duobaoyuName.png">
+                             </div>
+                        </div>
+                        <div class="amount">
+                            X9999999
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <table-foot></table-foot>
+        </div>
+    </div>
+</template>
+
+<script>
+    import tableFoot from '@/components/tableFood'
+    export default {
+        data(){
+           return{
+               tableData: [1, 2, 3, 4, 5, 6],
+           } 
+        },
+         components: {
+            tableFoot
+        }
+    }
+</script>
+
+<style>
+
+</style>

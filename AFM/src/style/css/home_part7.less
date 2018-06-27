@@ -1,0 +1,53 @@
+@import (reference) "./main.less";
+.news .con-title-fr {
+  .con-betwwen;
+}
+
+.news .list-news {
+  border-top: 1px solid #e5e5e5;
+  padding: 0 23/@rem 0 37/@rem;
+}
+
+.news .list-news .news-item {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+  .col;
+  .con-center;
+}
+
+.news .list-news .news-item:last-child {
+  border-bottom: 0;
+}
+
+.news .list-news .news-item .news-item-fr {
+  .col;
+  margin-right:-23/@rem;
+  padding-right: 23/@rem;
+  border-right: 2px solid transparent;
+}
+
+.news .list-news .news-item .news-item-fr:hover {
+  border-right:2px solid #dc4b3c;
+  background: -webkit-linear-gradient(90deg, transparent, #d4d1cf); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(90deg, transparent, #d4d1cf); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(90deg, transparent, #d4d1cf); /* Firefox 3.6 - 15 */
+  background: linear-gradient(90deg, transparent, #d4d1cf); /* 标准的语法（必须放在最后） */
+}
+
+.title-fr {
+  .row;
+  .con-betwwen;
+  .item-center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.title-fr .title {
+  font-size: 14px;
+  color: #333;
+}
+
+.title-fr .date {
+  font-size: 12px;
+  color: #a5a5a5;
+}

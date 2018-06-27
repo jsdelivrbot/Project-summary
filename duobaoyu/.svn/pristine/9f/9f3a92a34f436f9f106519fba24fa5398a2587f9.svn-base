@@ -1,0 +1,101 @@
+<template>
+    <div class="routerBox">
+        <div class="TradeingHall common_bg">
+            <close :Router="true" class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/tradeHall_1.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="tab_title">
+                        <div class="title_item title_item_1 clear_fix" :class="{'title_item_active':tab.isOpenTradeMarkrt}" @click="openTradeMarkrt">
+                            <img src="static/imgs/tradehall_2.png">
+                        </div>
+                        <div class="title_item title_item_2" :class="{'title_item_active':tab.isOpenMyPendOrder}" @click="openMyPendOrder">
+                            <img src="static/imgs/tradehall_3.png">
+                        </div>
+                        <div class="title_item title_item_3" :class="{'title_item_active':tab.isOPenMatchPendOrder}" @click="openMatchPendOrder">
+                            <img src="static/imgs/tradehall_4.png" >
+                        </div>
+                        <div class="title_item title_item_4" :class="{'title_item_active':tab.isOpenBuyRecord}" @click="openBuyRecord">
+                            <img src="static/imgs/tradehall_5.png" >
+                        </div>
+                    </div>
+                   <!-- 交易市场 -->
+                   <trade-market v-if="tab.isOpenTradeMarkrt"></trade-market>
+                    <!-- 交易市场 -->
+                    <!-- 我的挂单 -->
+                    <pend-order v-if="tab.isOpenMyPendOrder"></pend-order>
+                    <!-- 我的挂单 -->
+                    <!-- 已匹配挂单 -->
+                    <matchpend-order v-if="tab.isOPenMatchPendOrder"></matchpend-order>
+                     <!-- 已匹配挂单 -->
+                     <!-- 购买记录 -->
+                     <buy-record v-if="tab.isOpenBuyRecord"></buy-record>
+                      <!-- 购买记录 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import close from '@/components/close'
+     import { tradeMarket, pendOrder,matchpendOrder,buyRecord} from '@/views/TradingHall/tabItem'
+    export default {
+        data() {
+            return {
+                isactiveTab: true,
+                tableData: [1, 2, 3, 4, 5, 6],
+                tab: {
+                    isOpenTradeMarkrt:true,
+                    isOpenMyPendOrder:false,
+                    isOpenMatchPendOrder:false,
+                    isOpenBuyRecord:false
+                },
+                status: {
+                    buy: true,
+                    Dealdone: false,
+                    inTransaction: false
+                }
+            }
+        },
+        methods:{
+            tabchange(){
+                 for(var x in this.tab){
+                    this.tab[x]=false;
+                    console.log(x,this.tab[x]);
+                }
+            },
+            openTradeMarkrt(){
+               this.tabchange()
+                this.tab.isOpenTradeMarkrt=true;
+                
+            },
+            openMyPendOrder(){
+                this.tabchange()
+                this.tab.isOpenMyPendOrder=true;
+            },
+            openMatchPendOrder(){
+                 this.tabchange()
+                 this.tab.isOPenMatchPendOrder=true;
+                 console.log(this.tab.isOPenMatchPendOrder);
+            },
+            openBuyRecord(){
+                this.tabchange()
+                 this.tab.isOpenBuyRecord=true
+            }
+        },
+        components: {
+            close,
+            tradeMarket,
+            pendOrder,
+            matchpendOrder,
+            buyRecord
+        }
+    }
+</script>
+
+<style>
+
+</style>

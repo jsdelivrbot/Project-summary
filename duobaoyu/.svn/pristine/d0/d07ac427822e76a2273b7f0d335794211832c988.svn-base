@@ -1,0 +1,52 @@
+<template>
+  <div class="modify_mibao_wrapper">
+    <div class="modify_mibao_Box">
+       <div class="Title">
+        <img src="static/imgs/mibao_title.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <form class="mibao_form ">
+        <div class="question">密保问题： 您的小学老师叫什么名字？</div>
+        <div class="answer">
+          <input type="text" class="input_form" v-model="mibaoForm.answer" placeholder="答案">
+          <span class="errorText">{{mibaoForm.errorText}}</span>
+        </div>
+        <div class="text_center">
+          <button @click="openNewMiBao"  class="btn_yellowBg">
+            <img src="static/imgs/next.png">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['openModifyMibao'],
+    data() {
+      return {
+        isOpen:false,
+        isOpenNewMibao:true,
+        mibaoForm:{
+          answer:"",
+          errorText:'答案错误'
+        }
+      }
+    },
+   methods:{
+     close(){
+       this.$emit('close-mibao',this.isOpen)
+     },
+     openNewMiBao(){
+       this.$emit('open-newmibao',this.isOpenNewMibao,this.isOpen)
+     }
+   }
+  }
+</script>
+
+<style>
+
+</style>

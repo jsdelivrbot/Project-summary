@@ -1,0 +1,29 @@
+@import (reference) "./main.less";
+//pc布局对半
+.com-register-fr{
+  .row;
+  .con-betwwen;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding:0 30/@rem;
+}
+.com-register-fr  .mhalf{
+  .col;
+  width:100%;
+}
+
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+  .com-register-fr{
+    padding:0;
+    flex-wrap: nowrap;
+  }
+  .com-register-fr  .mhalf{
+    .col;
+    width:590/@rem;
+  }
+  .input-ar > label{
+    width:140/@rem;
+  }
+} 

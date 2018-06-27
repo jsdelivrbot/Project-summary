@@ -1,0 +1,105 @@
+<template>
+    <div class="siderBar" :class="{'toggleSiderBar':istoggle}">
+        <div class="sider_box">
+            <img @click="togglefriends" class="BgImg" src="static/imgs/friends_03.png">
+            <!-- <img class="textImg" src="static/imgs/firends.png"> -->
+            <!-- <span class="sider_text">好友</span> -->
+            <div class="friends_list">
+                <div class="friends_item" v-if="friendsList" v-for="(item,index) in friendsList.Data" :key="index">
+                    <!-- <div class="item_level clear_fix">
+                        <img src="static/imgs/level_3.png">
+                    </div> -->
+                    <div class="item_photo">
+                        <img src="static/imgs/userPhoto.png">
+                    </div>
+                    <div class="item_username">
+                        {{item.NickName}}
+                    </div>
+                    <div class="item_touyu" @click="touyu(item)">
+                        <img src="static/imgs/touyu.png">
+                        <!-- <button class="btn btn_active">偷鱼</button> -->
+                    </div>
+                </div>
+                 <div v-if="!hasData" class="body_items no_data">
+                好友列表为空！快去添加吧！
+            </div>
+            </div>
+           
+            <div class="" v-if="hasData">
+                <pagination :page="page" v-on:pre-page="prePage" v-on:next-page="nextPage"></pagination>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import pagination from '@/components/pagination'
+    export default {
+        name: "siderBar",
+        data() {
+            return {
+                hasData: true,
+                friendsList: false,
+                istoggle: true,
+                levelImg: '',
+                page: {
+                    defaultPage: '1',
+                    currentPage: '',
+                    totalPage: '',
+                },
+            };
+        },
+        created: function() {
+            this.bind()
+        },
+        methods: {
+            bind() {
+                ajax.post("/api/User/MyFriends", {
+                    pagenum: this.page.defaultPage
+                }).then(response => {
+                    if (response.Data.Data.length == 0) {
+                        this.hasData = false
+                    }
+                    this.friendsList = response.Data;
+                    this.page.totalPage = response.Data.PageCount;
+                    this.page.currentPage = response.Data.PageNum;
+                });
+            },
+            togglefriends() {
+                this.istoggle = !this.istoggle;
+            },
+            prePage(prePage) {
+                this.page.defaultPage = prePage;
+                console.log('n', this.page.defaultPage)
+                this.bind()
+            },
+            nextPage(nextPage) {
+                //debugger;
+                this.page.defaultPage = nextPage;
+                console.log('p', this.page.defaultPage)
+                this.bind()
+            },
+            touyu(item) {
+                ajax.post('/api/pond/TouCai', {
+                    friendid: item.Id
+                }).then(response => {
+                    console.log(response);
+                    Message({
+                        message: '偷鱼成功!嘻嘻嘻~',
+                        type: 'success',
+                        duration: 3 * 1000,
+                        customClass: 'requestMessage'
+                    })
+                })
+            }
+        },
+        components: {
+            pagination
+        }
+    };
+</script>
+
+<style>
+
+</style>

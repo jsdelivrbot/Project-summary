@@ -1,0 +1,66 @@
+<template>
+    <div class="forgetBox findBox">
+        <div class="login_form_box forget_form_box find_form_box">
+            <form class="login_form forget_form find_form" :model="loginForm">
+                <div class="forgrt_title">新密码</div>
+                <div class="form_item">
+                    <img src="static/imgs/forget_2.png">
+                    <input type="text" v-verify="loginForm.newPassword" v-model="loginForm.newPassword" placeholder="请输入新密码">
+                    <span class="formValidateText" v-remind="loginForm.newPassword"></span>
+                </div>
+                <div class="form_item">
+                    <img src="static/imgs/form-validate.png">
+                    <input type="password" v-verify="loginForm.repassword" v-model="loginForm.repassword" placeholder="请再次输入密码">
+                    <span class="formValidateText" v-remind="loginForm.repassword"></span>
+                </div>
+                <div class="login_box" @click="find">
+                    完成
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                loginForm: {
+                    newPassword: '1',
+                    repassword: '1',
+                    validateCode: ""
+                },
+                // loginRules: {
+                //   username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+                //   password: [{ required: true, trigger: 'blur', validator: validatePass }]
+                // },
+                // loading: false,
+                // pwdType: 'password'
+            }
+        },
+        verify: {
+            loginForm: {
+                newPassword: [
+                    "required",
+                  
+                ],
+                repassword: [
+                    "required",
+                    
+                ]
+                
+            }
+        },
+        methods:{
+            find(){
+                this.$router.push({path:'/login/findSuccess'})
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+
+  
+</style>
+

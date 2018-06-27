@@ -1,0 +1,70 @@
+<template>
+  <div class="head_Nav">
+      <div class="header_userBox">
+          <img class="userInfo_box" src="static/imgs/userBox_01.png">
+          <span class="userName">{{userInfo.NickName}}</span>
+          <!-- <span class="userLevel">LV.{{userInfo.LevelId}}</span> -->
+          <span class="levelName">{{userInfo.LevelName}}</span>
+      </div>
+      <div class="header_navBar">
+          <!-- 新闻客服 -->
+        <router-link tag="div" to="/infoManage/news" class="header_Nav_item_1 header_Nav_item">
+          <img class="item_img1" src="static/imgs/nav1_01.png">
+          <div class="headerNav_text">
+              <img src="static/imgs/navText1.png">
+          </div>
+        </router-link>
+         <!-- 新闻客服 -->
+         <!-- 拆分走势 -->
+         <router-link tag="div" to="/splitChart/index" class="header_Nav_item_2 header_Nav_item">
+          <img class="item_img1" src="static/imgs/nav1_02.png">
+          <div class="headerNav_text">
+              <img src="static/imgs/navText2.png">
+          </div>
+        </router-link>
+         <!-- 拆分走势 -->
+        <!-- 个人中心 -->
+         <router-link tag="div" to="/PersonalCenter/index" class="header_Nav_item_3 header_Nav_item">
+          <img class="item_img1" src="static/imgs/nav1_03.png">
+          <div class="headerNav_text">
+              <img src="static/imgs/navText3.png">
+          </div>
+         </router-link>
+         <!-- 个人中心 -->
+          <!-- 活动 -->
+         <router-link tag="div" to="/activity/index" class="header_Nav_item_4 header_Nav_item">
+          <img class="item_img1" src="static/imgs/nav1_04.png">
+         
+          <div class="headerNav_text">
+              <img src="static/imgs/navText4.png">
+          </div>
+        </router-link>
+        <!-- 活动 -->
+         <router-link tag="div" to="/setting/index" class="header_Nav_item_5 header_Nav_item">
+          <img class="item_img1" src="static/imgs/nav1_05.png">
+          <div class="headerNav_text">
+              <img src="static/imgs/navText5.png">
+          </div>
+         </router-link>
+         
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+            userInfo:{},
+        }
+    },
+    created(){
+         this.userInfo=this.$store.getters.avatar;
+         console.log('userInfo',this.userInfo)
+    }
+}
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,24 @@
+<template>
+       <div class="news_list">
+           <div class="news_item">
+               <div class="date">
+                   2017/12/12 
+                    09:59:00
+               </div>
+               <div class="news_content">
+                  容新闻内容新闻内容新闻内容新闻内新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内
+               </div>
+           </div>
+       </div>
+    
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>

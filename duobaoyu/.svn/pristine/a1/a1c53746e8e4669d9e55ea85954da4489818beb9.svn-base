@@ -1,0 +1,68 @@
+<template>
+    <div class="model_Box_wrapper buy_goodsModel">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/buyText.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="model_content">
+                <div class="goods_img">
+                    <img src="static/imgs/shop_10.png">
+                    <div class="goods_name">红酒</div>
+                </div>
+                <div class="buy_detail">
+                    <div class="price input_group input_amount">
+                        <label class="label">价格</label>
+                        <div class="good_price">
+                            <div class="buy_duobaoyu">
+                                <img src="static/imgs/shop_11.png"> 456
+                            </div>
+                            <div class="buy_coin">
+                                <img src="static/imgs/renmingbi.png"> 386
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buyAmount input_group input_amount">
+                        <div class="input_amount">
+                            <label class="label">输入数量</label>
+                            <div class="amount_operate">
+                                <img class="reduce" src="static/imgs/reduce.png">
+                                <input type="text" class="input_common">
+                                <img class="plus" src="static/imgs/plus.png">
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot btn_group">
+                <button class="confirmBtn addCarBtn">
+                                    <img src="static/imgs/addCar.png">
+                                </button>
+                <button class="cancelBtn goPayBtn">
+                                    <img src="static/imgs/goPay.png">
+                                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                isOpen: false
+            }
+        },
+        methods: {
+            close() {
+                this.$emit('close-buyModel', this.isOpen)
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,38 @@
+<template>
+  <div class="Cash_Settlement">
+      <div class="settlement_info">
+          <div class="bank">
+              <label class="label">开户银行</label>
+              工商银行
+          </div>
+          <div class="banker">
+            <label class="label">开户人</label>
+              校名
+          </div>
+          <div class="bankCard">
+                <label class="label">银行卡</label>
+              25552555524555552555
+          </div>
+      </div>
+      <div class="settlement_erweima">
+          <div class="weixin">
+              <div class="title">微信支付二维码</div>
+              <div class="erweimaBox"></div>
+          </div>
+          <div class="aliPay">
+               <div class="title">支付宝支付二维码</div>
+              <div class="erweimaBox"></div>
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>

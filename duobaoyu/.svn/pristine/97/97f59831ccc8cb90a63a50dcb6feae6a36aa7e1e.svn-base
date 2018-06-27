@@ -1,0 +1,40 @@
+<template>
+    <div class="Message_list">
+        <div class="Message_item" v-for="item in MessageList" :key="item.id">
+            <div class="date">
+                2017/12/12 09:59:00
+            </div>
+            <div class="message_status">
+                已回复
+            </div>
+            <div class="message_content">我的货币有问题</div>
+            <div class="check_detail">
+                <router-link tag="button" :to="'/infoManage/message/check/:'+item.id" class="btn btn_active btn_round">
+                    <img src="static/imgs/news_4.png">
+                </router-link>
+            </div>
+        </div>
+        <template>
+             <router-view></router-view>
+        </template>
+       </div>
+    
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                MessageList: [{
+                    id: 1,
+                }, {
+                    id: 2
+                }]
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

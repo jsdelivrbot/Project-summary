@@ -1,0 +1,74 @@
+<template>
+  <div class="modify_mibao_wrapper">
+    <div class="modify_mibao_Box">
+       <div class="Title">
+        <img src="static/imgs/modifyLoginText.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <div class="mibao_form modifyTradeForm">
+       
+         <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">旧密码</label>
+               <input type="password" v-model="OldPwd" class="input_form input_common">
+        </div>
+          <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">新密码</label>
+               <input type="password"  v-model="NewPwd" class="input_form input_common">
+        </div>
+          <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">再次输入</label>
+               <input type="password" v-model="ReNewPwd" class="input_form input_common">
+               <span v-if="NewPwd!=ReNewPwd" class="errorText">{{mibaoForm.errorText}}</span>
+        </div>
+     
+      </div>
+         <div class="btnBox">
+          <button  class="btn btn_yellowBg" @click="btnSubmit">
+            <img src="static/imgs/submit.png">
+          </button>
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+export default {
+  data() {
+    return {
+      NewPwd: "",
+      OldPwd: "",
+      ReNewPwd:'',
+      isOpen: false,
+      mibaoForm: {
+        answer: "",
+        errorText: "两次密码不一致"
+      }
+    };
+  },
+  methods: {
+    btnSubmit() {
+      ajax
+        .post("/api/user/ModifyL1pwd", {
+          OldPwd: this.OldPwd,
+          NewPwd: this.NewPwd
+        })
+        .then(response => {
+          console.log(response);
+          this.success(response.Message);
+          this.close();
+        });
+    },
+
+    close() {
+      this.$router.go(-1);
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

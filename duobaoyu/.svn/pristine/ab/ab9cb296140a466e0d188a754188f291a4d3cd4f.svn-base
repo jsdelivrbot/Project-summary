@@ -1,0 +1,31 @@
+<template>
+    <div class="list_pagination">
+            <button class="firstPage clear_fix">
+                <img src="static/imgs/shouye.png">
+            </button>
+            <button class="uPbtn ">
+                <img src="static/imgs/upText.png">
+            </button>
+            <div class="total_items">
+                <img class="downImg" src="static/imgs/down.png">
+                <span>15/19</span>
+                <img class="upImg" src="static/imgs/up.png">
+            </div>
+            <button class="downbtn">
+                <img src="static/imgs/downText.png">
+            </button>
+            <button class="lastPage">
+                <img src="static/imgs/moye.png">
+            </button>
+        </div>
+</template>
+
+<script>
+export default {
+    
+}
+</script>
+
+<style>
+
+</style>

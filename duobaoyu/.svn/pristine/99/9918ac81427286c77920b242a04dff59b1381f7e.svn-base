@@ -1,0 +1,49 @@
+<template>
+  <div class="openPond">
+      <div class="openBox">
+          <div class="title">
+              <img src="static/imgs/openTitle.png">
+          </div>
+          <div class="content">
+              <img class="pond_img" src="static/imgs/openpoor_1.png">
+              <img class="pond_fish" src="static/imgs/openFish.png">
+              <div class="text">是否消耗xxx多宝鱼开启xx鱼塘？</div>
+          </div>
+          <div class="foot">
+             
+              <button class="confirmBtn" @click="confirm">
+                   <img src="static/imgs/confirm.png">
+              </button>
+              <button class="cancelBtn"  @click="cancel()">
+                   <img src="static/imgs/cancel.png">
+              </button>
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    name:"openPond",
+    props:['openPond'],
+    data(){
+        return{
+            open:false
+            
+        }
+    },
+    methods:{
+        confirm(){
+            this.$emit('close-pond',this.open);
+            alert(1);
+        },
+        cancel(){
+
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>

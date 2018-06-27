@@ -1,0 +1,176 @@
+<template>
+    <div class="tradeMarket">
+        <div class="tab_content">
+            <div class="table_head">
+                <div class="head_item">订单号</div>
+                <div class="head_item">出售方</div>
+                <div class="head_item">总额/剩余金额</div>
+                <div class="head_item">操作</div>
+            </div>
+            <div class="table_body">
+                <div class="body_items" v-for="(item,index) in tableData.Data" :key="index">
+                    <div class="body_item body_item1">
+                        <div class="orderNo">{{item.SerialNumber}}</div>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="seller">{{item.UserCode}}</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="amount">{{item.Total}}/{{item.Rest}}</div>
+                    </div>
+                    <div class="body_item body_item4">
+                        <div class="operateBtn">
+                            <img @click="openBuy(item)" v-if="status.buy" src="static/imgs/buy.png">
+                            <div v-if="status.Dealdone" class="Dealdone">已成交</div>
+                            <div v-if="status.inTransaction" class="inTransaction">交易中</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!hasData" class="body_items no_data">
+                    没有数据！
+                </div>
+            </div>
+        </div>
+        <div v-if="hasData" class="table_foot" style="padding:0 20%">
+            <pagination :page="page" v-on:first-page="firstPage" v-on:last-page="lastPage" v-on:pre-page="prePage" v-on:next-page="nextPage"></pagination>
+        </div>
+        <div class="model_Box_wrapper" v-if="isOpenModel">
+            <div class="model_Box">
+                <div class="Title">
+                    <img src="static/imgs/buyText.png">
+                </div>
+                <div class="close" @click="close">
+                    <img src="static/imgs/close_page.png">
+                </div>
+                <div class="buyAmount">
+                    <div class="input_amount input_group">
+                        <label class="label">输入数量</label>
+                        <div class="amount_operate">
+                            <img class="reduce" @click="btnPlus(-100)" src="static/imgs/reduce.png">
+                            <input type="text" v-model="formData.buyAmount" v-verify="formData.buyAmount" class="input_common">
+                            <span class="formValidateText" v-remind="formData.buyAmount"></span>
+                            <img class="plus" @click="btnPlus(100)" src="static/imgs/plus.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="foot btn_group">
+                    <button class="confirmBtn btn" style="margin:0 auto" @click="confirm">
+                        <img src="static/imgs/confirm.png">
+                    </button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import pagination from "@/components/pagination";
+    export default {
+        data() {
+            return {
+                hasData: true,
+                tableData: false,
+                isOpenModel: false,
+                page: {
+                    defaultPage: '1',
+                    currentPage: '',
+                    totalPage: '',
+                },
+                status: {
+                    buy: true,
+                    Dealdone: false,
+                    inTransaction: false
+                },
+                selectItem: false,
+                formData: {
+                    sellId: "",
+                    buyAmount: 0
+                }
+            };
+        },
+        verify: {
+            formData: {
+                buyAmount: "minValue",
+            }
+        },
+        created: function() {
+            // /api/help/SellOrderList
+            this.bind();
+        },
+        methods: {
+            bind() {
+                ajax.post("/api/help/SellOrderList", {
+                    pageNum: this.page.defaultPage
+                }).then(response => {
+                    if (response.Data.Data.length == 0) {
+                        this.hasData = false
+                    }
+                    this.tableData = response.Data;
+                    this.page.totalPage = response.Data.PageCount;
+                    this.page.currentPage = response.Data.PageNum;
+                });
+            },
+            firstPage(firstPage) {
+                this.page.defaultPage = firstPage;
+                console.log('f', this.page.defaultPage)
+                this.bind()
+            },
+            lastPage(lastPage) {
+                this.page.defaultPage = lastPage;
+                console.log('l', this.page.defaultPage)
+                this.bind()
+            },
+            prePage(prePage) {
+                this.page.defaultPage = prePage;
+                console.log('n', this.page.defaultPage)
+                this.bind()
+            },
+            nextPage(nextPage) {
+                this.page.defaultPage = nextPage;
+                console.log('p', this.page.defaultPage)
+                this.bind()
+            },
+            btnPlus(num) {
+                var Total = parseInt(this.formData.buyAmount);
+                if (num > 0) {
+                    Total += num;
+                    this.formData.buyAmount = Total;
+                } else {
+                    if (Total + num >= 0) {
+                        Total += num;
+                        this.formData.buyAmount = Total;
+                    }
+                }
+            },
+            confirm() {
+                if (this.$verify.check()) {
+                    if (this.selectItem) {
+                        console.log();
+                        this.formData.sellId = this.selectItem.Id;
+                        ajax.post("/api/help/ManualMatch", this.formData).then(response => {
+                            this.selectItem = false;
+                            this.close();
+                            this.bind();
+                        });
+                    }
+                }
+            },
+            openBuy(item) {
+                this.selectItem = item;
+                this.isOpenModel = true;
+            },
+            close() {
+                this.isOpenModel = false;
+            }
+        },
+        components: {
+            pagination
+        }
+    };
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,86 @@
+<template>
+  <div class="app-container my_team">
+    <div class="treeTitle input_group">
+      <label class="label">直推人数</label>
+      <input type="text" v-model="zTCount" class="input_common input_dark">
+    </div>
+    <el-tree v-if="userData"   :props="defaultProps" node-key="id" :load="syncLoad" lazy :expand-on-click-node="false" :render-content="renderContent">
+    </el-tree>
+  </div>
+</template>
+
+<script>
+let id = 1000;
+import * as ajax from "@/api/common";
+export default {
+  data() {
+    return {
+      treeData: false,
+      rootData: false,
+      userData: false,
+      zTCount: 0,
+      defaultProps: {
+        children: "children",
+        label: "label",
+        isLeaf: function(data, node) {
+          console.log(data.isLeaf);
+          return data.isLeaf;
+        }
+      }
+    };
+  },
+  created: function() {
+    this.bindUserInfo();
+    console.log(this.rootData);
+  },
+  methods: {
+    syncLoad(node, resolve) {
+      var id = this.$store.getters.id;
+      if (node.level === 0) {
+        id = this.$store.getters.id;
+      } else {
+        id = node.data.id;
+      }
+      ajax
+        .post("/api/User/GetUserTeam", {
+          TopUserId: id
+        })
+        .then(response => {
+          var arr = [];
+          response.Data.forEach(item => {
+            arr.push({
+              id: item.UserId,
+              label: item.UserCode,
+              isLeaf: item.TJCount == 0
+            });
+
+            if (node.level === 0) {
+              this.zTCount = arr.length;
+            }
+          });
+          return resolve(arr);
+        });
+    },
+
+    bindUserInfo() {
+      ajax.post("/api/user/getuserinfo", {}).then(response => {
+        this.userData = response.Data;
+      });
+    },
+
+    renderContent(h, { node, data, store }) {
+      return (
+        <div class="child_box" style="">
+          <div class="level_box">
+            <img src="static/imgs/level_1.png" />
+          </div>{" "}
+          <span>
+            <span> {node.label} </span>{" "}
+          </span>{" "}
+        </div>
+      );
+    }
+  }
+};
+</script>
+

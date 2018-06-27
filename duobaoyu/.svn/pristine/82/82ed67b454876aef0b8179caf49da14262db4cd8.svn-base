@@ -1,0 +1,332 @@
+<template>
+    <div class="left_box_1">
+        <div class="chooseType">
+            <div class="label_title">请选择推荐开户类型</div>
+            <div class="label_items">
+                <div class="label_item" v-for="(item,index) in selectList" :key="index">
+                    <is-select :item="item" :list="selectList" :the_selectValue.sync="the_selectValue"></is-select>
+                </div>
+            </div>
+        </div>
+        <div class="choose_input" >
+            <div class="input_group input_group_inline ">
+                <label class="label">我的普通多宝鱼：</label>
+                <input type="text" v-model="PTToWallet" disabled class="input_common input_dark">
+            </div>
+            <div class="input_group input_group_inline ">
+                <label class="label">开户消耗数量：</label>
+                <input type="text" v-model="TjKouKuanData" disabled class="input_common input_dark">
+            </div>
+        </div>
+        <form ref="form1">
+            <div class="fill_form">
+                <div class="inline clear_fix inline_4_5">
+                    <div class="form_group1  userInfo_item userInfo_item1">
+                        <div class="inline_12 input_group input_group_inline input_group_inline_clearfix">
+                            <label class="label">账号</label>
+                            <input type="text" @focus="getUserCode" v-verify="formData.UserCode" v-model="formData.UserCode" class="input_common">
+                            <span class="formValidateText" v-remind="formData.UserCode"></span>
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label" >昵称</label>
+                            <input type="text" v-verify="formData.NickName" v-model="formData.NickName" class="input_common">
+                            <span class="formValidateText" v-remind="formData.NickName"></span>
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">登录密码</label>
+                            <input type="password" disabled v-verify="formData.L1Pwd" v-model="formData.L1Pwd" class="input_common">
+                            <!-- <input type="hidden" v-model="formData.ConfirmL1Pwd"> -->
+                            <span class="formValidateText" v-remind="formData.L1Pwd"></span>
+                        </div>
+                    </div>
+                    <!-- <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">确认登录密码</label>
+                            <input type="text"  v-model="formData.confirmL1Pwd" class="input_common">
+                            <input type="hidden" v-model="formData.ConfirmL1Pwd">
+                            <span class="formValidateText">{{confirmL1ErrorText}}</span>
+                        </div>
+                    </div> -->
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">密保问题</label>
+                            <select v-verify="formData.SecretSecurityId" class="input_common select_common" style="width:120%" v-model="formData.SecretSecurityId">
+                                    <option   :value="key" :selected="key==formData.SecretSecurityId" v-if="SecretSecurityData" v-for="(item,key,index) in SecretSecurityData" :key="index" >{{item}}</option>
+                                    <span class="formValidateText" v-remind="formData.SecretSecurityId"></span>
+                                  </select>
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">密保答案</label>
+                            <input type="text" v-verify="formData.SecretSecurityMatchText" v-model="formData.SecretSecurityMatchText" class="input_common">
+                            <span class="formValidateText" v-remind="formData.SecretSecurityMatchText"></span>
+                        </div>
+                    </div>
+                    <div class="form_group1 userInfo_item userInfo_item1">
+                        <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                            <label class="label">直推人账号</label>
+                            <input type="text" v-model="formData.TJUserCode" class="input_common">
+                        </div>
+                    </div>
+                </div>
+                <div class="inline inline_4_5 margin_inline">
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">性别</label>
+                            <div v-for="(item,index) in slectSexData" :key="index" class="chooseSex">
+                                <is-select :item="item" :list="slectSexData" :this_selectSex.sync="this_selectSex"></is-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">手机</label>
+                            <input type="text" v-verify="formData.Mobile" v-model="formData.Mobile" class="input_common">
+                             <span class="formValidateText" v-remind="formData.Mobile"></span>
+                        </div>
+                    </div>
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">交易密码</label>
+                            <input type="password" disabled v-verify="formData.L2Pwd" v-model="formData.L2Pwd" class="input_common">
+                            <span class="formValidateText" v-remind="formData.L2Pwd"></span>
+                            <!-- <input type="hidden" v-model="formData.ConfirmL2Pwd"> -->
+                        </div>
+                    </div>
+                    <!-- <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <label class="label">确认交易密码</label>
+                            <input type="password"  v-model="formData.confirmL2Pwd" class="input_common">
+                            <span class="formValidateText">{{confirmL2ErrorText}}</span>
+                           
+                        </div>
+                    </div> -->
+                    <div class="form_group2 userInfo_item userInfo_item2">
+                        <div class="input_group input_group_inline">
+                            <button class="btn btn_active" @click="btnSubmit">
+                                               <img src="static/imgs/team_4.png">
+                                           </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import isSelect from "@/components/select";
+    
+    export default {
+        
+        data() {
+
+            return {
+                userInfoData: false,
+                isSelected: false,
+                the_selectValue: "",
+                this_selectSex: 0,
+                selectList: [],
+                SecretSecurityData: false,
+                TjKouKuanData:false,
+                PTToWallet:'',
+                slectSexData: [{
+                        value: "0",
+                        text: "男",
+                        isSelect: false
+                    },
+                    {
+                        value: "1",
+                        text: "女",
+                        isSelect: false
+                    }
+                ],
+                formData: {
+                    UserCode: "",
+                    TJUserCode: "",
+                    NickName: "",
+                    Mobile: "",
+                    Sex: 0,
+                    confirmL1Pwd: '',
+                    L1Pwd: "123456",
+                    L2Pwd: "f123456",
+                    confirmL2Pwd: '',
+                    SecretSecurityId: '1',
+                    SecretSecurityMatchText: ''
+                },
+                confirmL2ErrorText:'',
+                confirmL1ErrorText:'',
+                confirmPwd:false,
+                userInfoData: false
+            };
+        },
+        verify: {
+            formData: {
+                UserCode: [
+                    "required",
+                ],
+                NickName:[
+                    "required"
+                ],
+                 Mobile:[
+                    "required"
+                ],
+                L1Pwd: [
+                    "required",
+                ],
+                // confirmL1Pwd: [
+                //     "required",
+                // ],
+                L2Pwd: [
+                    "required",
+                    {
+                        minLength: 6,
+                        message: "交易密码需大于6个字符"
+                    }
+                ],
+                // confirmL2Pwd: [
+                //     "required",
+                // ],
+                SecretSecurityId: [
+                    "required"
+                ],
+                SecretSecurityMatchText: [
+                    "required",
+                    {
+                        minLength: 3,
+                        message: "交易密码需大于3个字符"
+                    }
+                ]
+            }
+        },
+        created: function() {
+            this.bind();
+            this.getKHF();
+            this.SecretSecurityData = this.$store.getters.clientData.enumData.SecretSecurity;
+            console.log('SecretSecurityData', this.SecretSecurityData);
+        },
+        methods: {
+            bind() {
+                this.bindUserInfo();
+                this.bindSelectData();
+            },
+            getUserCode() {
+                ajax.post('/api/user/GetRandomUserCode', {}).then(response => {
+                    console.log(response);
+                    this.formData.UserCode = response.Data;
+                })
+            },
+            getKHF(){
+                 ajax.post('/api/pond/GetKHF', {}).then(response => {
+                    console.log(response);
+                    this.PTToWallet=response.Data.PTToWallet;
+                    //this.TjKouKuanData=response.Data.KFF;
+                    response.Data.KFF.forEach(item =>{
+                        if(item.LevelId==this.the_selectValue){
+                            this.TjKouKuanData=item.KHF
+                        }
+                    })
+                })
+            },
+            bindUserInfo() {
+                ajax.post("/api/user/getuserinfo", {}).then(response => {
+                    this.userInfoData = response.Data;
+                    this.formData.TJUserCode = this.userInfoData.UserCode;
+                });
+            },
+            bindSelectData() {
+                ajax.post("/api/User/getRegisterType", {}).then(response => {
+                    this.selectList = [];
+                    response.Data.forEach(item => {
+                        this.selectList.push({
+                            value: item.Id,
+                            text: item.Name,
+                            isSelect: false
+                        });
+                    });
+                    if (this.selectList.length > 0) {
+                        this.selectList[0].isSelect = true;
+                        this.the_selectValue = this.selectList[0].value;
+                    }
+                });
+            },
+            btnSubmit() {
+                console.log();
+                if (this.$verify.check()) {
+                    this.formData.Sex = this.this_selectSex;
+                    this.formData.UserType = this.the_selectValue;
+                    ajax.post("/api/user/UserRegister", this.formData).then(response => {
+                        this.configData = response.Data;
+                        this.success(response.Message);
+                        this.$store.dispatch('UpdateFriens');
+                        for (var i in this.formData) {
+                            this.formData[i] = "";
+                        }
+                        this.bind();
+                    });
+                }
+            },
+        },
+        components: {
+            isSelect
+        },
+        computed:{
+
+            confirmL1Pwd(){
+                return this.formData.confirmL1Pwd
+            },
+            confirmL2Pwd(){
+                return this.formData.confirmL2Pwd
+            }
+        },
+        watch:{
+            confirmL1Pwd(newVal,OldVal){
+                //debugger;
+                console.log(newVal);
+                if(newVal){
+                    //debugger;
+                    if(newVal!=this.formData.L1Pwd){
+                        this.confirmL1ErrorText='请确保密码一致';
+                        
+                    }else{
+                        this.confirmL1ErrorText='';
+                        this.confirmPwd=true;
+                    }
+                }else{
+                    this.confirmL1ErrorText='必填'
+                }
+            },
+             confirmL2Pwd(newVal,OldVal){
+                //debugger;
+                console.log(newVal);
+                if(newVal){
+                    //debugger;
+                    if(newVal!=this.formData.L2Pwd){
+                        this.confirmL2ErrorText='请确保密码一致'
+                    }else{
+                        this.confirmL2ErrorText='';
+                        this.confirmPwd=true;
+                    }
+                }else{
+                    this.confirmL2ErrorText='必填'
+                }
+            },
+            the_selectValue(newVal){
+                if(newVal){
+                    this.getKHF()
+                }
+            }
+        }
+    };
+</script>
+
+<style>
+
+</style>
+

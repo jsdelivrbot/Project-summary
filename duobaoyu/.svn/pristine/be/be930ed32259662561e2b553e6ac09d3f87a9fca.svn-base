@@ -1,0 +1,64 @@
+<template>
+    <div class="model_Box_wrapper touru_Model buy_goodsModel">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/push.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="buyAmount input_group input_amount">
+                <div class="input_amount">
+                    <label class="label">输入数量</label>
+                    <div class="amount_operate">
+                        <img class="reduce" @click="btnPlus(-1)" src="static/imgs/reduce.png">
+                        <input type="text" v-model="count" class="input_common">
+                        <img class="plus" @click="btnPlus(1)" src="static/imgs/plus.png">
+                    </div>
+                </div>
+            </div>
+         
+             <div class="btnBox">
+                    <button class="btn btn_active" @click="btnTouZi">
+                                <img src="static/imgs/confirm.png">
+                            </button>
+                </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    export default {
+        data() {
+            return {
+                isOpen: false,
+                count: 0
+            };
+        },
+        created: function() {},
+        methods: {
+            btnPlus(num) {
+                if (this.count + num >= 0) this.count += num;
+            },
+            btnTouZi() {
+                ajax
+                    .post("/api/Pond/AddFish", {
+                        PondId: this.$route.query.PondId,
+                        CurrencyId: this.$route.query.CurrencyId,
+                        count: this.count
+                    })
+                    .then(response => {
+                        this.$router.go(-1);
+                    });
+            },
+            close() {
+                this.$router.go(-1);
+            }
+        }
+    };
+</script>
+
+<style>
+
+</style>

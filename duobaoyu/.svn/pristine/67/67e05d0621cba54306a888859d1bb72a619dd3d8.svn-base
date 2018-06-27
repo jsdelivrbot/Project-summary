@@ -1,0 +1,41 @@
+<template>
+  <div class="app-wrapper">
+    <head-nav></head-nav>
+    <sider-bar></sider-bar>
+    <div class="main-container">
+      <app-main></app-main>
+    </div>
+    <foot-nav></foot-nav>
+    <star></star>
+  </div>
+</template>
+
+<script>
+import {  AppMain } from '@/views/layout/components'
+import {  footNav,headNav,siderBar ,star} from '@/views/layout/components'
+export default {
+  name: 'layout',
+  components: {
+    AppMain,
+    footNav,
+    headNav,
+    siderBar,
+    star
+  },
+  computed: {
+  
+  }
+}
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+@import "src/styles/mixin.scss";
+.app-wrapper {
+  @include clearfix;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: url('../../../static/imgs/homeBg.jpg') no-repeat;
+  background-size: 100% 100%;
+}
+</style>

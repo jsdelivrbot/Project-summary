@@ -1,0 +1,79 @@
+<template>
+    <div class="routerBox">
+        <div class="TradeingHall shop common_bg">
+            <close class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/shop_title.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="tab_title">
+                        <router-link tag="div" :to="'/shop/'+item.code"  v-for="(item,index) in tableData.items" :key="index" class="title_item" :class="[item.class,{ 'title_item_active':item.code==tableData.select.code},{clear_fix:index==0}]" @click.native="tableData.select=item">
+                            <img :src="item.src">
+                        </router-link>
+                    </div>
+                    <router-view></router-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import close from "@/components/close";
+
+export default {
+  data() {
+    return {
+      tableData: {
+        items: [
+          {
+            class: {
+              title_item_1: true
+            },
+            code: "goods",
+            select: false,
+            src: "static/imgs/shop_1.png",
+          
+          },
+          {
+            class: {
+              title_item_2: true
+            },
+            code: "cart",
+            select: false,
+            src: "static/imgs/shop_2.png"
+          },
+          {
+            class: {
+              title_item_3: true
+            },
+            code: "order",
+            select: false,
+            src: "static/imgs/shop_3.png"
+          },
+          {
+            class: {
+              title_item_4: true
+            },
+            code: "confirmOrder",
+            select: false,
+            src: "static/imgs/shop_4.png"
+          }
+        ],
+        select: {
+          code: false
+        }
+      }
+    };
+  },
+  methods: {},
+  components: {
+    close
+  }
+};
+</script>
+
+<style>
+
+</style>

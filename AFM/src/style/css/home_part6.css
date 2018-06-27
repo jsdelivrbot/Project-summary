@@ -1,0 +1,57 @@
+.notice .con-title-fr {
+  justify-content: space-between;
+}
+.notice .list-notice {
+  border-top: 1px solid #e5e5e5;
+  padding: 0 0.30666667rem;
+  min-height: 200px;
+}
+.notice .list-notice .notice-item {
+  padding: 4px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.notice .list-notice .notice-item:last-child {
+  border-bottom: none;
+}
+.notice .list-notice .notice-item .notice-item-fr {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+.notice .list-notice .notice-item .notice-item-fr:hover {
+  background: -webkit-linear-gradient(90deg, transparent, #d4d1cf, transparent);
+  /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(90deg, transparent, #d4d1cf, transparent);
+  /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(90deg, transparent, #d4d1cf, transparent);
+  /* Firefox 3.6 - 15 */
+  background: linear-gradient(90deg, transparent, #d4d1cf, transparent);
+  /* 标准的语法（必须放在最后） */
+}
+.notice .list-notice .notice-item .thumnail {
+  width: 1.6rem;
+  height: 74px;
+  margin-left: 0.26666667rem;
+}
+.notice .list-notice .notice-item .intro {
+  font-size: 13px;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.notice .list-notice .notice-item .intro .title {
+  color: #333;
+}
+.notice .list-notice .notice-item .intro .desc {
+  color: #a5a5a5;
+  display: block;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.notice .list-notice .notice-item .date {
+  font-size: 12px;
+  color: #a5a5a5;
+}

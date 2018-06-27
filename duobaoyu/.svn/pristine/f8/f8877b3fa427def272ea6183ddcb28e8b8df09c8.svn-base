@@ -1,0 +1,84 @@
+<template>
+    <div class="routerBox">
+        <div class="Directional_Trade common_bg">
+            <close class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/dingxiangjiaoyi.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="trade_form">
+                        <div class="trade_form_item trade_form_item_1  input_group">
+                            <label class="label">对方账号:</label>
+                            <input type="text" placeholder="请输入对方账号" v-model="formData.tousercode" class="input_common">
+                        </div>
+                        <div class="trade_form_item trade_form_item_2 input_group buyAmount">
+                            <label class="label">普通多宝鱼数量:</label>
+                            <div class="amount_operate">
+                                <img class="reduce" @click="btnPlus(-100)" src="static/imgs/reduce.png">
+                                <input type="number" v-model="formData.nums" class="input_common">
+                                <img class="plus" @click="btnPlus(100)" src="static/imgs/plus.png">
+                            </div>
+                        </div>
+                                 <div class="trade_form_item trade_form_item_2 input_group buyAmount">
+                            <label class="label">二级密码:</label>
+                            <div class="amount_operate">
+                                <input type="password" v-model="formData.L2Pwd"  class="input_common">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="foot">
+               <button class="cancelBtn btn btn_default" @click="cancel">
+                   <img src="static/imgs/cancel.png">
+              </button>
+              <button class="confirmBtn btn btn_active " @click="btnSubmit">
+                   <img src="static/imgs/confirm.png">
+              </button>
+          </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+import close from "@/components/close";
+export default {
+  data() {
+    return {
+      formData: {
+        tousercode:'',
+        nums: 0,
+        CurrencyId: 1,
+        L2Pwd: ""
+      },
+      
+    };
+  },
+  created: function() {
+   
+  },
+  methods: {
+   
+    btnPlus(num) {
+      if (this.formData.nums + num > 0) this.formData.nums += num;
+    },
+    btnSubmit() {
+      ajax.post("/api/Financial/TransferPt", this.formData).then(response => {
+        this.$router.go(-1);
+      });
+    },
+    cancel(){
+         this.$router.go(-1);
+    }
+  },
+  components: {
+    close
+  }
+};
+</script>
+
+<style>
+
+</style>

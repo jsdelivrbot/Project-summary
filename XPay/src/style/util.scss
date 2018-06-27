@@ -1,0 +1,4 @@
+$f: 100;
+@function f($px) {
+  @return $px / $f * 1rem;
+}

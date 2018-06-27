@@ -1,0 +1,69 @@
+<template>
+  <div class="shopping_mall">
+    <div class="goods_items">
+      <div class="goods_item" v-for="item in goodsList" :key="item.id">
+        <div class="good_img">
+          <img src="static/imgs/shop_10.png">
+        </div>
+        <div class="good_name">{{item.name}}</div>
+        <div class="good_price">
+          <div class="buy_duobaoyu">
+            <img src="static/imgs/shop_11.png">
+            456
+          </div>
+          <div class="buy_coin">
+             <img src="static/imgs/renmingbi.png">
+             386
+          </div>
+        </div>
+        <div class="buy_good btn_active" @click="openBuyModel">
+          <img src="static/imgs/buy.png">
+        </div>
+      </div>
+    </div>
+    <buy-model v-if="isOpenBuyModel" v-on:close-buyModel="closeBuyModel"></buy-model>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+import buyModel from "@/views/shop/goods/buy";
+import tradeMarketVue from "../../TradingHall/tabItem/tradeMarket.vue";
+export default {
+  data() {
+    return {
+      isOpenBuyModel: false,
+      goodsList: [
+        {
+          id: 1,
+          name: "红酒"
+        },
+        {
+          id: 2,
+          name: "红酒"
+        }
+      ]
+    };
+  },
+  created: function() {
+    ajax.post("/api/mall/ProductList", {}).then(response => {
+      console.log(response);
+    });
+  },
+  methods: {
+    closeBuyModel(isOpen) {
+      this.isOpenBuyModel = isOpen;
+    },
+    openBuyModel() {
+      this.isOpenBuyModel = true;
+    }
+  },
+  components: {
+    buyModel
+  }
+};
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,41 @@
+import Vue from 'vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import locale from 'element-ui/lib/locale/lang/en'
+import App from './App'
+import router from './router'
+import store from './store'
+import '@/icons' // icon
+import '@/permission' // 权限
+import verify from "vue-verify-plugin";
+import { Message, MessageBox } from "element-ui";
+import * as ajax from "@/api/common";
+Vue.use(ElementUI, { locale })
+Vue.use(verify, {
+    blur: true
+});
+
+Vue.config.productionTip = false
+Vue.prototype.success = function(msg) {
+    Message({
+        message: msg,
+        type: "success",
+        duration: 5 * 1000
+    });
+}
+Vue.prototype.errorMsg = function(msg) {
+    Message({
+        message: msg,
+        type: "error",
+        duration: 5 * 1000
+    });
+}
+
+
+new Vue({
+    el: '#app',
+    router,
+    store,
+    template: '<App/>',
+    components: { App }
+})

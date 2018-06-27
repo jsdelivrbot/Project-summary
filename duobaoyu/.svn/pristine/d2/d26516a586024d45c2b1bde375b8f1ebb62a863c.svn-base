@@ -1,0 +1,59 @@
+<template>
+    <div class="model_Box_wrapper  leaveMessage_Model">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/news_5.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content">
+                <div class="info_item input_group">
+                    <label class="label">标题</label>
+                    <input type="text" v-model="messageForm.MainTitle" class="input_common">
+                  
+                </div>
+                <div class="info_item input_group">
+                    <label class="label">内容</label>
+                    <textarea class="input_form input_common" v-model="messageForm.Content"></textarea>
+                </div>
+            </div>
+            <div class="text_center">
+                <button class="btn btn_yellowBg" @click="submit">
+                    <img src="static/imgs/confirm.png">
+                  </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+
+    export default {
+        data() {
+            return {
+                isOpen: false,
+                messageForm:{
+                    MainTitle:'',
+                    Content:''
+                }
+            }
+        },
+        methods: {
+            close() {
+                this.$router.go(-1);
+            },
+            submit(){
+                ajax.post('/api/Content/CreateMessage',this.messageForm).then(response =>{
+                    console.log(response);
+                    this.$router.go(-1);
+                })
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

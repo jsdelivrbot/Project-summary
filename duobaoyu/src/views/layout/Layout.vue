@@ -1,0 +1,113 @@
+<template>
+  <div class="app-wrapper">
+    <audio ref="audio"  loop="loop" preload="auto">
+      你的浏览器不支持html5的audio标签  
+          <source src="static/music/bg_music.mp3" type="audio/mpeg">
+    </audio>
+    <head-nav></head-nav>
+    <sider-bar></sider-bar>
+    <div class="main-container">
+      <dashboard></dashboard>
+    </div>
+    <foot-nav></foot-nav>
+    <star></star>
+    <div class="app-router">
+      <app-main></app-main>
+    </div>
+  </div>
+</template>
+
+<script>
+  import {
+    AppMain
+  } from '@/views/layout/components'
+  import {
+    footNav,
+    headNav,
+    siderBar,
+    star,
+    dashboard
+  } from '@/views/layout/components'
+  import {
+    mapGetters
+  } from "vuex";
+  export default {
+    name: 'layout',
+    data(){
+      return{
+        play:false,
+        volumn:0
+      }
+      
+    },
+    components: {
+      AppMain,
+      footNav,
+      headNav,
+      siderBar,
+      star,
+      dashboard
+    },
+    created(){
+     
+    },
+    methods:{
+      aPlay(){
+        var audio=this.$refs.audio;
+        audio.play()
+      },
+      aPouse(){
+         var audio=this.$refs.audio;
+         audio.pause()
+      },
+      Setvolumn(vol){
+        var audio=this.$refs.audio;
+        audio.volume=vol
+      }
+    },
+    watch:{
+        controlAudioPlay(val){
+          //debugger;
+          if(val){
+            this.play=true;
+             this.aPlay();
+          }else{
+            this.aPouse()
+          }
+        },
+        controlAudioSlider(val){
+          this.Setvolumn(val)
+        },
+
+    },
+    mounted(){
+    },
+    computed: {
+      ...mapGetters(["audio"]),
+      controlAudioPlay(){
+        return this.audio.play
+      },
+      controlAudioSlider(){
+        return this.audio.volumn
+      }
+    }
+  }
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  @import "src/styles/mixin.scss";
+  .app-wrapper {
+    @include clearfix;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: url('/static/imgs/homeBg.jpg') no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+  }
+  @media (max-width:768px){
+    .app-wrapper {
+        height: 120%;
+    }
+}
+</style>

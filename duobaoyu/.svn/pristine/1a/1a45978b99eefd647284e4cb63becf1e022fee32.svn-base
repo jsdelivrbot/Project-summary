@@ -1,0 +1,46 @@
+﻿ import store from "@/store";
+ import { parseTime, toFixed } from "@/utils/index";
+
+ let enumFilter = (value, key) => {
+     var statusMap = store.getters.clientData.enumData[key];
+     if (statusMap[value]) {
+         var text = statusMap[value];
+         return text;
+     }
+     return value;
+ }
+ let orderStatusFilter = (value, code) => {
+     if (code == "b") {
+         var statusMap = store.getters.clientData.enumData['HelpDicInfo'];
+         if (statusMap[value]) {
+             var text = statusMap[value].BuyerStatus;
+             return text;
+         }
+         return value;
+     } else {
+         var statusMap = store.getters.clientData.enumData['HelpDicInfo'];
+         if (statusMap[value]) {
+             var text = statusMap[value].SellerStatus;
+             return text;
+         }
+         return value;
+     }
+
+
+ }
+ let formatTimeFilter = value => {
+     return parseTime(value);
+ }
+ let formatDateFilter = value => {
+     return parseTime(value, '{y}-{m}-{d}');
+ }
+
+
+ export {
+     enumFilter,
+     formatTimeFilter,
+
+     orderStatusFilter,
+     formatDateFilter,
+
+ }

@@ -1,0 +1,27 @@
+.com-register-fr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 0 0.4rem;
+}
+.com-register-fr .mhalf {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .com-register-fr {
+    padding: 0;
+    flex-wrap: nowrap;
+  }
+  .com-register-fr .mhalf {
+    display: flex;
+    flex-direction: column;
+    width: 7.86666667rem;
+  }
+  .input-ar > label {
+    width: 1.86666667rem;
+  }
+}

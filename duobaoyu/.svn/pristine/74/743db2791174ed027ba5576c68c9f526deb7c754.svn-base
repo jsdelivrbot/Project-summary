@@ -1,0 +1,93 @@
+<template>
+    <div class="routerBox">
+        <div class="TradeingHall Wallet common_bg">
+            <close :Router="true" class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/splitTitle.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="walletDetail">
+                        <div class="tab_content">
+                            <div class="tabSub_title">
+                                <div class="subtitle_item" v-for="(item,index) in tabList" :key="index" :class="{'subtitle_item_active':item.isActive}" @click="tabChange(item)">
+                                    {{item.text}}
+                                </div>
+                            </div>
+                            <div class="total_table">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import close from "@/components/close";
+    import echarts from "echarts";
+    require("echarts/theme/roma"); // echarts 主题
+    export default {
+        data() {
+            return {
+                tabList: [{
+                        text: '一周',
+                        isTotal: true,
+                        isActive: true,
+                        code: 0
+                    },
+                    {
+                        text: '一月',
+                        children1: false,
+                        isActive: false,
+                        code: 1
+                    },
+                    {
+                        text: '一季',
+                        children2: false,
+                        isActive: false,
+                        code: 2
+                    },
+                    {
+                        text: '半年',
+                        children3: false,
+                        isActive: false,
+                        code: 3
+                    },
+                    {
+                        text: '一年',
+                        children4: false,
+                        isActive: false,
+                        code: 4
+                    },
+                    {
+                        text: '今年',
+                        children5: false,
+                        isActive: false,
+                        code: 5
+                    }
+                ],
+            }
+        },
+        methods: {
+            tabchangeClass() {
+                for (var x in this.tabList) {
+                    this.tabList[x].isActive = false
+                }
+            },
+            tabChange(item) {
+                this.tabchangeClass();
+                item.isActive = true;
+                this.code = item.code;
+            },
+        },
+        components:{
+            close
+        }
+    }
+</script>
+
+<style>
+
+</style>

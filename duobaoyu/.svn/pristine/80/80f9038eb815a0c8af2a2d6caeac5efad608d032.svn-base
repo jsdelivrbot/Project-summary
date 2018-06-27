@@ -1,0 +1,65 @@
+<template>
+    <div class="model_Box_wrapper Leave_MessageModel">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/news_7.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="message_content">
+                <div class="message_box">
+                    <div class="message_user message_role">
+                        <div class="info">
+                            <label class="name">xxx</label>
+                            <label class="date">2018-01-21 14:49</label>
+                        </div>
+                        <div class="detail">
+                            请问什么时候领取奖金啊？
+                        </div>
+                    </div>
+                </div>
+                <div class="message_box">
+                    <div class="message_kefu message_role">
+                        <div class="info">
+                            <label class="name">xxx</label>
+                            <label class="date">2018-01-21 14:49</label>
+                        </div>
+                        <div class="detail">
+                            您好，目前不确定时间呢。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="leave_message">
+                <div class="leave_textarea">
+                    <textarea placeholder="留言回复" class=" input_common"></textarea>
+                    <div class="btnBox  text_center">
+                        <button class="btn btn_yellowBg">
+                        <img src="static/imgs/send.png">
+                      </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                isOpen: false
+            }
+        },
+        methods: {
+            close() {
+                this.$router.go(-1);
+            },
+        }
+    }
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,98 @@
+{
+  "_from": "vue-verify-plugin",
+  "_id": "vue-verify-plugin@2.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-y982yMhlc6s1Y+8lL2Ncm7X3Ji0=",
+  "_location": "/vue-verify-plugin",
+  "_phantomChildren": {
+    "acorn": "5.3.0",
+    "acorn-dynamic-import": "2.0.2",
+    "async": "2.6.0",
+    "big.js": "3.2.0",
+    "center-align": "0.1.3",
+    "co": "4.6.0",
+    "code-point-at": "1.1.0",
+    "commondir": "1.0.1",
+    "decamelize": "1.2.0",
+    "emojis-list": "2.1.0",
+    "enhanced-resolve": "3.4.1",
+    "get-caller-file": "1.0.2",
+    "interpret": "1.1.0",
+    "json-loader": "0.5.7",
+    "json-stable-stringify": "1.0.1",
+    "json5": "0.5.1",
+    "loader-runner": "2.3.0",
+    "memory-fs": "0.4.1",
+    "mkdirp": "0.5.1",
+    "node-libs-browser": "2.1.0",
+    "number-is-nan": "1.0.1",
+    "object-assign": "4.1.1",
+    "os-locale": "1.4.0",
+    "pinkie-promise": "2.0.1",
+    "read-pkg-up": "1.0.1",
+    "require-directory": "2.1.1",
+    "require-main-filename": "1.0.1",
+    "right-align": "0.1.3",
+    "set-blocking": "2.0.0",
+    "strip-ansi": "3.0.1",
+    "tapable": "0.2.8",
+    "uglify-to-browserify": "1.0.2",
+    "watchpack": "1.4.0",
+    "webpack-sources": "1.1.0",
+    "which-module": "1.0.0",
+    "window-size": "0.1.0",
+    "wrap-ansi": "2.1.0",
+    "y18n": "3.2.1"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "vue-verify-plugin",
+    "name": "vue-verify-plugin",
+    "escapedName": "vue-verify-plugin",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/vue-verify-plugin/download/vue-verify-plugin-2.0.2.tgz",
+  "_shasum": "cbdf36c8c86573ab3563ef252f635c9bb5f7262d",
+  "_spec": "vue-verify-plugin",
+  "_where": "D:\\DbyFront",
+  "author": {
+    "name": "liuyinglong"
+  },
+  "bugs": {
+    "url": "https://github.com/liuyinglong/verify/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.0.0",
+    "webpack": "^2.4.1"
+  },
+  "deprecated": false,
+  "description": "vue validate plugin",
+  "devDependencies": {
+    "cross-env": "^4.0.0",
+    "lodash": "^4.17.4"
+  },
+  "homepage": "https://github.com/liuyinglong/verify#readme",
+  "license": "ISC",
+  "main": "./src/index.js",
+  "name": "vue-verify-plugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuyinglong/verify.git"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot"
+  },
+  "version": "2.0.2"
+}

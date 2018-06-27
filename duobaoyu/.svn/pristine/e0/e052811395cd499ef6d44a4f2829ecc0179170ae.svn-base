@@ -1,0 +1,196 @@
+<template>
+  <div class="dashboard-container">
+    <div class="margin-top">
+      <div class="noticeBox">
+        <img src="static/imgs/noticeIcon.png">
+        <span>恭喜农场主天天种地的富翁，抽中IPAD!!!</span>
+      </div>
+    </div>
+    <div class="main_left">
+      <img src="static/imgs/haitun_06.png">
+    </div>
+    <div class="main_center">
+      <div class="Pond_items">
+        <div class="pond_item" v-for="item in pond" :key="item.id">
+          <div class="img1_box" v-if="item.isPond_1">
+             <img class="pond_img_1" src="static/imgs/chitang1.png">
+          </div>
+           <div class="img2_box" v-if="item.isPond_2">
+             <img class="pond_img_2" src="static/imgs/chitang2.png">
+          </div>
+           <div class="img3_box" v-if="item.isPond_3">
+             <img class="pond_img_3" src="static/imgs/chitang3.png">
+          </div>
+             <div class="img4_box" v-if="item.isPond_4">
+             <img class="pond_img_4" src="static/imgs/chitang4.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main_right">
+      <img src="static/imgs/meirenyu_05.png">
+    </div>
+    <!-- <div @click="logout" class="dashboard-text">name:{{name}}</div>
+          <div class="dashboard-text">role:<span v-for='role in roles' :key='role'>{{role}}</span></div> -->
+          <open-pond v-if="isOpenPond" :openPond="openPondData" v-on:close-pond="closeOpenPond"></open-pond>
+  </div>
+</template>
+
+<script>
+  import {
+    mapGetters
+  } from 'vuex'
+  import openPond from '@/components/openPond'
+  export default {
+    name: 'dashboard',
+    data() {
+      return {
+        isOpenPond:false,
+        openPondData:"",
+        pond: [{
+            id: 1,
+            isPond_1: true,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 2,
+            isPond_1: true,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 3,
+            isPond_1: false,
+            isPond_2: true,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 4,
+            isPond_1: false,
+            isPond_2: true,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 5,
+            isPond_1: false,
+            isPond_2: false,
+            isPond_3: true,
+            isPond_4: false,
+          },
+          {
+            id: 6,
+            isPond_1: true,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 7,
+            isPond_1: true,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 8,
+            isPond_1: false,
+            isPond_2: true,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 9,
+            isPond_1: false,
+            isPond_2: true,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 10,
+            isPond_1: false,
+            isPond_2: false,
+            isPond_3: true,
+            isPond_4: false,
+          },
+          {
+            id: 11,
+            isPond_1: true,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 12,
+            isPond_1: true,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 13,
+            isPond_1: false,
+            isPond_2: true,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 14,
+            isPond_1: false,
+            isPond_2: true,
+            isPond_3: false,
+            isPond_4: false,
+          },
+          {
+            id: 15,
+            isPond_1: false,
+            isPond_2: false,
+            isPond_3: false,
+            isPond_4: true,
+          },
+        ]
+      }
+    },
+    created(){
+       this.isOpenPond=true
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch("LogOut").then(() => {
+          location.reload(); // 为了重新实例化vue-router对象 避免bug
+        });
+      },
+      closeOpenPond(open){
+       
+        this.isOpenPond=open;
+        console.log(this.isOpenPond)
+      }
+    },
+    components:{
+      openPond
+    },
+    mounted(){
+      //this.isOpenPond=true
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'roles'
+      ])
+    }
+  }
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .dashboard {
+    &-container {}
+    &-text {
+      font-size: 30px;
+      line-height: 46px;
+    }
+  }
+</style>

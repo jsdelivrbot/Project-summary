@@ -1,0 +1,651 @@
+/*数字资产 S*/
+
+$f: 100;
+@function f($px) {
+    @return $px / $f * 1rem;
+}
+
+@function urls($url) {
+    @return url('/static/img/'+$url);
+}
+
+
+/*公共样式 S*/
+
+//背景样式 S
+.BgWhite {
+    background-color: #fff;
+}
+
+//背景样式 E
+//字体样式 S
+.redFont {
+    color: #ff330c;
+}
+
+.EFont {
+    color: #6e7581;
+    font-size: f(28);
+}
+
+.EB4Font {
+    color: #a1a4b4
+}
+
+.blFont {
+    color: #000000;
+}
+
+.buFEFontont {
+    color: #0079f1;
+    font-weight: bold;
+}
+
+.Y_lineheight {
+    line-height: f(35);
+}
+
+.WPFont {
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.WFont {
+    color: #fff;
+}
+
+//字体样式 E
+//按钮样式 S
+.YButton {
+    border: 1px solid transparent;
+    background-color: #fff;
+    min-width: f(130);
+    height: f(46);
+    text-align: center;
+    font-size: f(24)
+}
+
+.YBtton-round {
+    border-radius: f(23);
+}
+
+.YButton-blueborder {
+    border: 1px solid #0079f1;
+    color: #0079f1;
+}
+
+.tab__Button {
+    padding: f(5) f(15);
+    height: f(54);
+    color: #0079f1;
+    font-size: f(24);
+    border: none;
+    background-color: #fff;
+}
+
+.tab__Button-action {
+    background-color: #0079f1;
+    box-shadow: 0px 4px 10px 0px rgba(0, 121, 241, 0.3);
+    border-radius: 22px;
+    color: #fff;
+}
+
+.stateBtn {
+    min-width: f(130);
+    height: f(50);
+    line-height: f(50);
+    border-radius: f(8);
+    color: #fff;
+    font-size: f(24);
+    border: none;
+}
+
+.stateBtn-disabled {
+    background-color: #a1a4b4;
+    box-shadow: 0px 4px 10px 0px rgba(161, 164, 180, 0.3);
+}
+
+.stateBtn-green {
+    background-color: #1ed189;
+    box-shadow: 0px 4px 10px 0px rgba(30, 209, 137, 0.3);
+}
+
+//按钮样式 E
+//边框样式 S
+.border_bottom {
+    border-bottom: 1px solid #e8eaee;
+}
+
+//边框样式 E
+//ICON 样式 S
+.Yicon {}
+
+.Yicon39 {
+    width: f(63);
+    height: f(57);
+}
+
+.Yicon38 {
+    width: f(66);
+    height: f(59);
+}
+
+.Yicon40 {
+    width: f(60);
+    height: f(60);
+}
+
+.Yicon41 {
+    width: f(69);
+    height: f(60);
+}
+
+.Yicon50 {
+    width: f(42);
+    height: f(40);
+}
+
+.Yicon51 {
+    width: f(40);
+    height: f(40);
+}
+
+.Yicon52 {
+    width: f(30);
+    height: f(40);
+}
+
+//ICON 样式 S
+//边距样式 S
+.Y_margin_top {
+    margin-top: f(20);
+}
+
+.Y_padding_lr {
+    padding-left: f(30);
+    padding-right: f(30);
+}
+
+//边距样式 E
+
+/*公共样式 E*/
+
+
+/*改写vant样式 S*/
+
+.YTab {
+    .Ytab__title {
+        padding: f(18) 0;
+        line-height: f(35);
+        font-size: f(26);
+        img {
+            display: block;
+            margin: 0 auto;
+            display: table;
+            margin-bottom: f(21)
+        }
+    }
+    .van-tabs--line {
+        padding-top: f(122);
+    }
+    .van-tabs--line .van-tabs__wrap {
+        height: f(122);
+        background-color: #1e8df7;
+    }
+    .van-tab {
+        // line-height: f(122);
+        background-color: #1e8df7;
+        color: #fff;
+    }
+    .van-tabs__nav {
+        background-color: #1e8df7;
+    }
+    .van-tab--active {
+        background-color: #056be6;
+    }
+    .van-tab:active {
+        background-color: #056be6;
+    }
+    .van-tabs__nav-bar {
+        display: none
+    }
+}
+
+.Y_progress {
+    width: f(383);
+    .van-progress {
+        height: f(8);
+        background: #e8eaee;
+        border-radius: f(4)
+    }
+    .van-progress__pivot {
+        display: none;
+    }
+    .van-progress__portion {
+        background-image: linear-gradient(90deg, #1588ff 0%, #20d0ff 100%) !important;
+        background-color: transparent !important;
+    }
+}
+
+
+/*改写vant样式 E*/
+
+
+/*layout S*/
+
+.item__span3 {
+    width: 25%;
+    text-align: center;
+}
+
+.item__span6 {
+    width: 50%;
+    text-align: center;
+}
+
+
+/*layout E*/
+
+
+/*数字资产 S*/
+
+.DigitalAsset {
+    @at-root {
+        .DigitalAsset__header {
+            @at-root {
+                .topBar__content {
+                    font-size: f(36);
+                    color: #fff;
+                }
+            }
+            .DigitalAsset__header-bottom {
+                background-image: linear-gradient(0deg, #0469e5 0%, #1f8df7 100%);
+                padding-top: f(125);
+                padding-bottom: f(40);
+                .present_Price {
+                    text-align: center;
+                    line-height: f(35);
+                }
+                .present_Price-text {
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: f(24);
+                    padding-bottom: f(19)
+                }
+                .present_Price-value {
+                    font-size: f(60);
+                    color: #fff;
+                    font-family: 'FuturaBT-Book';
+                }
+            }
+        }
+        .DigitalAsset__body {
+            .DigitalAsset__body-content1 {
+                padding: f(45) f(30) f(27) f(30);
+                @at-root {
+                    .copyAddressBox {
+                        padding-left: f(106);
+                        position: relative;
+                        .copyAddressBox__img {
+                            width: f(84);
+                            height: f(84);
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                        }
+                        .copyAddressBox__property {
+                            margin-bottom: f(15);
+                            span {
+                                margin-right: f(40)
+                            }
+                        }
+                        .copyAddressBtn {
+                            position: absolute;
+                            right: 0;
+                            bottom: 0
+                        }
+                    }
+                    .copyAddressText {
+                        color: #000000;
+                        font-size: f(24);
+                        line-height: f(35);
+                        margin-top: f(38);
+                    }
+                }
+            }
+            .DigitalAsset__body-content2 {
+                @at-root {
+                    .List {
+                        display: -webkit-flex;
+                        /* Safari */
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: space-around;
+                        padding: f(33) 0 f(29) 0;
+                        .List__item {
+                            img {
+                                margin-bottom: f(24)
+                            }
+                            div {
+                                line-height: f(35)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        @at-root {
+            .DigitalAsset__table {
+                .content3__tableheader {
+                    display: -webkit-flex;
+                    /* Safari */
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding-top: f(32)
+                }
+                .content3__tableheader-left {
+                    font-size: f(36);
+                    font-weight: bold;
+                }
+                .content3__tableList {
+                    padding-top: f(20);
+                    @at-root {
+                        .tableList__item {
+                            display: -webkit-flex;
+                            /* Safari */
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: flex-start;
+                            .tableList__item-cell {
+                                width: 30%;
+                                padding: f(20) 0;
+                                &.bgWidth16 {
+                                    width: 16%;
+                                }
+                                &.bgWidth {
+                                    width: 44%;
+                                    text-align: center;
+                                    button {
+                                        color: #ffffff;
+                                        border-radius: f(30);
+                                        float: left;
+                                    }
+                                    button.bg-color-0079f1 {
+                                        background-color: #0079f1;
+                                        float: right;
+                                        margin-right: f(5);
+                                    }
+                                    button.bg-color-01b3ff {
+                                        background-color: #01b3ff;
+                                    }
+                                }
+                                .type_img {
+                                    width: f(30);
+                                    height: f(30);
+                                }
+                                .buFont {
+                                    font-size: f(24);
+                                    font-weight: bold;
+                                    color: #0079f1;
+                                }
+                                .blFont {
+                                    font-size: f(28);
+                                    font-weight: bold;
+                                }
+                                .EFont {
+                                    font-size: f(22)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*数字资产 E*/
+
+
+/*众筹中心 S*/
+
+.CrowdfundingCenter {
+    .CrowdfundingCenter__Tab {
+        padding-top: f(88);
+        .content {
+            padding: f(30);
+            .content__item {
+                margin-bottom: f(30);
+                .content__item_top {
+                    display: flex;
+                    display: -webkit-flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding-right: f(30);
+                    height: f(50);
+                    line-height: f(50);
+                    @at-root {
+                        .state__flag {
+                            width: f(99);
+                            height: f(41);
+                            border-radius: 8px 0px f(20) 0px;
+                            font-size: f(20);
+                            color: #fff;
+                            line-height: f(41);
+                            text-align: center;
+                        }
+                        .state__flag-underway {
+                            background-image: linear-gradient(90deg, #ff5755 0%, #ffc729 100%);
+                        }
+                        .state__flag-finished {
+                            background-image: linear-gradient(90deg, #808390 0%, #bbbecc 100%);
+                        }
+                        .state__flag-preheating {
+                            background-image: linear-gradient(90deg, #3677f5 0%, #60c7f8 100%);
+                        }
+                        .dateFont {
+                            color: #a1a4b4;
+                            font-size: f(20);
+                        }
+                    }
+                }
+                .content__item_middle {
+                    padding: 0 f(30);
+                    .middle_cell-1 {
+                        padding-left: f(161);
+                        position: relative;
+                        height: f(130);
+                        .BTimg {
+                            width: f(130);
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            left: 0
+                        }
+                        .BTC_Title {
+                            font-size: f(32);
+                            margin-bottom: f(20);
+                        }
+                        .BTC_tips,
+                        .BTC_coinType {
+                            font-size: f(20);
+                        }
+                    }
+                    .middle_cell-2 {
+                        display: -webkit-flex;
+                        /* Safari */
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        padding: f(25) 0 0 0;
+                        .middle_cell-2__item {
+                            &:nth-child(2),
+                            &:nth-child(3) {
+                                padding-left: f(31);
+                                border-left: 2px solid #e8eaee;
+                            }
+                            &:nth-child(3) {
+                                padding-left: f(35);
+                            }
+                            .blFont {
+                                font-size: f(28);
+                            }
+                            .EFont {
+                                font-size: f(22)
+                            }
+                        }
+                    }
+                    .middle_cell-3 {
+                        display: -webkit-flex;
+                        /* Safari */
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        padding: f(27) 0;
+                        position: relative;
+                        .Y_progress {
+                            padding-top: f(20.5);
+                        }
+                        .percentValue {
+                            font-size: f(20);
+                            font-weight: normal; // color: #a1a4b4;
+                            line-height: f(50);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*众筹中心 E*/
+
+
+/*X宝数字中心 S*/
+
+.V_DigitalCenter {
+    .topBar__right {
+        position: absolute;
+        float: none;
+        right: f(0);
+        .topBar__right-box {
+            background-image: linear-gradient( 90deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 100%);
+            border-top-left-radius: f(17);
+            border-bottom-left-radius: f(17);
+            width: f(137);
+            height: f(35);
+            line-height: f(35);
+            padding-left: f(15);
+            .icon54 {
+                width: f(30);
+                height: f(23);
+            }
+            i {
+                font-size: f(28);
+            }
+        }
+    }
+    .V_DigitalCenter__header {
+        padding: f(144) f(30) f(56) f(30);
+        display: -webkit-flex;
+        /* Safari */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .V_DigitalCenter__header-item {
+            width: 33.3333%;
+            .WPFont {
+                font-size: f(24);
+            }
+            .WFont {
+                font-size: f(50);
+            }
+        }
+    }
+    .V_DigitalCenter__body {
+        padding-bottom: f(90);
+        .V_DigitalCenter__tab {
+            .van-tabs__nav-bar {
+                width: f(114) !important;
+                height: f(4);
+                background-color: #0079f1;
+                left: f(68)
+            }
+            .van-tab {
+                color: #6e7581
+            }
+            .van-tab--active {
+                color: #0079f1;
+            }
+            .van-tabs__content {}
+        }
+        @at-root {
+            .V_DigitalCenter__item {
+                padding: f(32) f(30) f(28);
+                display: flex;
+                justify-content: space-between;
+                background: #fff;
+                border-bottom: solid 1px #e8eaee;
+                &:nth-last-child(1) {
+                    border-bottom: none;
+                }
+            }
+            .V_DigitalCenter__item_left {
+                p {
+                    font-size: f(28);
+                    color: #000;
+                    line-height: f(34);
+                }
+                span {
+                    font-size: f(22);
+                    color: #6e7581;
+                    line-height: f(35);
+                }
+            }
+            .V_DigitalCenter__item_right {
+                display: flex;
+                align-items: center;
+                font-size: f(36);
+                color: #000;
+            }
+        }
+    }
+    .V_DigitalCenter__bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: -webkit-flex;
+        /* Safari */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background: #fff;
+        height: f(90);
+        padding: f(17) 0;
+        .V_DigitalCenter__bottom-item {
+            width: 50%;
+            margin: auto;
+            display: table;
+            text-align: center;
+            color: #a1a4b4;
+            .icon55,
+            .icon56 {
+                width: f(40);
+                height: f(40);
+                margin-right: f(15);
+            }
+            .icon56 {}
+        }
+        .divide {
+            width: 2px;
+            height: 100%;
+            background-color: #e8eaee;
+        }
+    }
+}
+
+
+/*X宝数字中心 E*/

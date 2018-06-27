@@ -1,0 +1,135 @@
+<template>
+    <div class="left_box_1">
+        <div class="chooseType">
+            <div class="label_title">请选择推荐开户类型</div>
+            <div class="label_items">
+                <div class="label_item" v-for="(item,index) in selectList" :key="index">
+                    <is-select :item="item" :list="selectList" :the_selectValue.sync="the_selectValue"></is-select>
+                </div>
+            </div>
+        </div>
+        <div class="choose_input">
+            <div class="input_group input_group_inline ">
+                <label class="label">我的普通多宝鱼：</label>
+                <input type="text" class="input_common input_dark">
+            </div>
+            <div class="input_group input_group_inline ">
+                <label class="label">开户消耗数量：</label>
+                <input type="text" class="input_common input_dark">
+            </div>
+        </div>
+        <div class="fill_form">
+            <div class="inline clear_fix inline_4_5">
+                <div class="form_group1  userInfo_item userInfo_item1">
+                    <div class="inline_12 input_group input_group_inline input_group_inline_clearfix">
+                        <label class="label">账号</label>
+                        <input type="text" class="input_common">
+                    </div>
+                </div>
+                <div class="form_group1 userInfo_item userInfo_item1">
+                    <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                        <label class="label">登录密码</label>
+                        <input type="text" class="input_common">
+                    </div>
+                </div>
+                 <div class="form_group1 userInfo_item userInfo_item1">
+                    <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                        <label class="label">登录密码</label>
+                        <input type="text" class="input_common">
+                    </div>
+                </div>
+                <div class="form_group1 userInfo_item userInfo_item1">
+                    <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                        <label class="label">直推人账号</label>
+                        <input type="text" class="input_common">
+                    </div>
+                </div>
+              
+            </div>
+            <div class="inline inline_4_5 margin_inline">
+                <div class="form_group2 userInfo_item userInfo_item2">
+                    <div class="input_group input_group_inline">
+                        <label class="label">性别</label>
+                        <div v-for="item in slectSexData" class="chooseSex">
+                             <is-select :slectSex="item"></is-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_group2 userInfo_item userInfo_item2">
+                    <div class="input_group input_group_inline">
+                        <label class="label">手机</label>
+                        <input type="text" class="input_common">
+                    </div>
+                </div>
+                <div class="form_group2 userInfo_item userInfo_item2">
+                    <div class="input_group input_group_inline">
+                        <label class="label">交易密码</label>
+                        <input type="text" class="input_common">
+                    </div>
+                </div>
+                 <div class="form_group2 userInfo_item userInfo_item2">
+                    <div class="input_group input_group_inline">
+                       <button class="btn btn_active" @click="btnSubmit">
+                           <img src="static/imgs/team_4.png">
+                       </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import isSelect from "@/components/select";
+    export default {
+        data() {
+            return {
+                isSelected: false,
+                the_selectValue: '',
+                this_selectSex:'',
+                selectList: [{
+                    value: '1',
+                    text: '660元普通会员',
+                    isSelect: false
+                }, {
+                    value: '2',
+                    text: '3300元高级会员',
+                    isSelect: false
+                }, {
+                    value: '3',
+                    text: '6600元超级会员',
+                    isSelect: false
+                }, {
+                    value: '4',
+                    text: '19800元至尊会员',
+                    isSelect: false
+                }],
+                slectSexData:[{
+                    value:'0',
+                    sex:'男'
+                },{
+                     value:'0',
+                    sex:'女'
+                }]
+            }
+        },
+        methods: {
+            select(isSelected, selectValue,selectSex) {
+                this.isSelected = true
+                this.the_selectValue = selectValue
+                this.this_selectSex = selectSex
+                console.log(this.the_selectValue)
+            },
+            btnSubmit(){
+                console.log(this.the_selectValue);
+            }
+        },
+        components: {
+            isSelect
+        }
+    }
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,180 @@
+<template>
+    <div class="matchpendOrder">
+        <div class="tab_content">
+            <div class="table_head">
+                <div class="head_item head_item1">订单号/创建时间</div>
+                <div class="head_item head_item2">实际成交金额</div>
+                <div class="head_item head_item3">对方信息</div>
+                <div class="head_item head_item4">操作</div>
+            </div>
+            <div class="table_body">
+                <div class="body_items">
+                    <div class="body_item body_item1">
+                        <span class="orderNo">15187584512</span>
+                        <span class="date">2017/12/12 10:20:14</span>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="amount">￥99.66</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="info">燃烧吧，小鱼儿</div>
+                        <div class="checkInfo btn btn_default" @click="openCheckInfo">
+                            <img src="static/imgs/checkInfo.png">
+                        </div>
+                    </div>
+                    <div class="body_item body_item4">
+                        <div class="statusText" :class="{'statusOnly':isHasOperate}">交易完成</div>
+                        <!-- <div class="operateBtn_group">
+                                <div class="operate_1 operate btn btn_active btn_round">
+                                    <img src="static/imgs/tousu.png">
+                                </div>
+                                <div class="operate_2 operate btn btn_active btn_round">
+                                <img src="static/imgs/chakanzhengming.png">
+                                </div>
+                                <div class="operate_3 operate btn btn_active btn_round">
+                                     <img src="static/imgs/shoukuanqueren.png">
+                                </div>
+                                <div class="operate_4 operate btn btn_active btn_round">
+                                     <img src="static/imgs/quxiaopipei.png">
+                                </div>
+                            </div> -->
+                    </div>
+                </div>
+                <div class="body_items">
+                    <div class="body_item body_item1">
+                        <span class="orderNo">15187584512</span>
+                        <span class="date">2017/12/12 10:20:14</span>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="amount">￥99.66</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="info">燃烧吧，小鱼儿</div>
+                        <div class="checkInfo btn btn_default">
+                            <img src="static/imgs/checkInfo.png">
+                        </div>
+                    </div>
+                    <div class="body_item body_item4">
+                        <div class="statusText" :class="{'statusOnly':!isHasOperate}">交易完成</div>
+                        <div class="operateBtn_group">
+                            <div class="operate_1 operate btn btn_active btn_round" @click="openSellerComplaint">
+                                <img src="static/imgs/tousu.png">
+                            </div>
+                            <div class="operate_2 operate btn btn_active btn_round">
+                                <img src="static/imgs/chakanzhengming.png">
+                            </div>
+                            <div class="operate_3 operate btn btn_active btn_round" @click="openConfirmReceive">
+                                <img src="static/imgs/shoukuanqueren.png">
+                            </div>
+                            <!-- <div class="operate_4 operate btn btn_active btn_round">
+                                     <img src="static/imgs/quxiaopipei.png">
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="body_items">
+                    <div class="body_item body_item1">
+                        <span class="orderNo">15187584512</span>
+                        <span class="date">2017/12/12 10:20:14</span>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="amount">￥99.66</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="info">燃烧吧，小鱼儿</div>
+                        <div class="checkInfo btn btn_default">
+                            <img src="static/imgs/checkInfo.png">
+                        </div>
+                    </div>
+                    <div class="body_item body_item4">
+                        <div class="operateBtn_group operateBtn_group_clearfix">
+                            <!-- <div class="operate_1 operate btn btn_active btn_round">
+                                    <img src="static/imgs/tousu.png">
+                                </div>
+                                <div class="operate_2 operate btn btn_active btn_round">
+                                <img src="static/imgs/chakanzhengming.png">
+                                </div>
+                                <div class="operate_3 operate btn btn_active btn_round">
+                                     <img src="static/imgs/shoukuanqueren.png">
+                                </div> -->
+                            <div class="operate_4 operate btn btn_active btn_round">
+                                <img src="static/imgs/quxiaopipei.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table-foot></table-foot>
+        </div>
+
+        <!-- 操作弹出框 -->
+            <check-info v-if="Model.isCheckInfo" v-on:close-checkInfo="closeCheckInfo"></check-info>
+            <buyer-complaint v-if="Model.isBuyerComplaint" v-on:close-buyerComplaint="closeBuyerComplaint"></buyer-complaint>
+            <seller-complaint v-if="Model.isSellerComplaint" v-on:close-sllerComplaint="closeSllerComplaint"></seller-complaint>
+            <confirm-receive v-if="Model.isConfirmReceive" v-on:close-confirmReceive="closeConfirmReceive"></confirm-receive>
+         <!-- 操作弹出框 -->
+    </div>
+</template>
+
+<script>
+    import tableFoot from '@/components/tableFood'
+    import { BuyerComplaint, checkInfo,sellerComplaint,upload,confirmReceive} from '@/views/TradingHall/tradeModel'
+
+    export default {
+        data() {
+            return {
+                isHasOperate: true,
+                tableData: [1, 2, 3, 4, 5, 6],
+                Model:{
+                    isCheckInfo:false,
+                    isBuyerComplaint:false,
+                    isSellerComplaint:false,
+                    isConfirmReceive:false,
+                    isUpload:false
+
+                }
+            }
+        },
+        methods:{
+            closeCheckInfo(isOpen){
+                this.Model.isCheckInfo=isOpen
+            },
+            openCheckInfo(){
+                //alert(1);
+                this.Model.isCheckInfo=true
+            },
+            closeBuyerComplaint(isOpen){
+                this.Model.isBuyerComplaint=isOpen;
+            },
+            openBuyerComplaint(){
+                this.Model.isBuyerComplaint=true;
+            },
+            openSellerComplaint(){
+                this.Model.isSellerComplaint=true;
+            },
+            closeSllerComplaint(isOpen){
+                this.Model.isSellerComplaint=isOpen
+            },
+            openConfirmReceive(){
+                //alert(1);
+                this.Model.isConfirmReceive=true;
+            },
+            closeConfirmReceive(isOpen){
+                this.Model.isConfirmReceive=isOpen
+            }
+            
+        },
+        components: {
+            tableFoot,
+            BuyerComplaint,
+            checkInfo,
+            sellerComplaint,
+            confirmReceive,
+            upload
+        }
+    }
+</script>
+
+<style>
+
+</style>

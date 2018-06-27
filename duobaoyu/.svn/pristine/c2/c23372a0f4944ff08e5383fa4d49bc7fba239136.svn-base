@@ -1,0 +1,47 @@
+<template>
+    <div class="model_Box_wrapper checkInfo_model BuyerComplaint_model">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/news_5.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content">
+                <div class="info_item input_group">
+                    <label class="label">标题</label>
+                    <input type="text" class="input_common">
+                  
+                </div>
+                <div class="info_item input_group">
+                    <label class="label">内容</label>
+                    <textarea class="input_form input_common"></textarea>
+                </div>
+            </div>
+            <div class="btnBox text_center">
+                <button class="btn_yellowBg">
+                    <img src="static/imgs/confirm.png">
+                  </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                isOpen: false
+            }
+        },
+        methods: {
+            close() {
+                this.$router.go(-1);
+            },
+        }
+    }
+</script>
+
+<style>
+
+</style>

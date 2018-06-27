@@ -1,0 +1,75 @@
+<template>
+    <div class="model_Box_wrapper checkInfo_model confirmReceiveModel ">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/model_title2.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content">
+                <div class="info_item clear_fix">
+                    <div class="item_left input_group_inline_clearfix input_group_inline">
+                        <div class="vue-file-upload vue-file-upload-preview">
+                            <img v-if="hasImg" :src="img | getImgUrlFilter" />
+                            <img v-if="!hasImg" class="imgpreview" src="static/imgs/imgpreview.png">
+                        </div>
+                    </div>
+                    <div class="item_right ">
+                        <div class="upLoad_timeKey">上传时间</div>
+                        <div class="upLoad_timeValue">{{model.formData.CreateDate}}</div>
+                        <button class="btn_yellowBg saveMobile">
+                            <img src="static/imgs/saveMobile.png">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="btnBox text_center">
+                <button class="btn_yellowBg" @click="btnSubmit">
+                        <img src="static/imgs/confirm.png">
+                    </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+import VueFileUpload from "vue-file-upload";
+export default {
+  props: ["model","bindFun"],
+  data() {
+    return {
+      isOpen: false,
+      images: [],
+      img: "",
+      hasImg: false
+    };
+  },
+  created: function() {
+    this.img = this.model.formData.ImgPath;
+    this.hasImg = true;
+  },
+  mounted() {},
+  methods: {
+    btnSubmit() {
+      ajax
+        .post("/api/help/SellerConfirm", { hdId: this.model.formData.HdId })
+        .then(response => {
+            this.success(response.Message)
+            this.bindFun();
+            this.close();
+            
+        });
+    },
+    close() {
+      this.$emit("close-confirmReceive", this.isOpen);
+    }
+  },
+  components: {}
+};
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,241 @@
+<template>
+    <div class="routerBox">
+        <div class="TradeingHall Wallet chart common_bg">
+            <close :Router="true" class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/splitTitle.png">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="walletDetail">
+                        <div class="tab_content">
+                            <div class="tabSub_title">
+                                <div class="subtitle_item" v-for="(item,index) in tabList" :key="index" :class="{'subtitle_item_active':item.isActive}" @click="tabChange(item)">
+                                    {{item.text}}
+                                </div>
+                            </div>
+                            <div class="chart_content">
+                                <div id="chartLine" style="width:100%; height:400px;" :style="autoResize"></div>
+                            </div>
+                            <div class="chartTips">
+                                <label class="label">我的拆分率：</label>
+                                <div class="chaifenlv_Box">
+                                    公共拆分率
+                                    <span>+</span> 个人拆分率
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import close from "@/components/close";
+    import echarts from "echarts";
+    require("echarts/theme/roma"); // echarts 主题
+    import * as ajax from "@/api/common";
+    import {
+        debounce
+    } from "@/utils";
+    import {
+        parseTime
+    } from "@/utils/index";
+    export default {
+        data() {
+            return {
+                code: 1,
+                tabList: [{
+                        text: '一天',
+                        isTotal: true,
+                        isActive: true,
+                        code: 1
+                    },
+                    {
+                        text: '一周',
+                        isTotal: false,
+                        isActive: false,
+                        code: 7
+                    },
+                    {
+                        text: '一月',
+                        children1: false,
+                        isActive: false,
+                        code: 30
+                    },
+                    // {
+                    //     text: '一季',
+                    //     children2: false,
+                    //     isActive: false,
+                    //     code: 2
+                    // },
+                    // {
+                    //     text: '半年',
+                    //     children3: false,
+                    //     isActive: false,
+                    //     code: 3
+                    // },
+                    // {
+                    //     text: '一年',
+                    //     children4: false,
+                    //     isActive: false,
+                    //     code: 4
+                    // },
+                    // {
+                    //     text: '今年',
+                    //     children5: false,
+                    //     isActive: false,
+                    //     code: 5
+                    // }
+                ],
+                chartLine: null,
+                chart_xAxis_Data: [],
+                chart_public_Data: [],
+                chart_self_Data: []
+            }
+        },
+        props: {
+            autoResize: {
+                type: Boolean,
+                default: true
+            }
+        },
+        created() {
+            this.GetChartData(this.code);
+        },
+        methods: {
+            tabchangeClass() {
+                for (var x in this.tabList) {
+                    this.tabList[x].isActive = false
+                }
+            },
+            tabChange(item) {
+                this.tabchangeClass();
+                item.isActive = true;
+                this.code = item.code;
+                this.GetChartData(this.code)
+            },
+            GetChartData(code) {
+                ajax.post('/api/ChaiFen/WeekChaiFenLv', {
+                    num: code
+                }).then(response => {
+                    console.log(response.Data);
+                    this.chart_xAxis_Data = [];
+                    this.chart_public_Data = [];
+                    this.chart_self_Data = [];
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        this.chart_xAxis_Data.push(parseTime(item.CreateDate, "{y}-{m}-{d}"));
+                        this.chart_public_Data.push(item.publiccfl);
+                        this.chart_self_Data.push(item.selfcfl);
+                    }
+                    console.log(this.chart_xAxis_Data);
+                    console.log(this.chart_public_Data);
+                    console.log(this.chart_self_Data);
+                    this.drawLineChart();
+                })
+            },
+            drawLineChart() {
+                this.chartLine = echarts.init(
+                    document.getElementById("chartLine"),
+                    "roma"
+                );
+                this.chartLine.setOption({
+                    // title: {
+                    //   text: "钱包储备量"
+                    // },
+                    legend: {
+                        data: ["公共拆分率", "个人拆分率"],
+                        padding: 8,
+                        itemHeight: 16,
+                        textStyle: {
+                            fontSize: 16
+                        }
+                    },
+                    xAxis: {
+                        data: this.chart_xAxis_Data,
+                        boundaryGap: false
+                    },
+                    grid: {
+                        left: "3%",
+                        right: "4%",
+                        bottom: "3%",
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: "axis",
+                        axisPointer: {
+                            type: "cross"
+                        }
+                    },
+                    yAxis: {
+                        type: "value"
+                    },
+                    series: [{
+                            name: "公共拆分率",
+                            itemStyle: {
+                                normal: {
+                                    color: "rgb(27, 191, 203)",
+                                    lineStyle: {
+                                        color: "rgb(27, 191, 203)"
+                                    },
+                                    areaStyle: {
+                                        color: "rgba(27, 191, 203, 0.2)"
+                                    }
+                                }
+                            },
+                            type: "line",
+                            data: this.chart_public_Data,
+                            animationDuration: 2600,
+                            animationEasing: "cubicInOut"
+                        },
+                        {
+                            name: "个人拆分率",
+                            type: "line",
+                            itemStyle: {
+                                normal: {
+                                    color: "rgb(238, 66, 26)",
+                                    lineStyle: {
+                                        color: "rgb(238, 66, 26)"
+                                    },
+                                    areaStyle: {
+                                        color: "rgba(238, 66, 26, 0.071)"
+                                    }
+                                }
+                            },
+                            data: this.chart_self_Data,
+                            animationDuration: 2000,
+                            animationEasing: "quadraticOut"
+                        }
+                    ]
+                });
+            },
+            drawCharts() {
+                this.drawLineChart();
+            }
+        },
+        mounted: function() {
+            this.drawCharts();
+            if (this.autoResize) {
+                this.__resizeHanlder = debounce(() => {
+                    if (this.chartLine) {
+                        this.chartLine.resize();
+                    }
+                }, 100);
+                window.addEventListener("resize", this.__resizeHanlder);
+            }
+        },
+        updated: function() {
+            this.drawCharts();
+        },
+        components: {
+            close
+        }
+    }
+</script>
+
+<style>
+
+</style>

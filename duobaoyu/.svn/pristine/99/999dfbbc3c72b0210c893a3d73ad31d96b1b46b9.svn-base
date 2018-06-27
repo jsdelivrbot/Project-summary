@@ -1,0 +1,105 @@
+<template>
+  <div class="dashboard-container">
+    <div class="margin-top">
+      <div class="noticeBox">
+        <img src="static/imgs/noticeIcon.png">
+        <span>恭喜农场主<font class="userName">天天种地的富翁</font>，抽中IPAD!!!</span>
+      </div>
+    </div>
+    <div class="main_left">
+      <img src="static/imgs/haitun_06.png">
+    </div>
+    <div class="main_center">
+      <div class="Pond_items">
+        <div class="pond_item" v-if="pondData" v-for="item in pondData" :key="item.id">
+          <pond :item="item" :PondForm="PondForm" ></pond>
+        </div>
+      </div>
+    </div>
+    <div class="main_right">
+      <img src="static/imgs/meirenyu_05.png">
+    </div>
+    <!-- <div @click="logout" class="dashboard-text">name:{{name}}</div>
+            <div class="dashboard-text">role:<span v-for='role in roles' :key='role'>{{role}}</span></div> -->
+    <open-pond v-if="PondForm.show" :isNeedReBind.sync="isNeedReBind"   :form="PondForm" ></open-pond>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+import { mapGetters } from "vuex";
+import openPond from "@/components/openPond";
+import pond from "@/components/pond/index";
+export default {
+  name: "dashboard",
+  data() {
+    return {
+      PondForm:{
+        show:false,
+        data:false
+      },
+      isOpenPond: false,
+      openPondData: "",
+      pondData: false,
+      isNeedReBind: false
+    };
+  },
+  // computed: {
+  //   isNeedReBind: function(val) {
+  //     console.log(val)
+  //     if (isNeedReBind) {
+  //       this.bindPondData();
+  //     }
+  //   }
+  // },
+  watch: {
+    isNeedReBind: {
+      handler: function(val, oldval) {
+        console.log(val);
+        if (val == true) {
+          this.bindPondData();
+        }
+      }
+    }
+  },
+  created() {
+    this.isOpenPond = false;
+    // this.$store.dispatch('GetInfo').then(response => { // 拉取用户信息
+    //     console.log(response)
+    // })
+    this.isNeedReBind = true;
+  },
+  methods: {
+    bindPondData() {
+      ajax.post("/api/Pond/PondList", {}).then(response => {
+        this.pondData = response.Data;
+        this.isNeedReBind = false;
+      });
+    },
+    logout() {
+      this.$store.dispatch("LogOut").then(() => {
+        location.reload(); // 为了重新实例化vue-router对象 避免bug
+      });
+    },
+    closeOpenPond(open) {
+      this.isOpenPond = open;
+      console.log(this.isOpenPond);
+    }
+  },
+  components: {
+    openPond,
+    pond
+  },
+  mounted() {
+    //this.isOpenPond=true
+    console.log(this.$store);
+  },
+  computed: {
+    ...mapGetters(["name", "roles"])
+  }
+};
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+
+</style>

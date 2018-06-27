@@ -1,0 +1,24 @@
+<template>
+  <div class="close" @click="goback">
+      <img src="static/imgs/close_page.png">
+  </div>
+</template>
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    goback(){
+      this.$router.go(-1);
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

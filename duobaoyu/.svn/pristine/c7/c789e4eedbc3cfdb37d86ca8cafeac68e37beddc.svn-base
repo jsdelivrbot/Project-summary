@@ -1,0 +1,95 @@
+<template>
+    <div class="list_pagination">
+        <button class="firstPage clear_fix" @click="firstPage(page)">
+                                                <img src="static/imgs/shouye.png">
+                                            </button>
+        <button class="uPbtn" @click="pre(page)" :disabled="preDisable">
+                                                <img src="static/imgs/upText.png">
+                                            </button>
+        <div class="total_items">
+            <img class="downImg" src="static/imgs/down.png">
+            <span>{{page.currentPage}}/{{page.totalPage}}</span>
+            <img class="upImg" src="static/imgs/up.png">
+        </div>
+        <button class="downbtn" @click="next(page)" :disabled="nextDisable">
+                                                <img src="static/imgs/downText.png">
+                                            </button>
+        <button class="lastPage" @click="lastPage(page)">
+                                                <img src="static/imgs/moye.png">
+                                            </button>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: ['page'],
+        data() {
+            return {
+                preDisable: false,
+                nextDisable: false,
+                postPage: {
+                    firstPage: 1,
+                    lastPage: 1,
+                    currentPage: 1,
+                }
+            }
+        },
+        created() {
+            this.init(this.page)
+        },
+        methods: {
+            init(page) {
+                console.log(1111, page);
+                if (page.totalPage == 1) {
+                    this.preDisable = true;
+                    this.nextDisable = true;
+                }
+            },
+            clear(){
+                this.preDisable = false;
+                this.nextDisable = false;
+            },
+            firstPage(page) {
+                // console.log(page);
+                this.$emit('first-page', this.postPage.firstPage)
+            },
+            lastPage(page) {
+                //debugger;
+                this.postPage.lastPage = page.totalPage;
+                this.page.currentPage=this.postPage.lastPage;
+                this.$emit('last-page', this.postPage.lastPage)
+            },
+            pre(page) {
+                console.log(page);
+                this.clear();
+                if (page.currentPage == 1) {
+                    this.preDisable = true
+                } else {
+                    page.currentPage--;
+                    var currentPage = page.currentPage;
+                    this.postPage.currentPage = currentPage;
+                    console.log(this.postPage.currentPage);
+                    this.$emit('pre-page', this.postPage.currentPage);
+                }
+            },
+            next(page) {
+                //debugger;
+                console.log(page);
+                this.clear();
+                if (page.currentPage == page.totalPage) {
+                    this.nextDisable = true
+                } else {
+                    page.currentPage++;
+                    var currentPage = page.currentPage;
+                    this.postPage.currentPage = currentPage;
+                    console.log(this.postPage.currentPage);
+                    this.$emit('next-page', this.postPage.currentPage)
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

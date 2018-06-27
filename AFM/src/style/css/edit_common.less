@@ -1,0 +1,106 @@
+@import (reference) "./main.less";
+
+//注册与修改密码公共样式
+.input-ar {
+  .row;
+  margin-bottom: 10px;
+}
+.input-ar .right {
+  flex: auto;
+  .row;
+  flex-wrap: wrap;
+  .item-center;
+}
+.input-ar .right .errHint {
+  .red;
+  width: 100%;
+}
+.input-ar > label {
+  flex: none;
+  width: 95px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 13px;
+}
+
+.register-com-input {
+  height: 40px;
+  border-radius: 4/@rem;
+  border: 1px solid #e5e5e5;
+}
+
+
+.input-ar  .input-area.tx{
+  line-height:40px;
+}
+
+.desc .input-ar .right > input.input-area {
+  .register-com-input;
+  text-indent: 15px;
+}
+
+.desc .input-ar .right .el-select {
+  height: 40px;
+}
+
+.desc .input-ar .right .el-input__inner {
+  border: none;
+  .register-com-input;
+}
+
+.com-register-desc{
+  border-top:1px solid #e5e5e5;
+  padding:28/@rem 30/@rem;
+  padding-left:66/@rem;
+}
+
+.com-register-desc  .input-ar  .right > .input-area{
+  width:70%;
+}
+
+.com-changepwd-desc{
+  border-top:1px solid #e5e5e5;
+  padding:30px 33/@rem;
+}
+
+.com-changepwd-desc  .input-ar  .right > .input-area{
+  width:80%;
+}
+
+.com-register-desc  .input-ar  .right > div.input-area  >label{
+  flex:none;
+  width:90px;
+  height:40px;
+  line-height:40px;
+  font-size: 13px;
+}
+
+.com-changepwd-desc  .btn-ar{
+  .col;
+  .item-center;
+  .con-center;
+  padding:30px 0;
+}
+
+@media (min-width: 768px) {
+  .com-changepwd-desc{
+    padding:50/@rem 100/@rem;
+  }
+  .com-changepwd-desc  .btn-ar{
+    align-items: flex-start;
+    padding-left:100/@rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .input-ar > label{
+    width:150/@rem;
+  }
+  .com-register-desc  .input-ar .right >  .input-area{
+    width:251/@rem;
+  }
+  .com-changepwd-desc  .input-ar .right >  .input-area{
+    width:373/@rem;
+  }
+}
+

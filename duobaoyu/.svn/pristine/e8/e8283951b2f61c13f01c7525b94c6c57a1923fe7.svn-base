@@ -1,0 +1,172 @@
+<template>
+  <div class="model_Box_wrapper Pay_Model">
+    <div class="model_Box">
+      <div class="Title">
+        <img src="static/imgs/pay_title.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <div class="model_content">
+        <div class="tab_content">
+          <div class="table_head">
+            <div class="head_item">产品</div>
+            <div class="head_item">单价</div>
+            <div class="head_item head_item_3" style="width:15%;">数量</div>
+            <div class="head_item">合计</div>
+          </div>
+          <div class="table_body">
+            <div class="body_items" v-for="item in tableData" :key="item.id">
+             
+              <div class="body_item body_item1">
+                <div class="item1_box">
+                 {{item.Product.ProductName}}
+                </div>
+              </div>
+              <div class="body_item body_item2">
+                <div class="good_price">
+                  <div class="buy_duobaoyu">
+                    <img src="static/imgs/shoppfish_03.png"> X{{item.Product.Price}}
+                  </div>
+                  <div class="buy_coin">
+                    <img src="static/imgs/renmingbi.png"> X{{item.Product.Money}}
+                  </div>
+                </div>
+              </div>
+              <div class="body_item body_item3">
+                <div class="amount">{{item.Count}}</div>
+              </div>
+              <div class="body_item body_item4">
+                <div class="good_price">
+                  <div class="buy_duobaoyu">
+                    <img src="static/imgs/shoppfish_03.png"> X{{item.Product.Price*item.Count}}
+                  </div>
+                  <div class="buy_coin">
+                    <img src="static/imgs/renmingbi.png"> X{{item.Product.Money*item.Count}}
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+          </div>
+        </div>
+        <!-- 选择地址 -->
+        <div class="Pay_Addrees">
+          <div class="choose_Address">
+            <div class="choose" v-for="(item,index) in AddressData" :key="index">
+              <div class="address" @click="selectAddress(item)">
+                <img v-if="!item.IsDefault" src="static/imgs/select_03.png">
+                <img v-else src="static/imgs/selected_03.png"> {{item.Address}}
+              </div>
+              <div class="info">
+                <div class="tel">{{item.Mobile}}</div>
+                <div class="name">{{item.Recipient}}</div>
+              </div>
+            </div>
+            <div class="add" @click="add">
+              <img src="static/imgs/plus.png"> 新增收货地址
+            </div>
+          </div>
+        </div>
+        <!-- 选择地址 -->
+      </div>
+      <div class="model_foot">
+        <button class="btn btn_active btn_left" @click="creatOrder">
+                <img src="static/imgs/takeorder.png">
+              </button>
+        <button class="btn btn_active btn_right" @click="close">
+                 <img src="static/imgs/cancel.png">
+               </button>
+      </div>
+    </div>
+    <buy-success-model v-if="isOpenBuySuccessModel" v-on:close-BuySuccessModel="closeBuySuccessModel"></buy-success-model>
+    <template>
+          <router-view :bindFun="bindAddress"></router-view>
+</template>
+
+  </div>
+</template>
+
+<script>
+  import chooseAddress from '@/views/shop/address'
+  import buySuccessModel from '@/views/shop/confirmOrder/payment/success'
+  import * as ajax from "@/api/common";
+  export default {
+    data() {
+      return {
+        isOpen: false,
+        isOpenBuySuccessModel: false,
+        isSelected: false,
+        tableData: [],
+        AddressData: [],
+        order: {
+          DeliveryAddressId: '',
+          Description: '1111',
+          PayItemId: 200
+        }
+      }
+    },
+    created() {
+      this.tableData = this.$route.query;
+      console.log('tableData', this.$route.query);
+      this.bindAddress()
+    },
+    methods: {
+      init(item) {
+        if (item) {
+          this.order.DeliveryAddressId = item.Address;
+          console.log('address', this.order.DeliveryAddressId)
+        }
+      },
+      bindAddress() {
+        ajax.post('/api/mall/DeliveryAddress', {}).then(response => {
+          console.log(response);
+          this.AddressData = response.Data;
+          this.AddressData.forEach(element => {
+            if (element.IsDefault) {
+              this.order.DeliveryAddressId = element.Id;
+            }
+          });
+        })
+      },
+      close() {
+        // this.$emit('close-payModel', this.isOpen)
+        this.$router.go(-1)
+      },
+      closeBuySuccessModel(isOpen) {
+        this.isOpenBuySuccessModel=isOpen;
+      },
+      add() {
+        this.$router.push({
+          path: '/shop/cart/pay/address'
+        })
+      },
+      selectAddress(address) {
+        this.AddressData.forEach(element => {
+          element.IsDefault = false;
+        });
+        address.IsDefault = true;
+        this.order.DeliveryAddressId = address.Id;
+        console.log(this.order.DeliveryAddressId);
+      },
+      creatOrder() {
+         ajax.post('/api/mall/CheckOrder', {
+          DeliveryAddressId: this.order.DeliveryAddressId,
+          Description: this.order.Description,
+          PayItemId: this.order.PayItemId
+        }).then(response => {
+          console.log(response);
+          this.isOpenBuySuccessModel=true;
+        })
+      }
+    },
+    components: {
+      chooseAddress,
+      buySuccessModel
+    }
+  }
+</script>
+
+<style>
+
+</style>

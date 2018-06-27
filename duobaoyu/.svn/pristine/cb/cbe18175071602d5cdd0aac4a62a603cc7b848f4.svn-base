@@ -1,0 +1,104 @@
+<template>
+    <div class="forgetBox">
+        <div class="login_form_box forget_form_box">
+            <form class="login_form forget_form" :model="forgetForm">
+                <div class="forgrt_title">忘记密码</div>
+                <div class="form_item">
+                    <img src="static/imgs/form_user.png">
+                    <input type="text" v-verify="forgetForm.usercode" v-model="forgetForm.usercode" placeholder="用户名">
+                    <span class="formValidateText" v-remind="forgetForm.usercode"></span>
+                </div>
+                <div class="form_item">
+                    <img src="static/imgs/forget_1.png">
+                    <input type="text" @click="getMinbao" v-verify="forgetForm.username" v-model="forgetForm.SecretSecurityText" placeholder="密保问题">
+                    <span class="formValidateText" v-remind="forgetForm.username"></span>
+                </div>
+                <div class="form_item">
+                    <img src="static/imgs/forget_2.png">
+                    <input type="text" v-verify="forgetForm.username" v-model="forgetForm.SecretSecurityAnswer" placeholder="答案">
+                    <span class="formValidateText" v-remind="forgetForm.username"></span>
+                </div>
+                <div @click="next" class="login_box">
+                    下一步
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import {
+        Message,
+        MessageBox
+    } from 'element-ui'
+    export default {
+        data() {
+            return {
+                forgetForm: {
+                    usercode: '1',
+                    SecretSecurityText: '',
+                    SecretSecurityAnswer: ""
+                },
+                // loginRules: {
+                //   username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+                //   password: [{ required: true, trigger: 'blur', validator: validatePass }]
+                // },
+                // loading: false,
+                // pwdType: 'password'
+            }
+        },
+        verify: {
+            forgetForm: {
+                usercode: [
+                    "required",
+                ],
+                SecretSecurityText: [
+                    "required",
+                ],
+                SecretSecurityAnswer: [
+                    "required"
+                ]
+            }
+        },
+        methods: {
+            getMinbao() {
+                //alert(1);
+                if (this.forgetForm.usercode && this.forgetForm.usercode != '') {
+                    ajax.post('/api/user/FindPwdBySecretSecurity', {
+                        usercode: this.forgetForm.usercode
+                    }).then(response => {
+                        console.log(response);
+                        this.forgetForm.SecretSecurityText = response.Data.SecretSecurityText;
+                    })
+                }
+            },
+            next() {
+                ajax.post('/api/user/FindPwdByValidSecretSecurity', {
+                    userCode: this.forgetForm.usercode,
+                    secretSecurityText: this.forgetForm.SecretSecurityAnswer
+                }).then(response => {
+                    console.log(response);
+                    Message({
+                        message: '成功'+response.Data,
+                        type: 'success',
+                        duration: 5 * 10000,
+                        customClass: 'requestMessage'
+                    });
+                    this.$router.push({
+                        path: '/login',
+                        query: this.forgetForm
+                    })
+                })
+                // this.$router.push({
+                //     path: '/login/find',
+                //     query: this.forgetForm
+                // })
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

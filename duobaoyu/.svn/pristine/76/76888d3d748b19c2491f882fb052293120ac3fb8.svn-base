@@ -1,0 +1,56 @@
+<template>
+  <div class="modify_mibao_wrapper">
+    <div class="modify_mibao_Box">
+       <div class="Title">
+        <img src="static/imgs/newMibao.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <form class="mibao_form newMibaoForm">
+         <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">密保问题</label>
+                <select class="input_common select_common">
+                  <option value="1">您的小学老师叫什么名字？</option>
+                </select>
+        </div>
+         <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">答案</label>
+               <input type="text" class="input_form input_common">
+        </div>
+        <div class="stext_center">
+          <button @click="submitNewMibao" class="btn_yellowBg">
+            <img src="static/imgs/submit.png">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['openNewMibao'],
+    data() {
+      return {
+        isOpen:false,
+        mibaoForm:{
+          answer:"",
+          errorText:'答案错误'
+        }
+      }
+    },
+   methods:{
+     close(){
+       this.$emit('close-newMibao',this.isOpen)
+     },
+     submitNewMibao(){
+
+     }
+   }
+  }
+</script>
+
+<style>
+
+</style>

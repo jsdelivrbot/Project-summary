@@ -1,0 +1,20 @@
+<template>
+  <div class="siderBar">
+      <div class="sider_box">
+          <img class="BgImg" src="static/imgs/side_friends.png">
+          <!-- <img class="textImg" src="static/imgs/firends.png"> -->
+          <!-- <span class="sider_text">好友</span> -->
+      </div>
+    
+  </div>
+</template>
+
+<script>
+export default {
+    name:"siderBar"
+}
+</script>
+
+<style>
+
+</style>

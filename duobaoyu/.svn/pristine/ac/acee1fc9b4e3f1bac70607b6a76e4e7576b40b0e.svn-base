@@ -1,0 +1,96 @@
+<template>
+    <div class="walletDetail">
+        <div class="tab_content">
+            <div class="tabSub_title">
+                <div class="subtitle_item " :class="{'subtitle_item_active':tab.isTotal}" @click="tabChange('isTotal')">
+                    全部
+                </div>
+                <div class="subtitle_item " :class="{'subtitle_item_active':tab.children1}" @click="tabChange('children1')">
+                    每日拆分
+                </div>
+                 <div class="subtitle_item " :class="{'subtitle_item_active':tab.children2}" @click="tabChange('children2')">
+                    直推取苗
+                </div>
+                 <div class="subtitle_item " :class="{'subtitle_item_active':tab.children3}" @click="tabChange('children3')">
+                    平台交易
+                </div>
+                 <div class="subtitle_item " :class="{'subtitle_item_active':tab.children4}" @click="tabChange('children4')">
+                    开塘
+                </div>
+                 <div class="subtitle_item " :class="{'subtitle_item_active':tab.children5}" @click="tabChange('children5')">
+                    商城
+                </div>
+                 <div class="subtitle_item " :class="{'subtitle_item_active':tab.children6}" @click="tabChange('children6')">
+                    其他
+                </div>
+            </div>
+            <div class="total_table"> 
+             <div class="table_head">
+                <div class="head_item head_item1">时间</div>
+                <div class="head_item head_item2">类型</div>
+                <div class="head_item head_item3">说明</div>
+            </div>
+            <div class="table_body">
+                <div class="body_items">
+                    <div class="body_item body_item1">
+                        <span>2017/12/12</span>
+                        <span>10:20:14</span>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="amount">￥99.66</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="info">燃烧吧，小鱼儿</div>
+                    </div>
+                 
+                </div>
+            </div>
+           </div>
+        </div>
+        <div class="foot_pull">
+            <div class="pull_box">
+                  下拉显示15条
+            <img src="static/imgs/pull_03.png">
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return{
+                isActive:true,
+                tab:{
+                    isTotal:true,
+                    children1:false,
+                    children2:false,
+                    children3:false,
+                    children4:false,
+                    children5:false,
+                    children6:false,
+                }
+            }
+        },
+        methods:{
+            tabchangeClass(){
+                for(var x in this.tab){
+                    this.tab[x]=false
+                }
+            },
+            tabChange(tabitem){
+                this.tabchangeClass();
+                for(var x in this.tab){
+                    if(x==tabitem){
+                        //alert(1);
+                        this.tab[x]=true
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

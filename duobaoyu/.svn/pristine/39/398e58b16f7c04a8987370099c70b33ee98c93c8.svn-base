@@ -1,0 +1,78 @@
+<template>
+    <div class="forgetBox">
+        <div class="login_form_box forget_form_box">
+            <form class="login_form forget_form" :model="loginForm">
+                <div class="forgrt_title">忘记密码</div>
+                <div class="form_item">
+                    <img src="static/imgs/forget_1.png">
+                    <input type="text" v-verify="loginForm.username" v-model="loginForm.username" placeholder="用户名">
+                    <span class="formValidateText" v-remind="loginForm.username"></span>
+                </div>
+                <div class="mobileValidate validateBox">
+                    <div class="form_item validate_item">
+                        <img src="static/imgs/forget_2.png">
+                        <input type="password" v-verify="loginForm.mobiValidate" v-model="loginForm.mobiValidate" placeholder="请输入验证码">
+                        <span class="formValidateText" v-remind="loginForm.mobiValidate"></span>
+                    </div>
+                    <div class="validate_right">
+                        <!-- <img class="validateImg" src="static/imgs/validateImg.png"> -->
+                        <button class="sendValidateBtn">发送验证码</button>
+                    </div>
+                </div>
+                <div class="validateBox">
+                    <div class="validate_item form_item">
+                        <img src="static/imgs/forget_3.png">
+                        <input type="text" placeholder="验证码" v-verify="loginForm.validateCode" v-model="loginForm.validateCode">
+                        <span class="formValidateText" v-remind="loginForm.validateCode"></span>
+                    </div>
+                    <div class="validate_right">
+                        <img class="validateImg" src="static/imgs/validateImg.png">
+                        <img class="refresh" src="static/imgs/form-refresh.png">
+                    </div>
+                </div>
+                <router-link tag="div" to="/login/find" class="login_box">
+                    下一步
+                </router-link>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                loginForm: {
+                    username: '1',
+                    password: '1',
+                    validateCode: ""
+                },
+                // loginRules: {
+                //   username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+                //   password: [{ required: true, trigger: 'blur', validator: validatePass }]
+                // },
+                // loading: false,
+                // pwdType: 'password'
+            }
+        },
+        verify: {
+            loginForm: {
+                username: [
+                    "required",
+                  
+                ],
+                mobiValidate: [
+                    "required",
+                   
+                ],
+                validateCode: [
+                    "required"
+                ]
+            }
+        },
+    }
+</script>
+
+<style>
+
+</style>

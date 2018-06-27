@@ -1,0 +1,99 @@
+<template>
+    <div class="news_list">
+        <div class="news_item" v-for="(item,index) in newsList" :key="index">
+            <img src="static/imgs/news_sign.png" class="news_sign" v-if="index==0">
+            <div class="date">
+                {{item.CreateDate}}
+            </div>
+            <div class="news_content" @click="detail(item)">
+                {{item.Title}}
+            </div>
+        </div>
+        <div v-if="!hasData" class="news_item no_data">
+            没有数据！
+        </div>
+        <div class="list_shopfoot">
+            <pagination  v-if="hasData" :page="page" v-on:first-page="firstPage" v-on:last-page="lastPage" v-on:pre-page="prePage" v-on:next-page="nextPage"></pagination>
+        </div>
+        <template>
+            <router-view></router-view>
+        </template>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import pagination from '@/components/pagination'
+    import {oderByDate} from '@/utils/filters'
+    export default {
+        data() {
+            return {
+                hasData: true,
+                page: {
+                    defaultPage: '1',
+                    currentPage: '',
+                    totalPage: '',
+                },
+                newsList: [],
+                orderTimeList : []
+            }
+        },
+        components: {
+            pagination
+        },
+        created() {
+            this.bind()
+        },
+        methods: {
+            bind() {
+                ajax.post('/api/Content/NewsList', {
+                    pagenum: this.page.defaultPage
+                }).then(response => {
+                    console.log(response.Data);
+                    // response.Data.Data.forEach(element => {
+                    //     var orderTime = oderByDate(element.CreateDate)
+                    //     this.orderTimeList.push(orderTime)
+                    // });
+                    // console.log(this.orderTimeList);
+                  
+                    if (response.Data.Data.length == 0) {
+                        this.hasData = false;
+                    }
+                    this.newsList = response.Data.Data;
+                    this.page.totalPage = response.Data.PageCount;
+                    this.page.currentPage = response.Data.PageNum;
+                })
+            },
+            firstPage(firstPage) {
+                this.page.defaultPage = firstPage;
+                console.log('f', this.page.defaultPage)
+                this.bind()
+            },
+            lastPage(lastPage) {
+                this.page.defaultPage = lastPage;
+                console.log('l', this.page.defaultPage)
+                this.bind()
+            },
+            prePage(prePage) {
+                this.page.defaultPage = prePage;
+                console.log('n', this.page.defaultPage)
+                this.bind()
+            },
+            nextPage(nextPage) {
+                this.page.defaultPage = nextPage;
+                console.log('p', this.page.defaultPage)
+                this.bind()
+            },
+            detail(item){
+                this.$router.push({
+                    path:'/infoManage/news/detail/'+item.Id,
+                    query:item
+                })
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

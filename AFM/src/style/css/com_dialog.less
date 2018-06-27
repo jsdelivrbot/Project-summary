@@ -1,0 +1,29 @@
+@import (reference) "./main.less";
+.common-dialog .el-dialog__header {
+  padding: 0;
+}
+
+.common-dialog .el-dialog {
+  width: 498px;
+  border-radius: 8/@rem;
+}
+
+.common-dialog .el-dialog__body {
+  padding: 0;
+}
+
+.common-dialog   .m-dialog-content{
+  border-top:1px solid #e5e5e5;
+}
+
+@media (max-width: 767px) {
+  .common-dialog {
+      padding: 0 20px;
+    }
+  .common-dialog .el-dialog {
+    width: 100%;
+  }
+  .common-dialog .el-dialog__footer {
+    width: 100% !important;
+  }
+}

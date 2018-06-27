@@ -1,0 +1,73 @@
+<template>
+    <div class="pendOrder">
+        <div class="tab_content">
+            <div class="table_head">
+                <div class="head_item head_item1">订单号</div>
+                <div class="head_item head_item2">出售时间</div>
+                <div class="head_item head_item3">剩余/总量</div>
+ 
+            </div>
+            <div class="table_body">
+                <div class="body_items" v-for="(item,index) in tableData.Data" :key="index">
+                    <div class="body_item body_item1">
+                        <div class="orderNo">{{item.SerialNumber}}</div>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="date">{{item.CreateDate}}</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="duobaoyuBox" v-if="item.SellCurrencyId==1">
+                            <img src="static/imgs/duobaoyu.png">
+                            <div class="duobaoyuText">
+                                <img src="static/imgs/duobaoyuName.png">
+                            </div>
+                        </div>
+                        <div class="amount">
+                            {{item.Rest}}/{{item.Total}}
+                        </div>
+                    </div>
+             
+                </div>
+            </div>
+            <table-foot></table-foot>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import tableFoot from "@/components/tableFood";
+    export default {
+        data() {
+            return {
+                tableData: false
+            };
+        },
+        created: function() {
+            this.bind();
+        },
+        methods: {
+            bind() {
+                ajax.post("/api/help/SellList", {}).then(response => {
+                    this.tableData = response.Data;
+                    console.log("this.tableData", this.tableData);
+                });
+            },
+            btnQxpp(item) {
+                ajax.post("/api/help/HelpListCancel", {
+                    hid: item.Id
+                }).then(response => {
+                    this.success(response.Message);
+                    this.bindFun();
+                });
+            }
+        },
+        components: {
+            tableFoot
+        }
+    };
+</script>
+
+<style>
+
+</style>

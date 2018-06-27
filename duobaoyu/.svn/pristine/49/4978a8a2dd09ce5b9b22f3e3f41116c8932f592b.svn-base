@@ -1,0 +1,27 @@
+﻿ import store from "@/store";
+ import { parseTime, toFixed } from "@/utils/index";
+
+ let enumFilter = (value, key) => {
+     var statusMap = store.getters.clientData.enumData[key];
+     if (statusMap[value]) {
+         var text = statusMap[value];
+         return text;
+     }
+     return value;
+ }
+ let formatTimeFilter = value => {
+     return parseTime(value);
+ }
+ let formatDateFilter = value => {
+     return parseTime(value, '{y}-{m}-{d}');
+ }
+ 
+
+ export {
+     enumFilter,
+     formatTimeFilter,
+
+
+     formatDateFilter,
+
+ }

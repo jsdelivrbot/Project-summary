@@ -1,0 +1,90 @@
+<template>
+    <div class="model_Box_wrapper checkInfo_model checkInfo_buy">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/model_title1.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="content">
+                <div class="info_item">
+                    <label>会员编号：</label>
+                    <span>{{infoData.SellUserCode}}</span>
+                </div>
+                <div class="info_item">
+                    <label>昵称：</label>
+                    <span>{{infoData.SellNickName}}</span>
+                </div>
+                <div class="info_item">
+                    <label>手机号：</label>
+                    <span>{{infoData.SellMobile}}</span>
+                </div>
+                  <div class="info_item">
+                    <label>开户人：</label>
+                    <span>{{infoData.BankUserName}}</span>
+                </div>
+                 <div class="info_item">
+                    <label>银行名称：</label>
+                    <span>{{infoData.BankName}}</span>
+                </div>
+                 <div class="info_item">
+                    <label>银行地址：</label>
+                    <span>{{infoData.BankAddress}}</span>
+                </div>
+                 <div class="info_item">
+                    <label>银行账号：</label>
+                    <span>{{infoData.BankCode}}</span>
+                </div>
+                 <div class="info_item">
+                    <label>支付宝：</label>
+                    <span>{{infoData.AlipayCode}}</span>
+                </div>
+                 <div class="info_item">
+                    <label>微信号：</label>
+                    <span>{{infoData.WeChat}}</span>
+                </div>
+               
+            </div>
+             <div class="content content_img">
+                 <div class="info_item">
+                    <label>打款凭证：</label>
+                    <img :src="infoData.ImgPath |getImgUrlFilter">
+                </div>
+            </div>
+            <div class="btnbox">
+                <button class="btn btn_yellowBg">
+                    <img src="static/imgs/confirm.png">
+                  </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                isOpen: false,
+                infoData:false,
+            }
+        },
+        created(){
+            this.bind()
+        },
+
+        methods: {
+            bind(){
+                this.infoData=this.$route.query;
+                console.log(this.infoData);
+            },
+            close() {
+                this.$router.go(-1);
+            }
+        }
+    }
+</script>
+
+<style>
+
+</style>

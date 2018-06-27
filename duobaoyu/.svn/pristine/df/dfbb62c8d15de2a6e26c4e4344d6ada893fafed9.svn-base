@@ -1,0 +1,57 @@
+<template>
+  <div class="modify_mibao_wrapper">
+    <div class="modify_mibao_Box">
+       <div class="Title">
+        <img src="static/imgs/tradePwd.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <form class="mibao_form modifyTradeForm">
+       
+         <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">旧密码</label>
+               <input type="text" class="input_form input_common">
+        </div>
+          <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">旧新密码</label>
+               <input type="text" class="input_form input_common">
+        </div>
+          <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">再次输入</label>
+               <input type="text" class="input_form input_common">
+               <span class="errorText">{{mibaoForm.errorText}}</span>
+        </div>
+        <div class="btnBox text_center">
+          <button  class="btn_yellowBg">
+            <img src="static/imgs/submit.png">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['openModifyTrade'],
+    data() {
+      return {
+        isOpen:false,
+        mibaoForm:{
+          answer:"",
+          errorText:'最少六位'
+        }
+      }
+    },
+   methods:{
+     close(){
+       this.$emit('close-Trade',this.isOpen)
+     }
+   }
+  }
+</script>
+
+<style>
+
+</style>

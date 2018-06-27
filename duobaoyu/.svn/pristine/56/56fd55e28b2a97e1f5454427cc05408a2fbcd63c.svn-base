@@ -1,0 +1,50 @@
+<template>
+  <div class="shop_Car">
+    <div class="tab_content">
+      <div class="table_head">
+        <div class="head_item">产品</div>
+        <div class="head_item">单价</div>
+        <div class="head_item">数量</div>
+        <div class="head_item">合计</div>
+      </div>
+      <div class="table_body">
+        <div class="body_items">
+          <div class="body_item body_item1">
+            <img src="static/imgs/shop_10.png"> 红酒
+          </div>
+          <div class="body_item body_item2">
+            <div class="good_price">
+              <div class="buy_duobaoyu">
+                <img src="static/imgs/shop_11.png"> 456
+              </div>
+              <div class="buy_coin">
+                <img src="static/imgs/renmingbi.png"> 386
+              </div>
+            </div>
+          </div>
+          <div class="body_item body_item3">
+            <div class="amount">20</div>
+          </div>
+            <div class="body_item body_item4">
+             <div class="good_price">
+              <div class="buy_duobaoyu">
+                <img src="static/imgs/shop_11.png"> 456
+              </div>
+              <div class="buy_coin">
+                <img src="static/imgs/renmingbi.png"> 386
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {}
+</script>
+
+<style>
+
+</style>

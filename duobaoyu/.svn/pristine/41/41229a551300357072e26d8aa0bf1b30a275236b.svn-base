@@ -1,0 +1,103 @@
+<template>
+  <div class="model_Box_wrapper Pay_Model">
+    <div class="model_Box">
+      <div class="Title">
+        <img src="static/imgs/pay_title.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <div class="model_content">
+        <div class="tab_content">
+          <div class="table_head">
+            <div class="head_item">产品</div>
+            <div class="head_item">单价</div>
+            <div class="head_item head_item_3" style="width:15%;">数量</div>
+            <div class="head_item">合计</div>
+          </div>
+          <div class="table_body">
+            <div class="body_items" v-for="item in tableData" :key="item.id">
+              <div class="body_item body_item1">
+                <div class="item1_box">
+                  <img src="static/imgs/shop_10.png"> 红酒
+                </div>
+              </div>
+              <div class="body_item body_item2">
+                <div class="good_price">
+                  <div class="buy_duobaoyu">
+                    <img src="static/imgs/shoppfish_03.png"> X456
+                  </div>
+                  <div class="buy_coin">
+                    <img src="static/imgs/renmingbi.png"> X386
+                  </div>
+                </div>
+              </div>
+              <div class="body_item body_item3">
+                <div class="amount">{{item.count}}</div>
+              </div>
+              <div class="body_item body_item4">
+                <div class="good_price">
+                  <div class="buy_duobaoyu">
+                    <img src="static/imgs/shoppfish_03.png"> X456
+                  </div>
+                  <div class="buy_coin">
+                    <img src="static/imgs/renmingbi.png"> X386
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 选择地址 -->
+        <div class="Pay_Addrees">
+        <choose-address></choose-address>
+        </div>
+        <!-- 选择地址 -->
+      
+      </div>
+      <div class="model_foot">
+        <button class="btn btn_active btn_left" @click="openBuySuccessModel">
+          <img src="static/imgs/takeorder.png">
+        </button>
+         <button class="btn btn_active btn_right">
+           <img src="static/imgs/cancel.png">
+         </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import chooseAddress from '@/views/shop/address'
+  export default {
+    data() {
+      return {
+        isOpen: false,
+        isOpenBuySuccessModel:true,
+        tableData: [{
+          id: 1,
+          count: 20
+        }, {
+          id: 2,
+          count: 40
+        }]
+      }
+    },
+    methods: {
+      close() {
+        this.$emit('close-payModel', this.isOpen)
+      },
+      openBuySuccessModel(){
+        this.$emit('close-payModel', this.isOpen,this.isOpenBuySuccessModel)
+      }
+    },
+    components: {
+      chooseAddress,
+     
+    }
+  }
+</script>
+
+<style>
+
+</style>

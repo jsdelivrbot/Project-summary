@@ -1,0 +1,94 @@
+<template>
+    <div class="model_Box_wrapper Leave_MessageModel">
+        <div class="model_Box">
+            <div class="Title">
+                <img src="static/imgs/news_7.png">
+            </div>
+            <div class="close" @click="close">
+                <img src="static/imgs/close_page.png">
+            </div>
+            <div class="message_content">
+                <div class="message_box" v-for="(item,index) in MessageRecord" :key="index">
+                    <div class=" message_role" :class="{'message_user':item.MemberType==1,'message_kefu':item.MemberType==2}">
+                        <div class="info">
+                            <label v-if="item.MemberType==1" class="name">xxx</label>
+                            <label v-else class="name">admin</label>
+                            <label class="date">{{item.CreateDate}}</label>
+                        </div>
+                        <div class="detail">
+                            {{item.Content}}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="message_box">
+                    <div class="message_kefu message_role">
+                        <div class="info">
+                            <label class="name">xxx</label>
+                            <label class="date">2018-01-21 14:49</label>
+                        </div>
+                        <div class="detail">
+                            您好，目前不确定时间呢。
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="leave_message">
+                <div class="leave_textarea">
+                    <textarea placeholder="留言回复" v-model="reply.content" class=" input_common"></textarea>
+                    <div class="btnBox  text_center" @click="replyMessage">
+                        <button class="btn btn_yellowBg">
+                        <img src="static/imgs/send.png">
+                      </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+
+    export default {
+        data() {
+            return {
+                isOpen: false,
+                messageId:'',
+                MessageRecord:[],
+                reply:{
+                    content:''
+                }
+            }
+        },
+        created(){
+            //console.log(3333,this.$route.query.Id);
+            this.messageId=this.$route.query.Id;
+            this.bindList();
+            console.log(this.$store.getters);
+        },
+        methods: {
+            bindList(){
+                ajax.post('/api/Content/MessageDetail',{msgId:this.messageId}).then(response =>{
+                    console.log(response);
+                    this.MessageRecord=response.Data;
+                })
+            },
+            replyMessage(){
+                ajax.post('/api/Content/ReplyMessage',{
+                    MessageId:this.messageId,
+                    Content:this.reply.content
+                }).then(response => {
+                    console.log(response);
+                    this.$router.go(0);
+                })
+            },
+            close() {
+                this.$router.go(-1);
+            },
+        }
+    }
+</script>
+
+<style>
+
+</style>

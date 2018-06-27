@@ -1,0 +1,118 @@
+<template>
+  <div class="img1_box" :class="divClass" @click="btnClick(item)">
+    <el-popover ref="popover1" placement="top-start" title="拆分率" trigger="hover" popper-class="pond_popover">
+      <slot>
+        <div class="content_1">
+          {{item.PubLv}}%(公共)+{{item.SelfLv}}%(个人)
+        </div>
+        <div class="content_2">
+          <span class="name">普通多宝鱼</span>
+          <img src="static/imgs/duobaoyu.png">
+          <span class="count">{{item.PTAmount}}</span>
+        </div>
+        <div class="content_2">
+          <span class="name">拆分多宝鱼</span>
+          <img src="static/imgs/shop_9.png">
+          <span class="count">{{item.CFAmount}}</span>
+        </div>
+      </slot>
+    </el-popover>
+    <img v-if="item.PrizeStatus==3" class="qipao" src="static/imgs/qipao.png" @click.stop="HandOnePond(item)">
+    <img :class="imgClass" :src="img" v-popover:popover1>
+  </div>
+</template>
+
+<script>
+  import {
+    Message,
+    MessageBox
+  } from "element-ui";
+  import * as ajax from "@/api/common";
+  import {
+    mapGetters
+  } from 'vuex'
+  export default {
+    props: ["item", "PondForm", "bindFun"],
+    data() {
+      return {
+        divClass: {
+          img1_box: false,
+          img2_box: false,
+          img3_box: false,
+          img4_box: false
+        },
+        imgClass: {
+          pond_img_1: false,
+          pond_img_2: false,
+          pond_img_3: false,
+          pond_img_4: false
+        },
+        img: false,
+        type: false
+      };
+    },
+    created() {
+      this.changePond();
+      //console.log('bubble',this.bubble)
+    },
+    watch:{
+     
+    },
+    computed: {
+      ...mapGetters([
+        'bubble', 'fresh'
+      ]),
+      
+    },
+    methods: {
+      btnClick(item) {
+        console.log("this.pond.item", item);
+        if (item.IsValid == false) {
+          this.PondForm.data = item;
+          this.PondForm.show = true;
+          this.$emit("update:PondForm", this.PondForm);
+        } else {
+          this.$router.push({
+            path: "/wallet/recharge",
+            query: {
+              pondType: item.Type,
+              PondId: item.Id
+            }
+          });
+        }
+      },
+      changePond() {
+        var idx = this.item.Type;
+        this.divClass["img" + idx + "_box"] = true;
+        this.imgClass["pond_img_" + idx] = true;
+        if (this.item.IsValid == true) {
+          this.img = "static/imgs/chitang_" + idx + ".gif";
+        } else {
+          this.img = "static/imgs/chitang" + idx + ".png";
+        }
+        this.type = this.item.Type;
+      },
+      HandOnePond(item) {
+        ajax.post('/api/Pond/HandOneLand', {
+          pondid: item.Id
+        }).then(response => {
+          console.log(response);
+          this.bindFun();
+          Message({
+            message: '收取成功',
+            type: 'success',
+            duration: 3 * 1000,
+            customClass: 'requestMessage'
+          })
+        })
+      }
+    },
+    watch: {
+      item: 'changePond'
+    }
+  };
+</script>
+
+<style>
+
+</style>

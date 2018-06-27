@@ -1,0 +1,35 @@
+<template>
+   <div class="choose" v-if="item">
+            <div  class="address" @click="selectAddress(item)">
+                <img  v-if="!item.isSelect" src="static/imgs/select_03.png">
+                <img v-if="item.isSelect" src="static/imgs/selected_03.png">
+                <span> {{item.text}}</span>
+            </div>
+   </div>
+</template>
+
+<script>
+export default {
+  props: ["item", "list"],
+  data() {
+    return {};
+  },
+  methods: {
+    selectAddress(item) {
+      this.list.forEach(element => {
+        element.isSelect = false;
+      });
+      this.item.isSelect = true;
+      // this.isSelected=!this.isSelected;
+      this.$emit("update:the_selectValue",this.item.value);
+      this.$emit("update:this_selectSex",this.item.value);
+        //  this.$emit("update:isNeedReBind", true);
+    }
+  },
+  components: {}
+};
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,63 @@
+<template>
+  <div class="siderBar" :class="{'toggleSiderBar':istoggle}">
+      <div class="sider_box">
+          <img @click="togglefriends" class="BgImg" src="static/imgs/friends_03.png">
+          <!-- <img class="textImg" src="static/imgs/firends.png"> -->
+          <!-- <span class="sider_text">好友</span> -->
+          <div class="friends_list">
+              <div class="friends_item" v-if="friendsList" v-for="(item,index) in friendsList.Data" :key="index">
+                  <div class="item_level clear_fix">
+                      <img src="static/imgs/level_3.png">
+                  </div>
+                  <div class="item_photo">
+                      <img src="static/imgs/userPhoto.png">
+                  </div>
+                  <div class="item_username">
+                     {{item.NickName}}
+                  </div>
+              </div>
+          </div>
+          <div class="list_pagination">
+                  <button class="uPbtn clear_fix">
+                      <img src="static/imgs/upText.png">
+                  </button>
+              <div class="total_items">
+                  <img class="downImg" src="static/imgs/down.png">
+                  <span>15/19</span>
+                  <img class="upImg" src="static/imgs/up.png">
+              </div>
+                   <button  class="downbtn">
+                      <img src="static/imgs/downText.png">
+                  </button>
+          </div>
+      </div>
+    
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+export default {
+  name: "siderBar",
+  data() {
+    return {
+      friendsList: false,
+      istoggle: true
+    };
+  },
+  created: function() {
+    ajax.post("/api/User/MyFriends", {}).then(response => {
+      this.friendsList = response.Data;
+    });
+  },
+  methods: {
+    togglefriends() {
+      this.istoggle = !this.istoggle;
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

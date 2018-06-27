@@ -1,0 +1,99 @@
+<template>
+    <div class="tradeMarket">
+        <div class="tab_content">
+            <div class="table_head">
+                <div class="head_item">订单号</div>
+                <div class="head_item">出售方</div>
+                <div class="head_item">数量</div>
+                <div class="head_item">操作</div>
+            </div>
+            <div class="table_body">
+                <div class="body_items" v-for="item in tableData">
+                    <div class="body_item body_item1">
+                        <div class="orderNo">15187584512</div>
+                    </div>
+                    <div class="body_item body_item2">
+                        <div class="seller">燃烧吧，小鱼儿</div>
+                    </div>
+                    <div class="body_item body_item3">
+                        <div class="amount">9999999</div>
+                    </div>
+                    <div class="body_item body_item4">
+                        <div class="operateBtn">
+                            <img @click="openBuy" v-if="status.buy" src="static/imgs/buy.png">
+                            <div v-if="status.Dealdone" class="Dealdone">已成交</div>
+                            <div v-if="status.inTransaction" class="inTransaction">交易中</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+          <div class="shopfoot" style="padding:0 20%">
+              <pagination></pagination>
+            </div>
+        <div class="model_Box_wrapper" v-if="isOpenModel">
+            <div class="model_Box">
+                <div class="Title">
+                    <img src="static/imgs/buyText.png">
+                </div>
+                <div class="close" @click="close">
+                    <img src="static/imgs/close_page.png">
+                </div>
+                <div class="buyAmount">
+                    <div class="input_amount input_group">
+                        <label class="label">输入数量</label>
+                        <div class="amount_operate">
+                            <img class="reduce" src="static/imgs/reduce.png">
+                            <input type="text" class="input_common">
+                            <img class="plus" src="static/imgs/plus.png">
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="foot btn_group">
+                        <button class="confirmBtn" @click="confirm">
+                        <img src="static/imgs/confirm.png">
+                    </button>
+                        <button class="cancelBtn" @click="cancel()">
+                        <img src="static/imgs/cancel.png">
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import pagination from '@/components/pagination'
+    export default {
+        data() {
+            return {
+                tableData: [1, 2, 3, 4, 5, 6],
+                isOpenModel: false,
+                status: {
+                    buy: true,
+                    Dealdone: false,
+                    inTransaction: false
+                }
+            }
+        },
+        methods: {
+            openBuy() {
+                this.isOpenModel = true
+            },
+            close(){
+                this.isOpenModel = false
+            }
+        },
+        components:{
+            pagination
+        }
+      
+    }
+</script>
+
+<style>
+
+</style>

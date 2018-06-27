@@ -1,0 +1,249 @@
+<template>
+  <div class="routerBox">
+    <div class="PersonalCenter">
+      <close></close>
+      <div class="content_1">
+        <div class="split_box">
+          <div class="userInfo_box">
+            <div class="userName">
+              <img src="static/imgs/page1_2.png">
+              <div class="name">{{deitalData.NickName}}</div>
+              <div class="Account">账号：{{deitalData.UserCode}}</div>
+            </div>
+            <div class="userTel">
+              <div class="mobile">手机</div>
+              <div class="mobileNo">{{deitalData.Mobile}}</div>
+            </div>
+          </div>
+          <div class="userLevel_box">
+            <div class="box_1">
+              <div class="sex">
+                <img class="sex_male" src="static/imgs/sex_1.png">
+                <!-- <img class="sex_famle" src="static/imgs/sex_2.png"> -->
+              </div>
+              <div class="level_box">
+                <div class="level_1">
+                  <img src="static/imgs/level_1.png">
+                </div>
+                {{deitalData.LevelName}}
+              </div>
+            </div>
+            <div class="box_2" v-if="deitalData.TJUserCode!=null">
+              <div class="box_2_img">
+                <img src="static/imgs/zhitui.png">
+              </div>
+              <div class="box2_text"><span class="key_name">直推上级</span> <span class="value_name"> {{deitalData.TJUserCode}}</span></div>
+            </div>
+          </div>
+          <div class="modify_box">
+            <div class="modify_loginPwd modify_btn_common" @click="modifyPwd1">
+              <img src="static/imgs/modifyBtn_1.png">
+            </div>
+            <div class="modify_tradePwd modify_btn_common" @click="modifyPwd2">
+              <img src="static/imgs/modifyBtn_2.png">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 修改前 -->
+      <div class="content_2 content_2_unmodify" v-if="!isModify">
+        <form class="modify_form">
+          <div class="inline clear_fix inline_6_5">
+            <div class="form_group1  userInfo_item userInfo_item1">
+              <div class="inline_5 input_group input_group_inline input_group_inline_clearfix">
+                <label class="label">银行</label>
+                <input type="text" v-model="deitalData.BankName" class="input_common">
+              </div>
+              <div class="inline_5 input_group input_group_inline">
+                <label class="label label_center">开户人</label>
+                <input type="text" v-model="deitalData.BankUser" class="input_common">
+              </div>
+            </div>
+            <div class="form_group1 userInfo_item userInfo_item1">
+              <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">银行卡号</label>
+                <input type="text" v-model="deitalData.BankCode" class="input_common">
+              </div>
+            </div>
+            <div class="form_group1 userInfo_item userInfo_item1">
+              <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">收货地址</label>
+                <input type="text" v-model="deitalData.ReciveAddress" class="input_common">
+              </div>
+            </div>
+            <div class="form_group1  userInfo_item userInfo_item1">
+              <div class="input_group inline_12 input_group_inline input_group_inline_clearfix">
+                <label class="label">密保问题</label>
+                <select class="input_common select_common " v-model="deitalData.SecretSecurityId">
+                    <option   :value="key" :selected="key==deitalData.SecretSecurityId" v-if="SecretSecurityData" v-for="(item,key,index) in SecretSecurityData" :key="index" >{{item}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="form_group1 userInfo_item userInfo_item1">
+              <div class="input_group  input_group_inline input_group_inline_clearfix">
+                <label class="label"></label>
+                <input type="password" class="input_common" style="float:left;width:50%;color:#9baab6" v-model="deitalData.L2Pwd"  placeholder="请输入交易密码">
+                <button class="btn_blueBg" style="float:right" @click="btnModify">
+                          <img src="static/imgs/confirm_modify.png">
+                    </button>
+              </div>
+            </div>
+          </div>
+          <div class="inline inline_3 margin_inline">
+            <div class="form_group2 userInfo_item userInfo_item2">
+              <div class="input_group input_group_inline">
+                <label class="label">支付宝</label>
+                <input type="text" v-model="deitalData.AliCode" class="input_common">
+              </div>
+            </div>
+            <div class="form_group2 userInfo_item userInfo_item2">
+              <div class="input_group input_group_inline">
+                <label class="label">支付宝姓名</label>
+                <input type="text" v-model="deitalData.AliName" class="input_common">
+              </div>
+            </div>
+            <div class="form_group2 userInfo_item userInfo_item2">
+              <div class="input_group input_group_inline">
+                <label class="label">收货人</label>
+                <input type="text" v-model="deitalData.ReciveName" class="input_common">
+              </div>
+            </div>
+            <div class="form_group2 userInfo_item userInfo_item2">
+              <div class="input_group input_group_inline">
+                <label class="label">答案</label>
+                <input type="text" v-model="deitalData.SecretSecurityMatchText" class="input_common">
+              </div>
+            </div>
+            <div class="form_group2 userInfo_item userInfo_item2">
+              <div class="input_group input_group_inline tips">
+                <span class="">温馨提示：<br>所有个人资料一经填写不可修改</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- 修改前 -->
+      <!-- 修改后 -->
+      <div class="content_2 content_2_modify" v-if="isModify">
+        <div class="userInfo_item userInfo_item1">
+          <img class="infoItem_img" src="static/imgs/page1_3.png">
+          <div class="item_title">银行</div>
+          <div class="item_info">
+            <div class="info_1">{{deitalData.BankName}}</div>
+            <div class="info_2">开户人：{{deitalData.BankUser}}</div>
+            <div class="info_3">{{deitalData.BankCode}}</div>
+          </div>
+        </div>
+        <div class="userInfo_item userInfo_item2">
+          <img class="infoItem_img" src="static/imgs/page1_5.png">
+          <div class="item_title">收货地址</div>
+          <div class="item_info">
+            <div class="info_1">{{deitalData.ReciveAddress}}</div>
+          </div>
+        </div>
+        <div class="userInfo_item userInfo_item3">
+          <img class="infoItem_img" src="static/imgs/page1_6.png">
+          <div class="item_title">支付宝</div>
+          <div class="item_info">
+            <div class="info_1">{{deitalData.AliCode}}</div>
+            <div class="info_2">{{deitalData.AliName}}</div>
+          </div>
+        </div>
+        <div class="userInfo_item userInfo_item4">
+          <img class="infoItem_img" src="static/imgs/page1_7.png">
+          <div class="item_title">密保问题</div>
+          <div class="item_info">
+            <div class="info_1">{{deitalData.SecretSecurityId | enumFilter('SecretSecurity')}}</div>
+            <div class="info_2">
+              <button class="modify_mibao_btn" @click="modifyMibao">
+                          <img src="static/imgs/modify_pwdText.png">
+                        </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <router-view>
+
+      </router-view>
+ 
+    </div>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+import close from "@/components/close";
+import {
+  modifyMibao,
+  modifyTrade,
+  newMiBao
+} from "@/views/PersonalCenter/modify";
+export default {
+  data() {
+    return {
+      deitalData: false,
+
+      isModify: false,
+      isOpenModifyMibao: false,
+      isOpenModifyTrade: false,
+      isOpenNewMibao: false,
+      SecretSecurityData: false
+    };
+  },
+  created: function() {
+    // /api/user/getuserinfo
+    this.bind();
+  },
+  components: {
+    close,
+    modifyMibao,
+    modifyTrade,
+    newMiBao
+  },
+  methods: {
+    bind() {
+      ajax.post("/api/user/getuserinfo", {}).then(response => {
+        var data = response.Data;
+
+        this.deitalData = response.Data;
+      });
+ 
+      this.SecretSecurityData = this.$store.getters.clientData.enumData.SecretSecurity;
+      console.log(this.SecretSecurityData);
+    },
+
+    btnModify() {
+      ajax.post("/api/user/EditUserInfo", this.deitalData).then(response => {
+        this.success(response.Message);
+        this.bind();
+        this.isModify = true;
+      });
+    },
+    modifyMibao() {
+      this.$router.push({ path: "/security/changeSecurity/step1" });
+    },
+    modifyPwd1() {
+      this.$router.push({ path: "/security/changePwd/pwd1" });
+    },
+    modifyPwd2() {
+      this.$router.push({ path: "/security/changePwd/pwd2" });
+    },
+    closeMibao(isOpen) {
+      this.isOpenModifyMibao = isOpen;
+    },
+    closeTrade(isOpen) {
+      this.isOpenModifyTrade = isOpen;
+    },
+    openNewMibao(isOpenNewMibao, isOpen) {
+      (this.isOpenNewMibao = isOpenNewMibao), (this.isOpenModifyMibao = isOpen);
+    },
+    closeNewMibao(isOpen) {
+      this.isOpenNewMibao = isOpen;
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

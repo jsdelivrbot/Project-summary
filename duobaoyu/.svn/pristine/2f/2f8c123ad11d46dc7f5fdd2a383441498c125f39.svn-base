@@ -1,0 +1,67 @@
+<template>
+  <div class="modify_mibao_wrapper">
+    <div class="modify_mibao_Box">
+       <div class="Title">
+        <img src="static/imgs/mibao_title.png">
+      </div>
+      <div class="close" @click="close">
+        <img src="static/imgs/close_page.png">
+      </div>
+      <form class="mibao_form " v-if="deitalData">
+        <div class="question">密保问题： {{deitalData.SecretSecurityId | enumFilter('SecretSecurity')}}</div>
+        <div class="answer">
+          <input type="text" class="input_form" v-model="mibaoForm.answer" placeholder="答案">
+          <span v-if="mibaoForm.answer!='' && deitalData.SecretSecurityMatchText!=mibaoForm.answer" class="errorText">{{mibaoForm.errorText}}</span>
+        </div>
+        <div class="text_center">
+          <button @click="openNewMiBao"  class="btn_yellowBg">
+            <img src="static/imgs/next.png">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import * as ajax from "@/api/common";
+export default {
+  data() {
+    return {
+      deitalData: false,
+      SecretSecurityData: false,
+      isOpen: false,
+      isOpenNewMibao: true,
+      mibaoForm: {
+        answer: "",
+        errorText: "答案错误"
+      }
+    };
+  },
+  created: function() {
+    this.bind();
+  },
+  methods: {
+    bind() {
+      ajax.post("/api/user/getuserinfo", {}).then(response => {
+        var data = response.Data;
+        this.deitalData = response.Data;
+      });
+      this.SecretSecurityData = this.$store.getters.clientData.enumData.SecretSecurity;
+      console.log(this.SecretSecurityData);
+    },
+    close() {
+      this.$router.go(-1);
+    },
+    openNewMiBao() {
+      if (this.deitalData.SecretSecurityMatchText == this.mibaoForm.answer) {
+        this.$router.push({ path: "/security/changeSecurity/step2" });
+      }
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>

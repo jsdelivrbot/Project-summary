@@ -1,0 +1,59 @@
+<template>
+    <div class="routerBox">
+        <div class="teamManage common_bg">
+            <close :Router="true" class="Common_close"></close>
+            <div class="title">
+                <img src="static/imgs/team_1.png">
+            </div>
+            <div class="content">
+                <div class="content_right">
+                    <div  class="tab_1" v-for="item in tab">
+                        <router-link  tag="button" :to="'/teamManage/'+item.code" class="btn btn_default" :class="{'btn_active':item.code==select.code}" @click.native="select=item">
+                                <img :src="item.img">
+                        </router-link>
+                    </div>
+                </div>
+                <div class="content_left">
+                     <router-view></router-view>
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import close from "@/components/close";
+    import {
+        myTeam,
+        expanRegister
+    } from '@/views/teamManage/manageItem'
+    export default {
+        data() {
+            return {
+                tab: [{
+                    isActive: false,
+                    code: 'myteam',
+                    img: 'static/imgs/team_2.png'
+                }, {
+                    isActive: false,
+                    code: 'expanRegister',
+                    img: 'static/imgs/team_3.png'
+                }],
+                select: {
+                    code: ''
+                }
+            }
+        },
+        components: {
+            close,
+            myTeam,
+            expanRegister
+        }
+    }
+</script>
+
+<style>
+
+</style>

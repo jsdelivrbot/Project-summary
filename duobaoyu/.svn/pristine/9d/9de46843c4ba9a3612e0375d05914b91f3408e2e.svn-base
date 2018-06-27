@@ -1,0 +1,175 @@
+<template>
+    <div class="routerBox">
+        <div class="TradeingHall Wallet rechargeWallet common_bg">
+            <close class="Common_close"></close>
+            <div class="title">
+                <img :src="PondTitle">
+            </div>
+            <div class="content_Box">
+                <div class="content">
+                    <div class="walletCount">
+                         <div class="item_title" > 鱼塘容量：{{FishData.RestAmount}}/{{FishData.LargeAmount}}</div>
+                    </div>
+                    <div class="walletCount inline">
+                        <div class="tab_content">
+                            <div class="content_items">
+                                <div class="content_item" v-if="!(item.CurrencyId==2 || item.CurrencyId ==4)" v-for="(item,index) in detailData" :key="index">
+                                    <div class="item_title" > {{item.WalletName}}</div>
+                                    <div class="item_content item_content_multi clear_box inline">
+                                        <div class="input_group input_group3 input_group_inline_clearfix">
+                                            <label class="label">钱包数量:</label>
+                                            <span class="label_value ">{{item.Amount}}</span>
+                                        </div>
+                                        <div  class="input_group input_group3 input_group_inline_clearfix">
+                                            <input type="text" v-model="item.Amount" class="input_form input_common">
+                                            <button class="btn btn_yellowBg  changeWallet" @click="btnTouRu(item)">
+                                                         <img src="static/imgs/push.png">
+                                                </button>
+                                        </div>
+                                    </div>
+                                     <div class="item_content item_content_multi clear_box inline"  v-if="!(item.CurrencyId==5)">
+                                        <div class="input_group input_group3 input_group_inline_clearfix input_longerLabel">
+                                            <label class="label">多宝鱼数量:</label>
+                                            <span class="label_value ">{{FishData.PTAmount}}</span>
+                                        </div>
+                                        <div  class="input_group input_group3 input_group_inline_clearfix">
+                                            <input type="text" v-model="LaoHuiAmount" class="input_form input_common" :disabled="item.CurrencyId!=1">
+                                            <span class="formValidateText">{{validateText}}</span>
+                                            <button class="btn btn_yellowBg  changeWallet"  v-if="item.CurrencyId==1" @click="laohui(LaoHuiAmount)">
+                                                         <img src="static/imgs/laohui.png">
+                                                </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="walletCount inline" style="width:45%">
+                        <div class="tab_content">
+                            <div class="content_items">
+                                <div class="content_item">
+                                    <div class="item_content item_content_multi clear_box">
+                                        <div class="input_group input_longerLabel  input_group_inline">
+                                            <label class="label">拆分多宝鱼数量:</label>
+                                            <span class="label_value">{{FishData.CFAmount}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content_item">
+                                    <div class="item_content item_content_multi clear_box">
+                                        <div class="input_group input_longerLabel  input_group_inline_clearfix">
+                                            <label class="label">普通多宝鱼数量:</label>
+                                            <span class="label_value ">{{FishData.PTAmount}}</span>
+                                        </div>
+                                        <div class="input_group input_group3 input_group_inline_clearfix">
+                                            <input type="text" v-model="LaoHuiAmount" class="input_form input_common">
+                                            <span class="formValidateText">{{validateText}}</span>
+                                            <button class="btn btn_yellowBg  changeWallet" @click="laohui(LaoHuiAmount)">
+                                                         <img src="static/imgs/laohui.png">
+                                                </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content_item">
+                                    <div class="item_content item_content_multi clear_box">
+                                        <div class="input_group input_longerLabel  input_group_inline">
+                                            <label class="label">池塘养殖上限:</label>
+                                            <span class="label_value ">{{FishData.LargeAmount}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content_item">
+                                    <div class="item_content item_content_multi clear_box">
+                                        <div class="input_group input_longerLabel  input_group_inline">
+                                            <label class="label">鱼塘剩余养殖数量:</label>
+                                            <span class="label_value ">{{FishData.RestAmount}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <router-view></router-view>
+                </div>
+                <router-view :bindFun="bindData"></router-view>
+            </div>
+            <!-- <div class="btnBox">
+                <button class="btn btn_active" @click="btnSubmit">
+                                            <img src="static/imgs/confirm.png">
+                                        </button>
+            </div> -->
+        </div>
+    </div>
+    
+</template>
+
+<script>
+    import * as ajax from "@/api/common";
+    import close from "@/components/close";
+    export default {
+        data() {
+            return {
+                detailData: false,
+                ponId: '',
+                PondTitle:'',
+                FishData: false,
+                imgTitle: '',
+                validateText:'',
+                LaoHuiAmount:0
+            };
+        },
+       
+        created: function() {
+            this.bindData();
+           // console.log('pondData', this.$route.query.pondData);
+            this.pondType=this.$route.query.pondType;
+            this.PondTitle='static/imgs/pondType_'+this.pondType+'.png';
+            this.ponId = this.$route.query.PondId;
+        },
+        methods: {
+            btnTouRu(item) {
+                this.$router.push({
+                    path: "/wallet/recharge/form",
+                    query: {
+                        PondId: this.$route.query.PondId,
+                        CurrencyId: item.CurrencyId
+                    }
+                });
+            },
+            laohui(count){
+                if(count && count!=0){
+                    ajax.post('/api/pond/PTToWallet',{
+                        pondid:this.ponId,
+                        count:count
+                    }).then(response =>{
+                        console.log(response);
+                        this.bindData();
+                    })
+                }else{
+                    this.validateText='数值不能为空且大于0'
+                }
+            },
+            btnSubmit() {
+                this.$router.push({
+                    path: '/dashboard'
+                })
+            },
+            bindData() {
+                ajax.post("/api/User/GetUserWallets", {
+                    pondId: this.$route.query.PondId
+                }).then(response => {
+                    this.detailData = response.Data;
+                    this.FishData = response.Data[0];
+                    console.log(this.FishData);
+                });
+            }
+        },
+        components: {
+            close
+        }
+    };
+</script>
+
+<style>
+
+</style>
